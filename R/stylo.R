@@ -34,6 +34,8 @@ passed.arguments = list(...)
 #
 # first of all, retrieve the current path name
 original.path = getwd()
+
+
 # then check if anywone wants to change the working dir
 if(is.character(path) == TRUE & length(path) > 0) {
   # checking if the desired file exists and if it is a directory
@@ -151,6 +153,26 @@ write.svg.file = variables$write.svg.file
 z.scores.of.all.samples = variables$z.scores.of.all.samples
 # #############################################################################
 
+# VARS OF ancient history edition
+trnom.disambidia = variables$trnom.disambidia
+trnom.repbehau = variables$trnom.repbehau
+trnom.expael = variables$trnom.expael
+trnom.translitgr = variables$trnom.translitgr
+trnom.iota = variables$trnom.iota
+trnom.alldel = variables$trnom.alldel
+trnom.numbering = variables$trnom.numbering
+trnom.ligdel = variables$trnom.ligdel
+#trnom.diadel = variables$trnom.diadel
+trnom.interdel = variables$trnom.interdel
+trnom.unkown = variables$trnom.unkown
+trnom.umbr = variables$trnom.umbr
+trnom.mak = variables$trnom.mak
+trnom.sigma = variables$trnom.sigma
+trnom.klam = variables$trnom.klam
+trnom.uv = variables$trnom.uv
+trnom.ji = variables$trnom.ji
+trnom.hyph = variables$trnom.hyph
+trnom.alphapriv = variables$trnom.alphapriv
 
 
 # variables not available on GUI (yet)
@@ -625,7 +647,26 @@ if(corpus.exists == FALSE) {
                          number.of.samples = number.of.samples,
                          features = analyzed.features,
                          ngram.size = ngram.size,
-                         preserve.case = preserve.case)
+                         preserve.case = preserve.case,
+                        trnom.disambidia = trnom.disambidia,
+			trnom.repbehau = trnom.repbehau,
+			trnom.expael = trnom.expael,
+			trnom.translitgr = trnom.translitgr,
+			trnom.iota = trnom.iota,
+			trnom.alldel = trnom.alldel,
+			trnom.numbering = trnom.numbering,
+			trnom.ligdel = trnom.ligdel,
+			#trnom.diadel = trnom.diadel,
+			trnom.interdel = trnom.interdel,
+			trnom.unkown = trnom.unkown,
+			trnom.umbr = trnom.umbr,
+			trnom.mak = trnom.mak,
+			trnom.sigma = trnom.sigma,
+			trnom.klam = trnom.klam,
+			trnom.uv = trnom.uv,
+			trnom.ji = trnom.ji,
+			trnom.hyph = trnom.hyph,
+			trnom.alphapriv = trnom.alphapriv)
 }
 ###############################################################################
 

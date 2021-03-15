@@ -9,7 +9,9 @@
 delete.markup = function(input.text, 
                          markup.type = "plain") {
 
-        
+        #print("INPUT")
+        #print(input.text)
+        #print("INPUT")
         # since the function can be applied to lists and vectors,
         # we need to define an internal function that will be applied afterwards
         wrapper = function(input.text = input.text, markup.type = markup.type) {
@@ -37,6 +39,9 @@ delete.markup = function(input.text,
                         if(markup.type == "xml.notitles") {
                                 preprocessed.text = gsub("<head.*?</head>","",preprocessed.text)
                         }
+                        
+                        # care for lb statements and insert a newline - AH edition
+                        preprocessed.text = gsub("<lb.*?>","\n",preprocessed.text)
                         
                         # getting rid of all the remaining tags
                         preprocessed.text = gsub("<.*?>","",preprocessed.text)
@@ -77,7 +82,7 @@ delete.markup = function(input.text,
                 class(preprocessed.text) = "stylo.corpus"
         }
         
-        
-        
+        #cat(preprocessed.text)
+        #print( sghja ) 
         return(preprocessed.text)
 }

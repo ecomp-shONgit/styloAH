@@ -27,7 +27,26 @@ load.corpus.and.parse = function(files = "all",
          features = "w",
          ngram.size = 1,
          preserve.case = FALSE,
-         encoding = "UTF-8") {
+         encoding = "UTF-8",
+         trnom.disambidia = FALSE,
+	trnom.repbehau = FALSE,
+	trnom.expael = FALSE,
+	trnom.translitgr = FALSE,
+	trnom.iota = FALSE,
+	trnom.alldel = FALSE,
+	trnom.numbering = FALSE,
+	trnom.ligdel = FALSE,
+	#trnom.diadel = FALSE,
+	trnom.interdel = FALSE,
+	trnom.unkown = FALSE,
+	trnom.umbr = FALSE,
+	trnom.mak = FALSE,
+	trnom.sigma = FALSE,
+	trnom.klam = FALSE,
+	trnom.uv = FALSE,
+	trnom.ji = FALSE,
+	trnom.hyph = FALSE,
+	trnom.alphapriv = FALSE) {
 
 
   # first, checking which files were requested; usually, the user is 
@@ -45,6 +64,28 @@ loaded.corpus = load.corpus(files = files,
 
   # deleting xml/html markup by applying the function "delete.markup"
   loaded.corpus = lapply(loaded.corpus, delete.markup, markup.type = markup.type)
+  #print(hahaha)
+  # normalization stylo AH edition
+  loaded.corpus = lapply(loaded.corpus, tn.nor, trnom.disambidia = trnom.disambidia,
+			trnom.repbehau = trnom.repbehau,
+			trnom.expael = trnom.expael,
+			trnom.translitgr = trnom.translitgr,
+			trnom.iota = trnom.iota,
+			trnom.alldel = trnom.alldel,
+			trnom.numbering = trnom.numbering,
+			trnom.ligdel = trnom.ligdel,
+			#trnom.diadel = trnom.diadel,
+			trnom.interdel = trnom.interdel,
+			trnom.unkown = trnom.unkown,
+			trnom.umbr = trnom.umbr,
+			trnom.mak = trnom.mak,
+			trnom.sigma = trnom.sigma,
+			trnom.klam = trnom.klam,
+			trnom.uv = trnom.uv,
+			trnom.ji = trnom.ji,
+			trnom.hyph = trnom.hyph,
+			trnom.alphapriv = trnom.alphapriv)
+  
   # deleting punctuation, splitting into words
   message("slicing input text into tokens...\n")
   loaded.corpus = lapply(loaded.corpus, txt.to.words.ext,

@@ -12,9 +12,9 @@ gui.stylo = function(...) {
   
   # loading required libraries
   # (this will be obsolete when we solve the varibles import/export issues)
-#  library(tcltk2)
-
-
+  #  library(tcltk2)
+  
+  
   # using recently used settings to overwrite the default options
   restored.variables = list()
   if(file.exists("stylo_config.txt") == TRUE) {
@@ -23,152 +23,231 @@ gui.stylo = function(...) {
     filtered.variables = ls()[!ls() %in% c("restored.variables","filtered.variables")]
     for(i in filtered.variables) {
       restored.variables[[i]] = get(i)
-      }
     }
-
-
-
+  }
+  
+  
+  
   # loading default settings
   default.variables = stylo.default.settings(...)
-
+  
   # if any command-line arguments have been passed by a user, they will
   # be stored on the following list and used to overwrite the defaults
   passed.arguments = list(...)
   
-
-
-    
-# Code that enables overwriting the variables with custom settings.
-# A magnificent snipped for combining two lists 
-# http://stackoverflow.com/questions/13811501/r-merge-lists-with-overwrite-and-recursion
-merge.lists <- function(a, b) {
+  
+  
+  
+  # Code that enables overwriting the variables with custom settings.
+  # A magnificent snipped for combining two lists 
+  # http://stackoverflow.com/questions/13811501/r-merge-lists-with-overwrite-and-recursion
+  merge.lists <- function(a, b) {
     a.names <- names(a)
     b.names <- names(b)
     m.names <- sort(unique(c(a.names, b.names)))
     sapply(m.names, function(i) {
-        if (is.list(a[[i]]) & is.list(b[[i]])) merge.lists(a[[i]], b[[i]])
-        else if (i %in% b.names) b[[i]]
-        else a[[i]]
+      if (is.list(a[[i]]) & is.list(b[[i]])) merge.lists(a[[i]], b[[i]])
+      else if (i %in% b.names) b[[i]]
+      else a[[i]]
     }, simplify = FALSE)
-}
-
-# if any variables have been passed as arguments, they will overwrite
-# the default settings
-variables.tmp = merge.lists(default.variables,restored.variables)
-variables = merge.lists(variables.tmp, passed.arguments)
-
-
-
-
-
-# #############################################################################
-# Explicit assignment of all the variables, in order to avoid attach()
-# #############################################################################
-
-add.to.margins = variables$add.to.margins
-analysis.type = variables$analysis.type
-analyzed.features = variables$analyzed.features
-classification.method = variables$classification.method
-colors.on.graphs = variables$colors.on.graphs
-consensus.strength = variables$consensus.strength
-corpus.format = variables$corpus.format
-corpus.lang = variables$corpus.lang
-culling.incr = variables$culling.incr
-culling.max = variables$culling.max
-culling.min = variables$culling.min
-culling.of.all.samples = variables$culling.of.all.samples
-custom.graph.title = variables$custom.graph.title
-delete.pronouns = variables$delete.pronouns
-dendrogram.layout.horizontal = variables$dendrogram.layout.horizontal
-display.on.screen = variables$display.on.screen
-distance.measure = variables$distance.measure
-dump.samples = variables$dump.samples
-encoding = variables$encoding
-final.ranking.of.candidates = variables$final.ranking.of.candidates
-how.many.correct.attributions = variables$how.many.correct.attributions
-interactive.files = variables$interactive.files
-k.value = variables$k.value
-l.value = variables$l.value
-label.offset = variables$label.offset
-linkage = variables$linkage
-mfw.incr = variables$mfw.incr
-mfw.list.cutoff = variables$mfw.list.cutoff
-mfw.max = variables$mfw.max
-mfw.min = variables$mfw.min
-ngram.size = variables$ngram.size
-preserve.case = variables$preserve.case
-number.of.candidates = variables$number.of.candidates
-number.of.samples = variables$number.of.samples
-outputfile = variables$outputfile
-passed.arguments = variables$passed.arguments
-pca.visual.flavour = variables$pca.visual.flavour
-plot.custom.height = variables$plot.custom.height
-plot.custom.width = variables$plot.custom.width
-plot.font.size = variables$plot.font.size
-plot.line.thickness = variables$plot.line.thickness
-plot.options.reset = variables$plot.options.reset
-reference.wordlist.of.all.samples = variables$reference.wordlist.of.all.samples
-sample.size = variables$sample.size
-sampling = variables$sampling
-sampling.with.replacement = variables$sampling.with.replacement
-save.analyzed.features = variables$save.analyzed.features
-save.analyzed.freqs = variables$save.analyzed.freqs
-save.distance.tables = variables$save.distance.tables
-start.at = variables$start.at
-svm.coef0 = variables$svm.coef0
-svm.cost = variables$svm.cost
-svm.degree = variables$svm.degree
-svm.kernel = variables$svm.kernel
-text.id.on.graphs = variables$text.id.on.graphs
-titles.on.graphs = variables$titles.on.graphs
-txm.compatibility.mode = variables$txm.compatibility.mode
-use.custom.list.of.files = variables$use.custom.list.of.files
-use.existing.freq.tables = variables$use.existing.freq.tables
-use.existing.wordlist = variables$use.existing.wordlist
-write.jpg.file = variables$write.jpg.file
-write.pdf.file = variables$write.pdf.file
-write.png.file = variables$write.png.file
-write.svg.file = variables$write.svg.file
-z.scores.of.all.samples = variables$z.scores.of.all.samples
-# #############################################################################
-
-
-
-
-
-# a not very elegant way of switching from strings into logical values
-encoding.orig = variables$encoding
+  }
+  
+  # if any variables have been passed as arguments, they will overwrite
+  # the default settings
+  variables.tmp = merge.lists(default.variables,restored.variables)
+  variables = merge.lists(variables.tmp, passed.arguments)
+  print(variables)
+  
+  
+  
+  
+  # #############################################################################
+  # Explicit assignment of all the variables, in order to avoid attach()
+  # #############################################################################
+  
+  add.to.margins = variables$add.to.margins
+  analysis.type = variables$analysis.type
+  analyzed.features = variables$analyzed.features
+  classification.method = variables$classification.method
+  colors.on.graphs = variables$colors.on.graphs
+  consensus.strength = variables$consensus.strength
+  corpus.format = variables$corpus.format
+  corpus.lang = variables$corpus.lang
+  culling.incr = variables$culling.incr
+  culling.max = variables$culling.max
+  culling.min = variables$culling.min
+  culling.of.all.samples = variables$culling.of.all.samples
+  custom.graph.title = variables$custom.graph.title
+  delete.pronouns = variables$delete.pronouns
+  dendrogram.layout.horizontal = variables$dendrogram.layout.horizontal
+  display.on.screen = variables$display.on.screen
+  distance.measure = variables$distance.measure
+  dump.samples = variables$dump.samples
+  encoding = variables$encoding
+  final.ranking.of.candidates = variables$final.ranking.of.candidates
+  how.many.correct.attributions = variables$how.many.correct.attributions
+  interactive.files = variables$interactive.files
+  k.value = variables$k.value
+  l.value = variables$l.value
+  label.offset = variables$label.offset
+  linkage = variables$linkage
+  mfw.incr = variables$mfw.incr
+  mfw.list.cutoff = variables$mfw.list.cutoff
+  mfw.max = variables$mfw.max
+  mfw.min = variables$mfw.min
+  ngram.size = variables$ngram.size
+  preserve.case = variables$preserve.case
+  number.of.candidates = variables$number.of.candidates
+  number.of.samples = variables$number.of.samples
+  outputfile = variables$outputfile
+  passed.arguments = variables$passed.arguments
+  pca.visual.flavour = variables$pca.visual.flavour
+  plot.custom.height = variables$plot.custom.height
+  plot.custom.width = variables$plot.custom.width
+  plot.font.size = variables$plot.font.size
+  plot.line.thickness = variables$plot.line.thickness
+  plot.options.reset = variables$plot.options.reset
+  reference.wordlist.of.all.samples = variables$reference.wordlist.of.all.samples
+  sample.size = variables$sample.size
+  sampling = variables$sampling
+  sampling.with.replacement = variables$sampling.with.replacement
+  save.analyzed.features = variables$save.analyzed.features
+  save.analyzed.freqs = variables$save.analyzed.freqs
+  save.distance.tables = variables$save.distance.tables
+  start.at = variables$start.at
+  svm.coef0 = variables$svm.coef0
+  svm.cost = variables$svm.cost
+  svm.degree = variables$svm.degree
+  svm.kernel = variables$svm.kernel
+  text.id.on.graphs = variables$text.id.on.graphs
+  titles.on.graphs = variables$titles.on.graphs
+  txm.compatibility.mode = variables$txm.compatibility.mode
+  use.custom.list.of.files = variables$use.custom.list.of.files
+  use.existing.freq.tables = variables$use.existing.freq.tables
+  use.existing.wordlist = variables$use.existing.wordlist
+  write.jpg.file = variables$write.jpg.file
+  write.pdf.file = variables$write.pdf.file
+  write.png.file = variables$write.png.file
+  write.svg.file = variables$write.svg.file
+  z.scores.of.all.samples = variables$z.scores.of.all.samples
+  
+  trnom.disambidia = FALSE
+  trnom.repbehau = FALSE
+  trnom.expael = FALSE
+  trnom.translitgr = FALSE
+  trnom.iota = FALSE
+  trnom.alldel = FALSE
+  trnom.numbering = FALSE
+  trnom.ligdel = FALSE
+  trnom.diadel = FALSE
+  trnom.interdel = FALSE
+  trnom.unkown = FALSE
+  trnom.umbr = FALSE
+  trnom.mak = FALSE
+  trnom.sigma = FALSE
+  trnom.klam = FALSE
+  trnom.uv = FALSE
+  trnom.ji = FALSE
+  trnom.hyph = FALSE
+  trnom.alphapriv = FALSE
+  # #############################################################################
+  
+  
+  
+  
+  
+  # a not very elegant way of switching from strings into logical values
+  encoding.orig = variables$encoding
   if(variables$encoding == "UTF-8") {
     encoding = FALSE
   } else {
     encoding = TRUE
   }
-
-
-
-
-
+  
+  
+  
+  
+  
   .Tcl("font create myDefaultFont -family tahoma -size 8")
   .Tcl("option add *font myDefaultFont")  
   
-    tt <- tktoplevel()
-    tktitle(tt) <- "Stylometry with R | stylo | set parameters"
-
-    
-    
-    # Create a variable to keep track of the state of the dialog window:
-    #   If the window is active,                                      done = 0
-    #   If the window has been closed using the OK button,            done = 1
-
-    done <- tclVar(0)
-
-
-        push_OK <- function(){
-            tkdestroy(tt)
-            tclvalue(done) = 1
-        }
-
-    
+  tt <- tktoplevel()
+  tktitle(tt) <- "Stylometry with R (AH edition) | stylo | set parameters"
+  
+  
+  
+  # Create a variable to keep track of the state of the dialog window:
+  #   If the window is active,                                      done = 0
+  #   If the window has been closed using the OK button,            done = 1
+  
+  done <- tclVar(0)
+  
+  
+  push_OK <- function(){
+    tkdestroy(tt)
+    tclvalue(done) = 1
+  }
+  
+  #TEXT NORM VARS
+  
+  #disambiguDIAkritika( string ) #String replaced of diakrit
+  trnom.disambidia <- tclVar(trnom.disambidia)
+  
+  #replaceBehauchung( adiakstring ) # replaces behauchung in the transliteration of greek to latin
+  trnom.repbehau <- tclVar(trnom.repbehau)
+  
+  #Expandelision( aword ) # given a word, if this is an elusion it will be expanded
+  trnom.expael <- tclVar(trnom.expael)
+  
+  #TraslitAncientGreekLatin( astring ) # takes greek utf8 string and returns transliterated latin utf8 string
+  trnom.translitgr <- tclVar(trnom.translitgr)
+  
+  #iotasubiotoad( aword ) # takes greek utf8 string and repleces jota subscriptum with jota ad scriptum
+  trnom.iota <- tclVar(trnom.iota)
+  
+  #delall( text ) #deletes UV, klammern, sigma, grkl, umbrüche, ligaturen, interpunktion, edition numbering, unknown signs, diakritika
+  trnom.alldel <- tclVar(trnom.alldel)
+  
+  #delnumbering( text ) #takes string return string without the edition numbering i.e. [2]
+  trnom.numbering <- tclVar(trnom.numbering)
+  
+  #delligaturen( text ) # takes a string return string with ligatures turned to single letters
+  trnom.ligdel <- tclVar(trnom.ligdel)
+  
+  #deldiak( text ) #like nodiakinword()
+  trnom.diadel <- tclVar(trnom.diadel)
+  
+  #delinterp( text ) #takes string and returns the string without
+  trnom.interdel <- tclVar(trnom.interdel)
+  
+  #delunknown( text ) # delete some to the programmer unknown signs
+  trnom.unkown <- tclVar(trnom.unkown)
+  
+  #delumbrbine( text ) # input string and get it back with linebreaks removed
+  trnom.umbr <- tclVar(trnom.umbr)
+  
+  #delmakup( text ) #input a string and get it pack with markup removed
+  trnom.mak <- tclVar(trnom.mak)
+  
+  #sigmaistgleich( text ) #equalize tailing sigma
+  trnom.sigma <- tclVar(trnom.sigma)
+  
+  #delklammern( text ) # input stringa nd get it back with no brackets
+  trnom.klam <- tclVar(trnom.klam)
+  
+  #deluv( text ) # repaces all u with v
+  trnom.uv <- tclVar(trnom.uv)
+  
+  #delji( text ) # replace all j with i
+  trnom.ji <- tclVar(trnom.ji)
+  
+  #Trennstricheraus( array of words ) #input array of words removes hyphenation
+  trnom.hyph <- tclVar(trnom.hyph)
+  
+  #
+  trnom.alphapriv <- tclVar(trnom.alphapriv)
+  
+  #STYLO VARS
   
   corpus.format <- tclVar(corpus.format)
   mfw.min <- tclVar(mfw.min)
@@ -216,7 +295,7 @@ encoding.orig = variables$encoding
   label.offset <- tclVar(label.offset)
   dump.samples <- tclVar(dump.samples)
   encoding <- tclVar(encoding)
-
+  
   
   
   f1 <- tkframe(tt)
@@ -224,80 +303,108 @@ encoding.orig = variables$encoding
   f3 <- tkframe(tt)
   f4 <- tkframe(tt)
   f5 <- tkframe(tt)
+  f6 <- tkframe(tt)
   
   # layout of the GUI begins here:
   tab1 <- function() {
-  tkgrid(f1,row=1,column=0,columnspan=5)
-  tkgrid.forget(f2)
-  tkgrid.forget(f3)
-  tkgrid.forget(f4)
-  tkgrid.forget(f5)
-  tkconfigure(t1.but,state="disabled", background="white")
-  tkconfigure(t2.but,state="normal", background="aliceblue")
-  tkconfigure(t3.but,state="normal", background="aliceblue")
-  tkconfigure(t4.but,state="normal", background="aliceblue")
-  tkconfigure(t5.but,state="normal", background="aliceblue")
+    tkgrid(f1,row=1,column=0,columnspan=5)
+    tkgrid.forget(f2)
+    tkgrid.forget(f3)
+    tkgrid.forget(f4)
+    tkgrid.forget(f5)
+    tkgrid.forget(f6)
+    tkconfigure(t1.but,state="disabled", background="white")
+    tkconfigure(t2.but,state="normal", background="aliceblue")
+    tkconfigure(t3.but,state="normal", background="aliceblue")
+    tkconfigure(t4.but,state="normal", background="aliceblue")
+    tkconfigure(t5.but,state="normal", background="aliceblue")
+    tkconfigure(t6.but,state="normal", background="aliceblue")
   }
   tab2 <- function() {
-  tkgrid(f2,row=1,column=0,columnspan=5)
-  tkgrid.forget(f1)
-  tkgrid.forget(f3)
-  tkgrid.forget(f4)
-  tkgrid.forget(f5)
-  tkconfigure(t2.but,state="disabled", background="white")
-  tkconfigure(t1.but,state="normal", background="aliceblue")
-  tkconfigure(t3.but,state="normal", background="aliceblue")
-  tkconfigure(t4.but,state="normal", background="aliceblue")
-  tkconfigure(t5.but,state="normal", background="aliceblue")
+    tkgrid(f2,row=1,column=0,columnspan=5)
+    tkgrid.forget(f1)
+    tkgrid.forget(f3)
+    tkgrid.forget(f4)
+    tkgrid.forget(f5)
+    tkgrid.forget(f6)
+    tkconfigure(t2.but,state="disabled", background="white")
+    tkconfigure(t1.but,state="normal", background="aliceblue")
+    tkconfigure(t3.but,state="normal", background="aliceblue")
+    tkconfigure(t4.but,state="normal", background="aliceblue")
+    tkconfigure(t5.but,state="normal", background="aliceblue")
+    tkconfigure(t6.but,state="normal", background="aliceblue")
   }
   tab3 <- function() {
-  tkgrid(f3,row=1,column=0,columnspan=5)
-  tkgrid.forget(f1)
-  tkgrid.forget(f2)
-  tkgrid.forget(f4)
-  tkgrid.forget(f5)
-  tkconfigure(t3.but,state="disabled", background="white")
-  tkconfigure(t1.but,state="normal", background="aliceblue")
-  tkconfigure(t2.but,state="normal", background="aliceblue")
-  tkconfigure(t4.but,state="normal", background="aliceblue")
-  tkconfigure(t5.but,state="normal", background="aliceblue")
+    tkgrid(f3,row=1,column=0,columnspan=5)
+    tkgrid.forget(f1)
+    tkgrid.forget(f2)
+    tkgrid.forget(f4)
+    tkgrid.forget(f5)
+    tkgrid.forget(f6)
+    tkconfigure(t3.but,state="disabled", background="white")
+    tkconfigure(t1.but,state="normal", background="aliceblue")
+    tkconfigure(t2.but,state="normal", background="aliceblue")
+    tkconfigure(t4.but,state="normal", background="aliceblue")
+    tkconfigure(t5.but,state="normal", background="aliceblue")
+    tkconfigure(t6.but,state="normal", background="aliceblue")
   }
   tab4 <- function() {
-  tkgrid(f4,row=1,column=0,columnspan=5)
-  tkgrid.forget(f1)
-  tkgrid.forget(f2)
-  tkgrid.forget(f3)
-  tkgrid.forget(f5)
-  tkconfigure(t4.but,state="disabled", background="white")
-  tkconfigure(t1.but,state="normal", background="aliceblue")
-  tkconfigure(t2.but,state="normal", background="aliceblue")
-  tkconfigure(t3.but,state="normal", background="aliceblue")
-  tkconfigure(t5.but,state="normal", background="aliceblue")
+    tkgrid(f4,row=1,column=0,columnspan=5)
+    tkgrid.forget(f1)
+    tkgrid.forget(f2)
+    tkgrid.forget(f3)
+    tkgrid.forget(f5)
+    tkgrid.forget(f6)
+    tkconfigure(t4.but,state="disabled", background="white")
+    tkconfigure(t1.but,state="normal", background="aliceblue")
+    tkconfigure(t2.but,state="normal", background="aliceblue")
+    tkconfigure(t3.but,state="normal", background="aliceblue")
+    tkconfigure(t5.but,state="normal", background="aliceblue")
+    tkconfigure(t6.but,state="normal", background="aliceblue")
   }
   tab5 <- function() {
-  tkgrid(f5,row=1,column=0,columnspan=5)
-  tkgrid.forget(f1)
-  tkgrid.forget(f2)
-  tkgrid.forget(f3)
-  tkgrid.forget(f4)
-  tkconfigure(t5.but,state="disabled", background="white")
-  tkconfigure(t1.but,state="normal", background="aliceblue")
-  tkconfigure(t2.but,state="normal", background="aliceblue")
-  tkconfigure(t3.but,state="normal", background="aliceblue")
-  tkconfigure(t4.but,state="normal", background="aliceblue")
+    tkgrid(f5,row=1,column=0,columnspan=5)
+    tkgrid.forget(f1)
+    tkgrid.forget(f2)
+    tkgrid.forget(f3)
+    tkgrid.forget(f4)
+    tkgrid.forget(f6)
+    tkconfigure(t5.but,state="disabled", background="white")
+    tkconfigure(t1.but,state="normal", background="aliceblue")
+    tkconfigure(t2.but,state="normal", background="aliceblue")
+    tkconfigure(t3.but,state="normal", background="aliceblue")
+    tkconfigure(t4.but,state="normal", background="aliceblue")
+    tkconfigure(t6.but,state="normal", background="aliceblue")
+  }
+  tab6 <- function() {
+    tkgrid(f6,row=1,column=0,columnspan=5)
+    tkgrid.forget(f1)
+    tkgrid.forget(f2)
+    tkgrid.forget(f3)
+    tkgrid.forget(f4)
+    tkgrid.forget(f5)
+    tkconfigure(t6.but,state="disabled", background="white")
+    tkconfigure(t1.but,state="normal", background="aliceblue")
+    tkconfigure(t2.but,state="normal", background="aliceblue")
+    tkconfigure(t3.but,state="normal", background="aliceblue")
+    tkconfigure(t4.but,state="normal", background="aliceblue")
+    tkconfigure(t5.but,state="normal", background="aliceblue")
   }
   t1.but <- tkbutton(tt,text="     INPUT & LANGUAGE     ",command=tab1)
   t2.but <- tkbutton(tt,text="         FEATURES         ",command=tab2)
   t3.but <- tkbutton(tt,text="        STATISTICS        ",command=tab3)
   t4.but <- tkbutton(tt,text="         SAMPLING         ",command=tab4)
   t5.but <- tkbutton(tt,text="          OUTPUT          ",command=tab5)
+  t6.but <- tkbutton(tt,text="       NORMALIZATION      ",command=tab6)
+  
   tkgrid(t1.but)
   tkgrid(t2.but, column=1, row=0)
   tkgrid(t3.but, column=2, row=0)
   tkgrid(t4.but, column=3, row=0)
   tkgrid(t5.but, column=4, row=0)
+  tkgrid(t6.but, column=5, row=0)
   # Grid for individual tabs
-   
+  
   # initial state!
   tkgrid(f1,row=1,column=0,columnspan=5)
   tkconfigure(t1.but,state="disabled", background="white")
@@ -305,6 +412,7 @@ encoding.orig = variables$encoding
   tkconfigure(t3.but,state="normal", background="aliceblue")
   tkconfigure(t4.but,state="normal", background="aliceblue")
   tkconfigure(t5.but,state="normal", background="aliceblue")
+  tkconfigure(t6.but,state="normal", background="aliceblue")
   
   
   # the OK button: active on each tab
@@ -323,6 +431,7 @@ encoding.orig = variables$encoding
   tkgrid(tklabel(f3,text="    ")) # blank line (serving as the top margin)
   tkgrid(tklabel(f4,text="    ")) # blank line (serving as the top margin)
   tkgrid(tklabel(f5,text="    ")) # blank line (serving as the top margin)
+  tkgrid(tklabel(f6,text="    ")) # blank line (serving as the top margin)
   
   # first row: INPUT
   #
@@ -371,7 +480,7 @@ encoding.orig = variables$encoding
   entry_CJK <- tkradiobutton(f1)
   entry_OTH <- tkradiobutton(f1)
   cb_UTF <- tkcheckbutton(f1)
-
+  
   #
   tkconfigure(entry_ENG,variable=corpus.lang,value="English")
   tkconfigure(entry_EN2,variable=corpus.lang,value="English.contr")
@@ -388,7 +497,7 @@ encoding.orig = variables$encoding
   tkconfigure(entry_CJK,variable=corpus.lang,value="CJK")
   tkconfigure(entry_OTH,variable=corpus.lang,value="Other")
   tkconfigure(cb_UTF,variable=encoding)
-
+  
   #
   entrylabel_ENG <- tklabel(f1,text="    English     ")
   entrylabel_POL <- tklabel(f1,text="    Polish      ")
@@ -405,7 +514,7 @@ encoding.orig = variables$encoding
   entrylabel_CJK <- tklabel(f1,text="      CJK       ")
   entrylabel_OTH <- tklabel(f1,text="     Other      ")
   entrylabel_UTF <- tklabel(f1,text="     Native encoding      ")
-
+  
   #
   tkgrid(tklabel(f1,text="LANGUAGE: "),entrylabel_ENG,entrylabel_EN2,entrylabel_EN3,entrylabel_LAT,entrylabel_LA2)
   tkgrid(tklabel(f1,text="          "),entry_ENG,entry_EN2,entry_EN3,entry_LAT,entry_LA2)
@@ -433,7 +542,7 @@ encoding.orig = variables$encoding
   tk2tip(entrylabel_CJK, "Chinese, Japanese and Korean \n(experimental)")
   tk2tip(entrylabel_OTH, "Other language than the ones listed above.")
   tk2tip(entrylabel_UTF, "Check this box if your texts are in a \nnative encoding other than UTF-8. \n(May apply on Windows machines.) \nUse the function check_encoding() \nif you are uncertain.")
-
+  
   
   
   # next row: TEXT FEATURES
@@ -503,8 +612,8 @@ encoding.orig = variables$encoding
   tkgrid(tklabel(f2,text="         CULLING:"),entrylabel_CUL_MIN,entrylabel_CUL_MAX, entrylabel_CUL_INCR,entrylabel_CUT_OFF,cblabel_DEL_PRON)
   tkgrid(tklabel(f2,text="                 "),entry_CUL_MIN,entry_CUL_MAX,entry_CUL_INCR,entry_CUT_OFF,cb_DEL_PRON)
   tkgrid(tklabel(f2,text="    ")) # blank line for aesthetic purposes
-
-
+  
+  
   # next row: LISTS & FILES
   #
   cb_FREQS <- tkcheckbutton(f2)
@@ -524,7 +633,7 @@ encoding.orig = variables$encoding
   #
   tkgrid(tklabel(f2,text="    VARIOUS:"),cblabel_FREQS,cblabel_LISTS,cblabel_INTFILES,cblabel_MYFILES)
   tkgrid(tklabel(f2,text="            "),cb_FREQS,cb_LISTS,cb_INTFILES,cb_MYFILES)
-    
+  
   # Tooltips for the above  
   tk2tip(entrylabel_CUL_MIN, "State the minimum culling setting. \n0 means no words are omitted from the analysis. \n50 means a word needs to appear in \nat least 50% of the texts to be included in the analysis. \n100 means that only words appearing in all the texts \nwill be included in the analysis")
   tk2tip(entrylabel_CUL_MAX, "State the maximum culling setting. \n0 means no words are omitted from the analysis. \n50 means a word needs to appear in \nat least 50% of the texts to be included in the analysis. \n100 means that only words appearing in all the texts \nwill be included in the analysis")
@@ -592,7 +701,7 @@ encoding.orig = variables$encoding
   entry_EU <- tkradiobutton(f3)
   entry_CS <- tkradiobutton(f3)
   entry_MM <- tkradiobutton(f3)
-
+  
   #
   tkconfigure(entry_CD,variable=distance.measure,value="delta")
   tkconfigure(entry_WD,variable=distance.measure,value="wurzburg")
@@ -621,7 +730,7 @@ encoding.orig = variables$encoding
   tkgrid(tklabel(f3,text="            "),entrylabel_MH,entrylabel_CB,entrylabel_EU,entrylabel_CS,entrylabel_MM)
   tkgrid(tklabel(f3,text="            "),entry_MH,entry_CB,entry_EU,entry_CS,entry_MM)
   tkgrid(tklabel(f3,text="    ")) # blank line for aesthetic purposes
-
+  
   # Tooltips for the above
   tk2tip(entrylabel_CD, "Select the Classic Delta measure as introduced by Burrows.")
   tk2tip(entrylabel_WD, "Select Cosine Delta (aka Wurzburg Delta), which seems to outperform other measures.")
@@ -633,17 +742,17 @@ encoding.orig = variables$encoding
   tk2tip(entrylabel_EU, "Select Euclidean Distance (basic and the most *natural*).")
   tk2tip(entrylabel_CS, "Select Cosine Distance (a classic distance in multidimensional methods).")
   tk2tip(entrylabel_MM, "Select Min-Max distance (aka Ruzicka distance).")
-
+  
   
   # next row: SAMPLING
   entry_SAMP <- tkradiobutton(f4)
   entry_RAND <- tkradiobutton(f4)
   entry_NOSAMP <- tkradiobutton(f4)
-    
+  
   tkconfigure(entry_SAMP, variable=sampling, value="normal.sampling")
   tkconfigure(entry_RAND, variable=sampling, value="random.sampling")
   tkconfigure(entry_NOSAMP, variable=sampling, value="no.sampling")
-    
+  
   entry_SAMPLESIZE <- tkentry(f4,textvariable=sample.size,width="10")
   entry_NO.OF.SAMPLES <- tkentry(f4,textvariable=number.of.samples,width="10")
   
@@ -804,19 +913,88 @@ encoding.orig = variables$encoding
   tk2tip(cblabel_DUMPSAMPLES, "Save a dump of all samples in the directory 'Dumps' for post-analysis inspection.")
   
   tkgrid(tklabel(tt,text="    ")) # blank line (i.e., bottom margin)
-
   
   
-    
-
+  #ROW 6 NORMALIZATION
+  entry_norm1 <- tkcheckbutton(f6) #1
+  entry_norm2 <- tkcheckbutton(f6) #1
+  entry_norm3 <- tkcheckbutton(f6) #1
+  entry_norm4 <- tkcheckbutton(f6) #1
+  entry_norm5 <- tkcheckbutton(f6) #1
+  entry_norm6 <- tkcheckbutton(f6) #1
+  entry_norm7 <- tkcheckbutton(f6) #1
+  entry_norm8 <- tkcheckbutton(f6) #1
+  #entry_norm9 <- tkcheckbutton(f6) #1
+  entry_norm10 <- tkcheckbutton(f6) #1
+  entry_norm11 <- tkcheckbutton(f6) #1
+  entry_norm12 <- tkcheckbutton(f6) #1
+  entry_norm13 <- tkcheckbutton(f6) #1
+  entry_norm14 <- tkcheckbutton(f6) #1
+  entry_norm15 <- tkcheckbutton(f6) #1
+  entry_norm16 <- tkcheckbutton(f6) #1
+  entry_norm17 <- tkcheckbutton(f6) #1
+  entry_norm18 <- tkcheckbutton(f6) #1
+  entry_norm19 <- tkcheckbutton(f6) #1
+  
+  tkconfigure(entry_norm1, variable=trnom.disambidia)
+  tkconfigure(entry_norm2, variable=trnom.repbehau)
+  tkconfigure(entry_norm3, variable=trnom.expael)
+  tkconfigure(entry_norm4, variable=trnom.translitgr)
+  tkconfigure(entry_norm5, variable=trnom.iota)
+  tkconfigure(entry_norm6, variable=trnom.alldel)
+  tkconfigure(entry_norm7, variable=trnom.numbering)
+  tkconfigure(entry_norm8, variable=trnom.ligdel)
+  #tkconfigure(entry_norm9, variable=trnom.diadel)
+  tkconfigure(entry_norm10, variable=trnom.interdel)
+  tkconfigure(entry_norm11, variable=trnom.unkown)
+  tkconfigure(entry_norm12, variable=trnom.umbr)
+  tkconfigure(entry_norm13, variable=trnom.mak)
+  tkconfigure(entry_norm14, variable=trnom.sigma)
+  tkconfigure(entry_norm15, variable=trnom.klam)
+  tkconfigure(entry_norm16, variable=trnom.uv)
+  tkconfigure(entry_norm17, variable=trnom.ji)
+  tkconfigure(entry_norm18, variable=trnom.hyph)
+  tkconfigure(entry_norm19, variable=trnom.alphapriv)
+  
+  entrylabel_norm1 <- tklabel(f6,text="Disam. diakrit.")
+  entrylabel_norm2 <- tklabel(f6,text="Replace diakrit.")
+  entrylabel_norm3 <- tklabel(f6,text="Exp. elusions")
+  entrylabel_norm4 <- tklabel(f6,text="Translit. Greek")
+  entrylabel_norm5 <- tklabel(f6,text="Iota sub / ad")
+  entrylabel_norm6 <- tklabel(f6,text="All del")
+  entrylabel_norm7 <- tklabel(f6,text="Delete numbering")
+  entrylabel_norm8 <- tklabel(f6,text="Delete ligatures")
+  #entrylabel_norm9 <- tklabel(f6,text="Delet diakrit.")
+  entrylabel_norm10 <- tklabel(f6,text="Delete punctuation")
+  entrylabel_norm11 <- tklabel(f6,text="Delete unkown signs")
+  entrylabel_norm12 <- tklabel(f6,text="Linebreak to space")
+  entrylabel_norm13 <- tklabel(f6,text="Delete markup")
+  entrylabel_norm14 <- tklabel(f6,text="Eq. sigma")
+  entrylabel_norm15 <- tklabel(f6,text="Delete brackets")
+  entrylabel_norm16 <- tklabel(f6,text="UV (Latin)")
+  entrylabel_norm17 <- tklabel(f6,text="IJ (Latin)")
+  entrylabel_norm18 <- tklabel(f6,text="Handel hyphenation")
+  entrylabel_norm19 <- tklabel(f6,text="Alpha privativum")
+  
+  
+  
+  tkgrid( entry_norm1, entry_norm2, entry_norm3,entry_norm4,   entry_norm5 )
+  tkgrid( entrylabel_norm1,entrylabel_norm2,entrylabel_norm3,entrylabel_norm4,entrylabel_norm5)
+  tkgrid( entry_norm6, entry_norm7,entry_norm8,   entry_norm10 )
+  tkgrid( entrylabel_norm6,entrylabel_norm7,entrylabel_norm8,entrylabel_norm10)
+  tkgrid( entry_norm11,entry_norm12,entry_norm13,entry_norm14,entry_norm15 )
+  tkgrid( entrylabel_norm11,entrylabel_norm12,entrylabel_norm13,entrylabel_norm14,entrylabel_norm15)
+  tkgrid( entry_norm16,entry_norm17,entry_norm18,entry_norm19 )
+  tkgrid( entrylabel_norm16,entrylabel_norm17,entrylabel_norm18,entrylabel_norm19)
+  
   # wait until we have input
   tkwait.window(tt)
-
+  
   # set the doneVal = 1 when the OK button was clicke
   # closing the window using any other button (or killing it) stops the script
   doneVal = as.integer(tclvalue(done))
   tkdestroy(tt)
-
+  
   
   
   variables$analyzed.features = as.character(tclvalue(analyzed.features))
@@ -865,27 +1043,49 @@ encoding.orig = variables$encoding
   variables$add.to.margins = as.numeric(tclvalue(add.to.margins))
   variables$label.offset = as.numeric(tclvalue(label.offset))
   variables$encoding = as.logical(as.numeric(tclvalue(encoding)))
-
-
-
+  
+  
+  
+  variables["trnom.disambidia"] <- as.logical(as.numeric(tclvalue(trnom.disambidia)))
+  variables["trnom.repbehau"] <- as.logical(as.numeric(tclvalue(trnom.repbehau)))
+  variables["trnom.expael"] <- as.logical(as.numeric(tclvalue(trnom.expael)))
+  variables["trnom.translitgr"] <- as.logical(as.numeric(tclvalue(trnom.translitgr)))
+  variables["trnom.iota"] <- as.logical(as.numeric(tclvalue(trnom.iota)))
+  variables["trnom.alldel"] <- as.logical(as.numeric(tclvalue(trnom.alldel)))
+  variables["trnom.numbering"] <- as.logical(as.numeric(tclvalue(trnom.numbering)))
+  variables["trnom.ligdel"] <- as.logical(as.numeric(tclvalue(trnom.ligdel)))
+  #variables["trnom.diadel"] <- as.logical(as.numeric(tclvalue(trnom.diadel)))
+  variables["trnom.interdel"] <- as.logical(as.numeric(tclvalue(trnom.interdel)))
+  variables["trnom.unkown"] <- as.logical(as.numeric(tclvalue(trnom.unkown)))
+  variables["trnom.umbr"] <- as.logical(as.numeric(tclvalue(trnom.umbr)))
+  variables["trnom.mak"] <- as.logical(as.numeric(tclvalue(trnom.mak)))
+  variables["trnom.sigma"] <- as.logical(as.numeric(tclvalue(trnom.sigma)))
+  variables["trnom.klam"] <- as.logical(as.numeric(tclvalue(trnom.klam)))
+  variables["trnom.uv"] <- as.logical(as.numeric(tclvalue(trnom.uv)))
+  variables["trnom.ji"] <- as.logical(as.numeric(tclvalue(trnom.ji)))
+  variables["trnom.hyph"] <- as.logical(as.numeric(tclvalue(trnom.hyph)))
+  variables["trnom.alphapriv"] <- as.logical(as.numeric(tclvalue(trnom.alphapriv)))
+  
+  #print(variables)
+  
   .Tcl("font delete myDefaultFont")
-
-
-
-
+  
+  
+  
+  
   # switching back from logical values into strings
   if(variables$encoding == FALSE) {
     variables$encoding = "UTF-8"
   } else {
     variables$encoding = "native.enc"
   }
-
-
+  
+  
   
   if (doneVal != 1) {
-	  variables = NULL
+    variables = NULL
   }
-
   
-return(variables)
+  
+  return(variables)
 }
