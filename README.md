@@ -2,7 +2,7 @@
 
 **Author:** Prof. Schubert, Alte Geschichte Leipzig
 
-We added a fiew Greek language specific normalization functions. We prepared a starter script, that does the install of additional packages and the start up of the style version. 
+We added a fiew Greek language specific normalization functions. We prepared a starter script, that does the install of additional packages and the start up of the stylo version. 
 
 
 # stylo: R package for stylometric analyses
