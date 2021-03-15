@@ -1,3 +1,10 @@
+# styloAH: R package for stylometric analyses, Ancient History Edition
+
+**Author:** Prof. Schubert, Alte Geschichte Leipzig
+
+We added a fiew Greek language specific normalization functions. We prepared a starter script, that does the install of additional packages and the start up of the style version. 
+
+
 # stylo: R package for stylometric analyses
 
 **Authors:** Maciej Eder<sup>*</sup>, Mike Kestemont, Jan Rybicki, Steffen Pielström<br/>
