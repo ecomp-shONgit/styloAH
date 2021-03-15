@@ -22,22 +22,39 @@ We added a fiew Greek language specific normalization functions. We prepared a s
 This list gives you a notion of the normalzation function behind the gui checkbuttons.
 
 **Disam. diakrit.**: Reduce the set of diacritic signes to a minimum. Replace potential wrong used signes.
+
 **Replace diakrit.**: This removes the diacritic signes from a string.
+
 **Exp. elusions**: Select this to expand elusions.
+
 **Translit. Greek**: Select this to transcode Greek to Latin letters.
+
 **Iota sub / ad**: This converts the iota subscriptum to the iota adscriptum.
+
 **All del**: This is a combination of every normalization steps, exept the handling of hyphenation, of alpha privativum and elusions.
+
 **Delete numbering**: This delets numering in a edition text, for example something like *[34]*.
+
 **Delete ligatures**: Expansion of ligatures.
+
 **Delete punctuation**: Removal of puntuation including "Hochpunkt".
+
 **Delete unkown signs**: Some signes maybe used as makrs or as editorial signes. Signes. ⁙, ☾, ☽, ⸎, #, ⋖, *, †
+
 **Linebreak to space**: Turn newlines into space.
+
 **Delete markup**: If markup remains, than this removes it.
+
 **Eq. sigma**: The tailing sigma is replaced with the ordinary sigma.
+
 **Delete brackets**: If Brakets remain, this just delets the signes, not the content.
+
 **UV (Latin)**: Replace U with V.
+
 **IJ (Latin)**: Replace J with I.
+
 **Handle hyphenation**: Remove hyphenation!!!!!!!
+
 **Alpha privativum**: If the alpha privativum is distingushable, than this functions handel it.
 
 
