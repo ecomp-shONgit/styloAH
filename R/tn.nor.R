@@ -48,36 +48,37 @@ tn.nor = function(input.text,
 			trnom.ji = trnom.ji,
 			trnom.hyph = trnom.hyph,
 			trnom.alphapriv = trnom.alphapriv) {
-			print(trnom.alldel)
-			print("in tnnorr")
+			#print(trnom.alldel)
+			#print("in tnnorr")
 			
-			
-        		preprocessed.text = normatext( paste(input.text), "NFKD" )  
+			preprocessed.text = paste(input.text)
+        		#preprocessed.text = normatext( paste(input.text), "NFKD" )  
         		if( trnom.disambidia == TRUE ){
         			preprocessed.text = disambiguDIAkritika( preprocessed.text )
-        		}
-        		
-        		# given a string, elusions will be expanded
-  			if( trnom.expael == TRUE ){
-        			preprocessed.text = ExpandelisionText( preprocessed.text )
         		}
         		
   			#Alpha priv
   			if( trnom.alphapriv == TRUE ){
         			preprocessed.text = AlphaPrivativumCopulativumText( preprocessed.text )
         		}
+        		# given a string, elusions will be expanded
+  			if( trnom.expael == TRUE ){
+  			        
+        			preprocessed.text = ExpandelisionText( preprocessed.text )
+        		}
         		
   			#input string, removes hyphenation
   			if( trnom.hyph == TRUE ){
+  			        #print(preprocessed.text)
         			preprocessed.text = TrennstricherausText( preprocessed.text )
         		}
   
   			#deletes UV, IJ, klammern, sigma, grkl, umbrüche, 
   			#ligaturen, interpunktion, edition numbering, unknown signs, diakritika
   			if( trnom.alldel == TRUE ){
-  				cat(delall( preprocessed.text ))
+  				#cat(delall( preprocessed.text ))
   				newone = delall( preprocessed.text )
-  				cat(newone)
+  				#cat(newone)
   				preprocessed.text = newone		
   			} else {
   			
@@ -178,8 +179,8 @@ tn.nor = function(input.text,
 		trnom.sigma,
 		trnom.klam,trnom.uv,trnom.ji,trnom.hyph, trnom.alphapriv)
         #demUsage( )
-        print("IN TN.NOR")
-        cat(preprocessed.text)
-        print( sghja ) 
+        #print("IN TN.NOR")
+        #cat(preprocessed.text)
+        #print( sghja ) 
         return(preprocessed.text)
 }
