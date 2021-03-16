@@ -11,7 +11,9 @@ We added a fiew Greek language specific normalization functions. We prepared a s
 - Download this github repository (Code > Download ZIP)
 - Save the ZIP to any writable location on you system. We assume, that you have R and Rstudio installed.
 - Unzip the archive.
-- Open up the *installstartstyAH.R* in Rstudio and select all Text of the script and hit run (see screenshot below).
+- Open up the *installstartstyAH.R* in Rstudio.
+- Set Workingdirektory: Menu > Session > Set Working Directory > To Source File Location.
+- Select all text of the script and hit run (see screenshot below).
 - Or use the commandline: *Rscript installstartstyAH.R*.
 - The script should do the install of missing packages, the build of the stylo Ancient History Edition, the install and the execution of the stylo GUI.
 
