@@ -1,4 +1,5 @@
-# styloAH: R package for stylometric analyses, Ancient History Edition
+
+# stylo AHE: R package for stylometric analyses, Ancient History Edition
 
 **Author:** Prof. Schubert, Alte Geschichte Leipzig
 
@@ -8,48 +9,48 @@ We added a few Greek language specific normalization functions. We prepared a st
 
 ## Install 
 
-- Download this github repository (Code > Download ZIP)
-- Save the ZIP to any writable location on you system. We assume, that you have R and Rstudio installed.
+- Download this github repository (Code > Download ZIP).
+- Save the ZIP to any writable location on you system. We assume, that you have R (and RStudio) installed.
 - Unzip the archive.
-- Open up the *installstartstyAH.R* in Rstudio.
-- Set Workingdirektory: Menu > Session > Set Working Directory > To Source File Location.
+- Open up the *installstartstyAH.R* in RStudio.
+- Set working directory: Menu > Session > Set Working Directory > To Source File Location.
 - Select all text of the script and hit run (see screenshot below).
-- Or use the commandline: *Rscript installstartstyAH.R*.
+- Or use the command line: *Rscript installstartstyAH.R*.
 - The script should do the install of missing packages, the build of the stylo Ancient History Edition, the install and the execution of the stylo GUI.
 
 ![ScreenShot](man/rstudio.png)
 
 ## Usage
 
-This list gives you a notion of the normalzation function behind the gui checkbuttons.
+This list gives you a notion of the normalization function behind the GUI check buttons.
 
-**Disam. diakrit.**: Reduce the set of diacritic signes to a minimum. Replace potential wrong used signes.
+**Disam. diacrit.**: Reduce the set of diacritic signs to a minimum. Replace potential wrong used signs.
 
-**Replace diakrit.**: This removes the diacritic signes from a string.
+**Replace diacrit.**: This removes the diacritic signs from a string.
 
-**Exp. elusions**: Select this to expand elusions.
+**Exp. elisions**: Select this to expand elisions.
 
-**Translit. Greek**: Select this to transcode Greek to Latin letters.
+**Translit. Greek**: Select this to transliterate Greek to Latin letters.
 
 **Iota sub / ad**: This converts the iota subscriptum to the iota adscriptum.
 
-**All del**: This is a combination of every normalization steps, exept the handling of hyphenation, of alpha privativum and elusions.
+**All del**: This is a combination of every normalization steps, except the handling of hyphenation, of alpha privativum and elisions.
 
-**Delete numbering**: This delets numering in a edition text, for example something like *[34]*.
+**Delete numbering**: This deletes numbering in a edition text, for example something like *[34]*.
 
 **Delete ligatures**: Expansion of ligatures.
 
-**Delete punctuation**: Removal of puntuation including "Hochpunkt".
+**Delete punctuation**: Removal of punctuation including high point.
 
-**Delete unkown signs**: Some signes maybe used as makrs or as editorial signes. Signes. ⁙, ☾, ☽, ⸎, #, ⋖, *, †
+**Delete unknown signs**: Some signs maybe used as marks or as editorial signs. Signs: ⁙, ☾, ☽, ⸎, #, ⋖, *, †
 
-**Linebreak to space**: Turn newlines into space.
+**Line break to space**: Turn newlines into space.
 
 **Delete markup**: If markup remains, than this removes it.
 
 **Eq. sigma**: The tailing sigma is replaced with the ordinary sigma.
 
-**Delete brackets**: If Brakets remain, this just delets the signes, not the content.
+**Delete brackets**: If brackets remain, this just deletes the signs, not the content.
 
 **UV (Latin)**: Replace U with V.
 
@@ -57,7 +58,7 @@ This list gives you a notion of the normalzation function behind the gui checkbu
 
 **Handle hyphenation**: Remove hyphenation!!!!!!!
 
-**Alpha privativum**: If the alpha privativum is distingushable, than this functions handel it.
+**Alpha privativum**: If the alpha privativum is distinguishable, than this functions handle it.
 
 
 # stylo: R package for stylometric analyses
