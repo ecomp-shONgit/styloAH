@@ -7,10 +7,7 @@ print( theinstdir )
 setwd( theinstdir )
 
 
-      #DEPENDENCIES
-#ppinst <- c("tcltk2", "ape", "pamr", "e1071", "tsne", "networkD3", "readr", "reticulate" )
-#try( install.packages(setdiff( ppinst, rownames(installed.packages()) )) )
-  
+#DEPENDENCIES  
 print("Install dependancies:")
 if (!require( "tcltk2", character.only = TRUE)) {
 	install.packages("tcltk2", dependencies = TRUE)     
