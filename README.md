@@ -1,7 +1,7 @@
 
 # stylo AHE: R package for stylometric analyses, Ancient History Edition
 
-**Author:** Prof. Schubert, Alte Geschichte Leipzig
+**Author:** Prof. Schubert Alte Geschichte Leipzig, H. Kahl
 
 We added a few Greek language specific normalization functions. We prepared a starter script, that does the install of additional packages and the start up of the stylo version. 
 
