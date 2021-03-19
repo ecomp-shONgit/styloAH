@@ -1635,7 +1635,7 @@ message(" ")
 if((exists("distance.table") == TRUE) & (network == TRUE)) {
   rownames(all.connections) = rownames(distances)
   colnames(all.connections) = colnames(distances)
-
+  network.tables <- "nodes"
   if(network.tables == "edges") {
     # only one table (list of edges) will be created;
     # the simplest way to get a network in Gephi
