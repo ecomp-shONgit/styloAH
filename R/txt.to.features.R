@@ -7,35 +7,84 @@
 # Argument: a vector of words (or chars)
 # #################################################
 
-txt.to.features = function(tokenized.text, features = "w", ngram.size = 1){
+txt.to.features = function(tokenized.text, features = "w", ngram.size = 1, padding = FALSE){
   
     # since the function can be applied to lists and vectors,
     # we need to define an internal function that will be applied afterwards
-    wrapper = function(tokenized.text, features = "w", ngram.size = 1){    
+    wrapper = function(tokenized.text, features = "w", ngram.size = 1, padding = FALSE ){    
         
-  #
-  # Splitting the text into chars (if "features" was set to "c")
-  if(features == "c") {
-    sample = paste(tokenized.text, collapse=" ")
-    sample = unlist(strsplit(sample,""))
-# replacing  spaces with underscore
-# it is a very proc time consuming task; thus, let's drop it
-#    sample = gsub(" ","_",sample)
-  } else {
-  # otherwise, leaving the original text unchanged
-  sample = tokenized.text
-  }
-  # 2. making n-grams (if an appropriate option has been chosen):
-  if(ngram.size > 1) {
-    sample = make.ngrams(sample, ngram.size = ngram.size)
-#    # getting rid of additional spaces added around chars
-#    # it is a very proc time consuming task; thus, let's drop it
-#    if(features == "c") {
-#      sample = gsub(" ","",sample)
-#    }
-  }
-  #
-  return(sample)
+        print(features) 
+        print(ngram.size)
+        print(padding)
+        
+        # Splitting the text into chars (if "features" was set to "c")
+        if( features == "w" ){
+            # otherwise, leaving the original text unchanged
+            sample = tokenized.text
+            print(sample)
+        } else {
+            sample = paste(tokenized.text, collapse=" ")
+            if( features == "c" ){ #original stylo version
+                #print(sample)
+                sample = unlist(strsplit(sample,""))
+                # replacing  spaces with underscore
+                # it is a very proc time consuming task; thus, let's drop it
+                #    sample = gsub(" ","_",sample)
+                if( ngram.size > 1 ) {
+                    sample = make.ngrams(sample, ngram.size = ngram.size)
+                    #    # getting rid of additional spaces added around chars
+                    #    # it is a very proc time consuming task; thus, let's drop it
+                    #    if(features == "c") {
+                    #      sample = gsub(" ","",sample)
+                    #    }
+                    
+                }
+                print(sample)
+            } else if( features == "wlc" ){
+                sample = ngramWordsFlat( tokenized.text, ngram.size, padding )
+                #print(sample)
+            } else if( features == "sepdia" ){ ### stylo AH implementation of different things - do not knwo how samples should look like
+                #separate diacriticas and letters                
+                print("Not implemented, sepdia")
+                sample = tokenized.text
+            } else if( features == "woc" ){ 
+                #without consonants
+                sample = ohneKon( tokenized.text )
+                #print( sample )
+            } else if( features == "wov" ){ 
+                #without vowels
+                sample = ohnVoka( tokenized.text )
+                #print(sample)
+            } else if( features == "smw" ){ 
+                #just small words
+                sample = jukl( tokenized.text )
+                #print(sample)
+            } else if( features == "bw" ){ 
+                #just big words
+                sample = jugr( tokenized.text )
+                #print(sample)
+            } else if( features == "syl" ){ 
+                #pseudo syllables
+                sample = silbenWithprep( tokenized.text )
+                #print(sample)
+            } else if( features == "hbc1" ){ 
+                #head body coda
+                sample = toKKC( tokenized.text )
+                #print(sample)
+            } else if( features == "hbc2" ){ 
+                #head body coda 2 all partitions
+                sample = toKKCnSufixWordsFlat( tokenized.text )
+                print(sample)
+            } else {
+                print("ERROR stylo AH split the text - called features")
+            }
+
+            
+        }
+        # 2. making n-grams (if an appropriate option has been chosen):
+        
+        #
+        return(sample)
   }
 
 
@@ -48,13 +97,15 @@ txt.to.features = function(tokenized.text, features = "w", ngram.size = 1){
                 # apply an appropriate replacement function
                 sample = wrapper(tokenized.text, 
                                            features = features, 
-                                           ngram.size = ngram.size)
+                                           ngram.size = ngram.size,
+                                           padding = padding)
                 # if the dataset has already a form of list
         } else {
                 # applying an appropriate function to a corpus:
                 sample = lapply(tokenized.text, wrapper, 
                                 features = features, 
-                                ngram.size = ngram.size)
+                                ngram.size = ngram.size,
+                                padding = padding )
                 class(sample) = "stylo.corpus"
         }
         

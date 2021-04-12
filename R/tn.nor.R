@@ -161,7 +161,7 @@ tn.nor = function(input.text,
                 	preprocessed.text =  delUnterpunkt( preprocessed.text )  
                 
                 	#
-                	#return(preprocessed.text)
+                	return(preprocessed.text)
         }
         
         preprocessed.text = wrapper(input.text, trnom.disambidia,

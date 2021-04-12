@@ -29,6 +29,7 @@ txt.to.words = function(input.text,
         cat("turning into lowercase failed!\n")
       }
   }
+     #cat(input.text)
      # if no custom splitting rule was detected...
     if(length(splitting.rule) == 0 ) {
       # splitting into units specified by regular expression; here, 
@@ -70,7 +71,11 @@ txt.to.words = function(input.text,
           "\UAC00-\UD7AF",
           "]+",
           sep="")
-      tokenized.text = c(unlist(strsplit(input.text, splitting.rule)))
+      #tokenized.text = c(unlist(strsplit(input.text, splitting.rule)))
+      #change this letter split to a spit, that does no impicit normalization
+      
+      tokenized.text = c(unlist(strsplit(input.text, " ")))
+      #cat(tokenized.text)
     # if custom splitting rule was indicated:
     } else {
       # sanity check

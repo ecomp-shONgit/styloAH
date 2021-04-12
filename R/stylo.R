@@ -92,6 +92,7 @@ if (gui == TRUE) {
 add.to.margins = variables$add.to.margins
 analysis.type = variables$analysis.type
 analyzed.features = variables$analyzed.features
+analyzed.padding = variables$analyzed.padding
 classification.method = variables$classification.method
 colors.on.graphs = variables$colors.on.graphs
 consensus.strength = variables$consensus.strength
@@ -632,6 +633,9 @@ if(corpus.exists == FALSE) {
     }
 
 
+    #print("stylo main")
+    #print(preserve.case)
+    #print(analyzed.padding)
 
   # loading text files, splitting, parsing, n-gramming, samping, and so forth
   loaded.corpus = load.corpus.and.parse(files = corpus.filenames,
@@ -648,6 +652,7 @@ if(corpus.exists == FALSE) {
                          features = analyzed.features,
                          ngram.size = ngram.size,
                          preserve.case = preserve.case,
+                         padding = analyzed.padding,
                         trnom.disambidia = trnom.disambidia,
 			trnom.repbehau = trnom.repbehau,
 			trnom.expael = trnom.expael,

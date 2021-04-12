@@ -56,7 +56,7 @@ gui.stylo = function(...) {
   # the default settings
   variables.tmp = merge.lists(default.variables,restored.variables)
   variables = merge.lists(variables.tmp, passed.arguments)
-  print(variables)
+  #print(variables)
   
   
   
@@ -68,6 +68,7 @@ gui.stylo = function(...) {
   add.to.margins = variables$add.to.margins
   analysis.type = variables$analysis.type
   analyzed.features = variables$analyzed.features
+  analyzed.padding = FALSE
   classification.method = variables$classification.method
   colors.on.graphs = variables$colors.on.graphs
   consensus.strength = variables$consensus.strength
@@ -260,6 +261,7 @@ gui.stylo = function(...) {
   ngram.size <- tclVar(ngram.size)
   preserve.case <- tclVar(preserve.case)
   analyzed.features <- tclVar(analyzed.features)
+  analyzed.padding <- tclVar(analyzed.padding)
   use.existing.freq.tables <- tclVar(use.existing.freq.tables)
   use.existing.wordlist <- tclVar(use.existing.wordlist)
   interactive.files <- tclVar(interactive.files)
@@ -548,21 +550,28 @@ gui.stylo = function(...) {
   # next row: TEXT FEATURES
   entry_W <- tkradiobutton(f2)
   entry_L <- tkradiobutton(f2)
+  entry_WLC <- tkradiobutton(f2)
   cb_NGRAMS <- tkcheckbutton(f2)
   entry_NGRAMSIZE <- tkentry(f2,textvariable=ngram.size,width="8")
   cb_PRESERVECASE <- tkcheckbutton(f2)
+  cb_PADDING <- tkcheckbutton(f2)
   #
   tkconfigure(entry_W,variable=analyzed.features,value="w")
   tkconfigure(entry_L,variable=analyzed.features,value="c")
+  tkconfigure(entry_WLC,variable=analyzed.features,value="wlc")
   tkconfigure(cb_PRESERVECASE,variable=preserve.case)
+  tkconfigure(cb_PRESERVECASE,variable=analyzed.padding)
   #
   entrylabel_W <- tklabel(f2,text="words")
   entrylabel_L <- tklabel(f2,text="chars")
+  ntrylabel_WLC <- tklabel(f2,text="w.l.c.")
   entrylabel_NGRAMSIZE <- tklabel(f2,text="ngram size")
   entrylabel_PRESERVECASE <- tklabel(f2,text="preserve case")
+  entrylabel_Padd <- tklabel(f2,text="padding")
   #
-  tkgrid(tklabel(f2,text="        FEATURES:"),entrylabel_W,entrylabel_L,entrylabel_NGRAMSIZE, entrylabel_PRESERVECASE)
-  tkgrid(tklabel(f2,text="                 "),entry_W,entry_L,entry_NGRAMSIZE, cb_PRESERVECASE)
+  tkgrid(tklabel(f2,text="        FEATURES:"),entrylabel_W,entrylabel_L,ntrylabel_WLC,entrylabel_NGRAMSIZE, entrylabel_PRESERVECASE, entrylabel_Padd)
+  tkgrid(tklabel(f2,text="                 "),entry_W,entry_L,entry_WLC,entry_WLC,entry_NGRAMSIZE, cb_PRESERVECASE, cb_PADDING)
+
   
   # Tooltips for the above
   tk2tip(entrylabel_W, "Select this to work on words")
@@ -571,6 +580,39 @@ gui.stylo = function(...) {
   tk2tip(entrylabel_PRESERVECASE, "Whether or not to lowercase all characters")
   tkgrid(tklabel(f2,text="    ")) # blank line for aesthetic purposes
   
+  # next row: OTHER Features realy
+  eof1 <- tkradiobutton(f2)
+  eof2 <- tkradiobutton(f2)
+  eof3 <- tkradiobutton(f2)
+  eof4 <- tkradiobutton(f2)
+  eof5 <- tkradiobutton(f2)
+  eof6 <- tkradiobutton(f2)
+  eof7 <- tkradiobutton(f2)
+  eof8 <- tkradiobutton(f2)
+   
+  
+  tkconfigure(eof1,variable=analyzed.features,value="sepdia")
+  tkconfigure(eof2,variable=analyzed.features,value="woc")
+  tkconfigure(eof3,variable=analyzed.features,value="wov")
+  tkconfigure(eof4,variable=analyzed.features,value="smw")
+  tkconfigure(eof5,variable=analyzed.features,value="bw")
+  tkconfigure(eof6,variable=analyzed.features,value="syl")
+  tkconfigure(eof7,variable=analyzed.features,value="hbc1")
+  tkconfigure(eof8,variable=analyzed.features,value="hbc2")
+
+  eof1_l <- tklabel(f2,text="sep. diac.")
+  eof2_l <- tklabel(f2,text="no consonants")
+  eof3_l <- tklabel(f2,text="no vovels")
+  eof4_l <- tklabel(f2,text="small words")
+  eof5_l <- tklabel(f2,text="big words")
+  eof6_l <- tklabel(f2,text="pseudo syllables")
+  eof7_l <- tklabel(f2,text="head-body-coda")
+  eof8_l <- tklabel(f2,text="all partitions")
+
+  tkgrid(tklabel(f2,text="  Other FEATURES:"), eof1_l, eof2_l, eof3_l, eof4_l)
+  tkgrid(tklabel(f2,text="                 "), eof1,eof2,eof3,eof4)
+  tkgrid(tklabel(f2,text="                 "), eof5_l, eof6_l, eof7_l, eof8_l)
+  tkgrid(tklabel(f2,text="                 "), eof5,eof6,eof7,eof8)
   # next row: MFW SETTINGS
   #
   entry_MFW_MIN <- tkentry(f2,textvariable=mfw.min,width="8")
@@ -999,8 +1041,13 @@ gui.stylo = function(...) {
   
   
   variables$analyzed.features = as.character(tclvalue(analyzed.features))
+  variables$analyzed.padding = as.logical(as.numeric(tclvalue(analyzed.padding)))
+   
   variables$ngram.size = as.numeric(tclvalue(ngram.size))
   variables$preserve.case = as.logical(as.numeric(tclvalue(preserve.case)))
+  #print("var in gui")
+  #print(variables$preserve.case)
+  #print(variables$analyzed.padding)
   variables$corpus.format = as.character(tclvalue(corpus.format))
   variables$mfw.min = as.numeric(tclvalue(mfw.min))
   variables$mfw.max = as.numeric(tclvalue(mfw.max))

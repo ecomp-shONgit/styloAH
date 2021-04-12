@@ -27,6 +27,7 @@ load.corpus.and.parse = function(files = "all",
          features = "w",
          ngram.size = 1,
          preserve.case = FALSE,
+         padding = FALSE,
          encoding = "UTF-8",
          trnom.disambidia = FALSE,
 	trnom.repbehau = FALSE,
@@ -92,6 +93,7 @@ loaded.corpus = load.corpus(files = files,
                                         corpus.lang = corpus.lang,
                                         splitting.rule = splitting.rule,
                                         preserve.case = preserve.case)
+  
   # normal sampling (if applicable); random sampling will be run later
   if(sampling == "normal.sampling") {
     loaded.corpus = make.samples(loaded.corpus,
@@ -103,7 +105,7 @@ loaded.corpus = load.corpus(files = files,
   # [it takes a good while when char n-grams are chosen]
   message("\nturning words into features, e.g. char n-grams (if applicable)...")
   loaded.corpus = lapply(loaded.corpus, txt.to.features,
-                         features = features, ngram.size = ngram.size)
+                         features = features, ngram.size = ngram.size, padding = padding)
   # optionally, excerpt randomly a number of features from original data
   if(sampling == "random.sampling") {
     loaded.corpus = make.samples(loaded.corpus,
