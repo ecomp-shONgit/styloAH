@@ -22,7 +22,7 @@ We added a few Greek language specific normalization functions and some feature 
 ![ScreenShot](man/rstudio.png)
 
 ## Version
-We use the version count of the original stylo and add a fourth number, which count the AHE releases. The first release was the prove of concept. The second was the normalzation intergation, the third is the release of new features. 
+We use the version count of the original stylo and add a fourth number, which count the AHE releases. The first release was the prove of concept. The second was the normalzation intergation, the third is the release of new features. This is Version 0.7.4.3.
 
 
 ## Usage: Normalization
