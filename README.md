@@ -3,9 +3,10 @@
 
 **Author:** Prof. Schubert Alte Geschichte Leipzig, H. Kahl
 
-We added a few Greek language specific normalization functions. We prepared a starter script, that does the install of additional packages and the start up of the stylo version. 
+We added a few Greek language specific normalization functions and some feature extraction methodes. We prepared a starter script, that does the install of additional packages and the start up of the stylo version. 
 
 ![ScreenShot](man/richtigscreen.png)
+![ScreenShot](man/featuresscreen.png)
 
 ## Install 
 
@@ -20,7 +21,7 @@ We added a few Greek language specific normalization functions. We prepared a st
 
 ![ScreenShot](man/rstudio.png)
 
-## Usage
+## Usage: Normalization
 
 This list gives you a notion of the normalization function behind the GUI check buttons.
 
@@ -60,6 +61,11 @@ This list gives you a notion of the normalization function behind the GUI check 
 
 **Alpha privativum**: If the alpha privativum is distinguishable, than this functions handle it.
 
+## USAGE: Features
+
+This list shows the should give you a notion of the function behind the GUI configurations:
+
+**w.l.c.**: Stylo has its way of building word-ngrams wich was fine, the way of building character-ngrams can't be configured - it is always the whole input string that turned into character-ngrams. We added the word level character ngrams, with and with out padding. Given the string ist "ll kk bb", than the word level character bigrams with padding may be "-l, ll, l-, -k, kk, k-, -b, bb, b-".
 
 # stylo: R package for stylometric analyses
 
