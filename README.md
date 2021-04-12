@@ -21,6 +21,10 @@ We added a few Greek language specific normalization functions and some feature 
 
 ![ScreenShot](man/rstudio.png)
 
+## Version
+We use the version count of the original stylo and add a fourth number, which count the AHE releases. The first release was the prove of concept. The second was the normalzation intergation, the third is the release of new features. 
+
+
 ## Usage: Normalization
 
 This list gives you a notion of the normalization function behind the GUI check buttons.
@@ -65,7 +69,19 @@ This list gives you a notion of the normalization function behind the GUI check 
 
 This list shows the should give you a notion of the function behind the GUI configurations:
 
-**w.l.c.**: Stylo has its way of building word-ngrams wich was fine, the way of building character-ngrams can't be configured - it is always the whole input string that turned into character-ngrams. We added the word level character ngrams, with and with out padding. Given the string ist "ll kk bb", than the word level character bigrams with padding may be "-l, ll, l-, -k, kk, k-, -b, bb, b-".
+**w.l.c.**: Stylo has its way of building word-ngrams wich was fine, the way of building character-ngrams can't be configured - it is always the whole input string that turned into character-ngrams. We added the word level character ngrams, with and with out padding. Given the string ist "ll kk bb", than the word level character bigrams with padding may be "-l, ll, l-, -k, kk, k-, -b, bb, b-". Padding could be addewith the checkbutton "padding".
+
+**no consonants**: A list of tokens, but the consonants removed from it, is used as feature array. Example: "if not so slow" gives "i o o o".
+
+**no vovels**: A list of token, vovels removed from them, is used as feature array. Example: "if not so slow" gives "f nt s slw".
+
+**samll words**: The featrue array will consist of small words. Think of them as the opposite to verbe and noun.
+
+**big words**: The feature array will consist of big words, that means verbs and nouns.
+
+**head body coda**: Every token is evenly devided into a head, body and a tail. Example: "perfect" gives "pe rf ect".
+
+**all partitions** Every token is splited into all possible permutations öletters distributed over head, body and tail. Example: "man" "m a n, ma n -, m an -".
 
 # stylo: R package for stylometric analyses
 
