@@ -464,6 +464,7 @@ regEbr1 = re.compile( "<br/>" );
 regEbr2 = re.compile( "<br>" )
 cleanNEWL = re.compile( '\\n' )
 cleanRETL = re.compile( '\\r' )
+cleanTA = re.compile( '\\t' )
 cleanstrangehochpunkt =re.compile( r'‧' )
 cleanthisbinde =re.compile( r'—' )
 cleanthisleer =re.compile( '\xa0'.encode("utf-8").decode("utf-8") ) #byte string is not allowed - 
@@ -790,15 +791,17 @@ def delunknown( text ):
 
 # def takes string and replace html line breakes
 def delumbrbine( text ):
-    text = re.sub(regEbr1, "", text)
-    text = re.sub(regEbr2, "", text)
-    return text
+    #text = re.sub(regEbr1, "", text)
+    #text = re.sub(regEbr2, "", text)
+    #return text
+    return umbrtospace( text )
 
 def umbrtospace( text ):
     text = re.sub(cleanNEWL, " ", text)
     text = re.sub(cleanRETL, " ", text)
+    text = re.sub(cleanTA, " ", text)
     text = re.sub(regEbr1, " ", text)
-    text = re.sub(regEbr2, " ", text);
+    text = re.sub(regEbr2, " ", text)
     return text
 
 # first version, a little more...

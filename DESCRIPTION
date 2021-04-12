@@ -1,7 +1,7 @@
 Package: stylo
 Type: Package
 Title: Stylometric Multivariate Analyses Ancient History Edition
-Version: 0.7.4.2
+Version: 0.7.4.3
 Date: 2021-13-3
 Author: Maciej Eder, Jan Rybicki, Mike Kestemont, Steffen Pielstroem, Charlotte Schubert
 Maintainer: Maciej Eder <maciejeder@gmail.com>

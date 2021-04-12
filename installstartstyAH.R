@@ -2,13 +2,14 @@ print("R Script to install/start stylo Ancient History Edition.")
 
 thewd <- getwd()
 theinstdir <- dirname(thewd)
-print("Build dir for stylo:")
+
+print("Build directory for stylo AH:")
 print( theinstdir )
 setwd( theinstdir )
 
 
 #DEPENDENCIES  
-print("Install dependancies:")
+print("Check for / install dependancies:")
 if (!require( "tcltk2", character.only = TRUE)) {
 	install.packages("tcltk2", dependencies = TRUE)     
 }
@@ -39,17 +40,18 @@ if (!require( "networkD3", character.only = TRUE)) {
 print("Build and install stylo AH:")
 file.rename("stylo-master", "stylo") #just in case
 system("R CMD build stylo") #build downloaded version
-install.packages("stylo_0.7.4.2.tar.gz", repos = NULL)
+install.packages("stylo_0.7.4.3.tar.gz", repos = NULL)
 
 
-print("Working sirectory for stylo:")
+print("Working directory for stylo AH:")
 newwd <- paste( theinstdir, "/stylo", sep="")
 print( newwd )
 setwd( newwd )
 
-print("Incl. libraries:")
+print("Libraries / source python libraries:")
 library(reticulate)
 source_python("textnorm.py")
+source_python("textdecomp.py")
 library(tcltk2)
 library(stylo)
 
