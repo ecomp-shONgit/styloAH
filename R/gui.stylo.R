@@ -55,7 +55,7 @@ gui.stylo = function(...) {
   # if any variables have been passed as arguments, they will overwrite
   # the default settings
   variables.tmp = merge.lists(default.variables,restored.variables)
-  variables = merge.lists(variables.tmp, passed.arguments)
+  variables = merge.lists( variables.tmp, passed.arguments )
   #print(variables)
   
   
@@ -68,7 +68,7 @@ gui.stylo = function(...) {
   add.to.margins = variables$add.to.margins
   analysis.type = variables$analysis.type
   analyzed.features = variables$analyzed.features
-  analyzed.padding = FALSE
+  analyzed.padding = variables$analyzed.padding # AHE version
   classification.method = variables$classification.method
   colors.on.graphs = variables$colors.on.graphs
   consensus.strength = variables$consensus.strength
@@ -132,25 +132,25 @@ gui.stylo = function(...) {
   write.svg.file = variables$write.svg.file
   z.scores.of.all.samples = variables$z.scores.of.all.samples
   
-  trnom.disambidia = FALSE
-  trnom.repbehau = FALSE
-  trnom.expael = FALSE
-  trnom.translitgr = FALSE
-  trnom.iota = FALSE
-  trnom.alldel = FALSE
-  trnom.numbering = FALSE
-  trnom.ligdel = FALSE
-  trnom.diadel = FALSE
-  trnom.interdel = FALSE
-  trnom.unkown = FALSE
-  trnom.umbr = FALSE
-  trnom.mak = FALSE
-  trnom.sigma = FALSE
-  trnom.klam = FALSE
-  trnom.uv = FALSE
-  trnom.ji = FALSE
-  trnom.hyph = FALSE
-  trnom.alphapriv = FALSE
+  trnom.disambidia = variables$trnom.disambidia
+  trnom.repbehau = variables$trnom.repbehau
+  trnom.expael = variables$trnom.expael
+  trnom.translitgr = variables$trnom.translitgr
+  trnom.iota = variables$trnom.iota
+  trnom.alldel = variables$trnom.alldel
+  trnom.numbering = variables$trnom.numbering
+  trnom.ligdel = variables$trnom.ligdel
+  #trnom.diadel = variables$trnom.diadel
+  trnom.interdel = variables$trnom.interdel
+  trnom.unkown = variables$trnom.unkown
+  trnom.umbr = variables$trnom.umbr
+  trnom.mak = variables$trnom.mak
+  trnom.sigma = variables$trnom.sigma
+  trnom.klam = variables$trnom.klam
+  trnom.uv = variables$trnom.uv
+  trnom.ji = variables$trnom.ji
+  trnom.hyph = variables$trnom.hyph
+  trnom.alphapriv = variables$trnom.alphapriv
   # #############################################################################
   
   
@@ -216,7 +216,7 @@ gui.stylo = function(...) {
   trnom.ligdel <- tclVar(trnom.ligdel)
   
   #deldiak( text ) #like nodiakinword()
-  trnom.diadel <- tclVar(trnom.diadel)
+  #trnom.diadel <- tclVar(trnom.diadel)
   
   #delinterp( text ) #takes string and returns the string without
   trnom.interdel <- tclVar(trnom.interdel)

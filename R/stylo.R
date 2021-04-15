@@ -59,7 +59,7 @@ if(is.character(corpus.dir) == FALSE | nchar(corpus.dir) == 0) {
 # loading the default settings as defined in the following function
 # (it absorbes the arguments passed from command-line)
 variables = stylo.default.settings(...)
-
+# print(variables)
 
 
 # optionally, displaying a GUI box
@@ -92,7 +92,7 @@ if (gui == TRUE) {
 add.to.margins = variables$add.to.margins
 analysis.type = variables$analysis.type
 analyzed.features = variables$analyzed.features
-analyzed.padding = variables$analyzed.padding
+analyzed.padding = variables$analyzed.padding #AHE version
 classification.method = variables$classification.method
 colors.on.graphs = variables$colors.on.graphs
 consensus.strength = variables$consensus.strength
@@ -811,6 +811,7 @@ var.name <- function(x) {
 var.name(corpus.format)
 var.name(corpus.lang)
 var.name(analyzed.features)
+var.name(analyzed.padding)
 var.name(ngram.size)
 var.name(preserve.case)
 var.name(encoding)
@@ -852,6 +853,26 @@ var.name(save.distance.tables)
 var.name(save.analyzed.features)
 var.name(save.analyzed.freqs)
 var.name(dump.samples)
+
+var.name(trnom.disambidia)
+var.name(trnom.repbehau)
+var.name(trnom.expael)
+var.name(trnom.translitgr)
+var.name(trnom.iota)
+var.name(trnom.alldel)
+var.name(trnom.numbering)
+var.name(trnom.ligdel)
+#trnom.diadel = variables$trnom.diadel
+var.name(trnom.interdel)
+var.name(trnom.unkown)
+var.name(trnom.umbr)
+var.name(trnom.mak)
+var.name(trnom.sigma)
+var.name(trnom.klam)
+var.name(trnom.uv)
+var.name(trnom.ji)
+var.name(trnom.hyph)
+var.name(trnom.alphapriv)
 
 # #############################################################################
 

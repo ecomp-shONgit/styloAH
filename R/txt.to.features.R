@@ -13,15 +13,15 @@ txt.to.features = function(tokenized.text, features = "w", ngram.size = 1, paddi
     # we need to define an internal function that will be applied afterwards
     wrapper = function(tokenized.text, features = "w", ngram.size = 1, padding = FALSE ){    
         
-        print(features) 
-        print(ngram.size)
-        print(padding)
+        #print(features) 
+        #print(ngram.size)
+        #print(padding)
         
         # Splitting the text into chars (if "features" was set to "c")
         if( features == "w" ){
             # otherwise, leaving the original text unchanged
             sample = tokenized.text
-            print(sample)
+            #print(sample)
         } else {
             sample = paste(tokenized.text, collapse=" ")
             if( features == "c" ){ #original stylo version

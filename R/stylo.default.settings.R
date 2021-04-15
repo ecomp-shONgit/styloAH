@@ -17,7 +17,7 @@ passed.arguments = list(...)
 
 # format of corpus files; available choices are:
 # "plain", "xml", "xml.drama", "xml.notitles", "html"
-corpus.format = "plain"
+corpus.format = "xml"
 
 # how many MFW ("Most frequent Words") should be taken into analysis 
 # (if mfw.min value = max.mfw, then no multiple iterations will be computed)
@@ -58,7 +58,7 @@ culling.incr = 20
 #         this option provides a consistent conversion to "u" in each text.
 
 delete.pronouns = FALSE
-corpus.lang = "English.all"
+corpus.lang = "Other"
 
 # using this variable, one can specify a selection of words to be EXCLUDED
 # from the analysis: in computational linguistics, this is referred to 
@@ -85,6 +85,7 @@ stop.words = NULL
 # Two types of n-grams are available: characters (option "c"), and words ("w").
 
 analyzed.features = "w"
+analyzed.padding = FALSE # AHE version
 ngram.size = 1
 preserve.case = FALSE
 encoding = "UTF-8"
@@ -156,11 +157,11 @@ analysis.type = "CA"
 # will be done with much better quality).
 
 display.on.screen = TRUE
-write.pdf.file = FALSE
-write.jpg.file = FALSE
-write.svg.file = FALSE
-write.png.file = FALSE
-dump.samples = FALSE
+write.pdf.file = TRUE
+write.jpg.file = TRUE
+write.svg.file = TRUE
+write.png.file = TRUE
+dump.samples = TRUE
 
 # dimensions of the plot area (expressed in inches), font size,
 # thickness of the lines used to plot the graphs.
@@ -169,9 +170,9 @@ dump.samples = FALSE
 # the remaining options will be overwritten
 
 plot.options.reset = FALSE
-plot.custom.height = 7
-plot.custom.width = 7
-plot.font.size = 10
+plot.custom.height = 20
+plot.custom.width = 20
+plot.font.size = 8
 plot.line.thickness = 1
 
 # custom offset between labels and point; custom margin size 
@@ -498,7 +499,26 @@ visualization = "words"
 
 #################################################
 
-
+# VARS OF ancient history edition
+trnom.disambidia = TRUE
+trnom.repbehau = FALSE
+trnom.expael = FALSE
+trnom.translitgr = FALSE
+trnom.iota = FALSE
+trnom.alldel = TRUE
+trnom.numbering = TRUE
+trnom.ligdel = FALSE
+#trnom.diadel = variables$trnom.diadel
+trnom.interdel = FALSE
+trnom.unkown = TRUE
+trnom.umbr = FALSE
+trnom.mak = FALSE
+trnom.sigma = FALSE
+trnom.klam = FALSE
+trnom.uv = FALSE
+trnom.ji = FALSE
+trnom.hyph = TRUE
+trnom.alphapriv = TRUE
 
 
 
