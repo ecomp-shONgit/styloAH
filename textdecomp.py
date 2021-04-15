@@ -2,8 +2,12 @@
 # -*- coding: utf-8 -*- 
 
 #************************************************** 
-# 2020 text decomposition and transformation Python Lib, Prof. Charlotte Schubert Alte Geschichte, Leipzig 
-
+# 2020 string (text) decomposition and transformation Python Lib, Prof. Charlotte Schubert Alte Geschichte, Leipzig 
+# Def: A decomposition of a string, is a bijective function that assoziates a position and length in the sequence with a 
+# member of a not ordered set of subsequences. 
+# Regularly this decomposition is said to be a representation of 
+# features of a text. We reject this view, the features of a text may be discovered in a (statistical) analysis. 
+# Decompositioin is just a way of supporting the analysis. 
  
 ''' 
 GPLv3 copyrigth
@@ -7653,5 +7657,6 @@ def zerl():
     print( Strout )
     
 if __name__ == "__main__":
-    zerl()
+    print("main textdecomp")
+    #zerl()
 

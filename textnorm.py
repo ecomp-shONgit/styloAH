@@ -3,16 +3,17 @@
 
 #**************************************************
 # 2020 text normalisation Python3 Lib, Prof. Charlotte Schubert Alte Geschichte, Leipzig
+# DEF: A text normalization is everything done to equalize encoding, appearance 
+# and composition of a sequence of signs called a string (adopted as text). A sequence is a orders set.
+# A pattern is a distinguished sequence. There are two goals of 
+# normalization: The first is a common ground of signs and the second is a 
+# reduction of differences between two sequences of signs.  Not every 
+# normalization step is useful for every comparison task! Remember: 
+# Sometimes it is important to not equalize word forms (sign members of a sequence) and 
+# sometimes it is important. 
 
 
 '''
-DEF: A text normalization is everything done to equalize encoding, appearance 
-and composition of a sequence of signs called a text. There are two goals of 
-normalization. The first is a common ground of signs  and the second is a 
-reduction of differences between two sequences of signs.  Not every 
-normalization step is useful for every comparison task! Remember: 
-Sometimes it is important to not equalize word forms and 
-sometimes it is important. 
 GPLv3 copyrigth
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -573,7 +574,7 @@ def hasKEY( alist, thekey ): #fkt should move
 def AlphaPrivativumCopulativum( aword ):
     if( not aword in notprivalpha ):
         buchs = list( delall( aword ) )
-        if( len( buchs ) == 0 ):
+        if( len( buchs ) < 2 ):
             return aword
         if( buchs[0] == "α" ): #erste Buchstabe alpha
             if( hasKEY( vokaleGRI , buchs[1] ) ): # zweiter ein Vokal
@@ -589,6 +590,7 @@ def AlphaPrivativumCopulativum( aword ):
             return aword
     else:
         return aword
+        
 def AlphaPrivativumCopulativumText( atext ):
     t = ""
     spli = atext.split( " " )
@@ -1133,7 +1135,7 @@ def testprivatalpha():
     
 if __name__ == "__main__":
     #demUsage( )
-    print("main")
+    print("main textnorm")
 
 
 ##******************************************************************************
