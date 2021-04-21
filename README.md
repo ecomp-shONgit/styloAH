@@ -8,7 +8,7 @@ We added a few Greek language specific normalization functions and some feature 
 ![ScreenShot](man/richtigscreen.png)
 ![ScreenShot](man/featuresscreen.png)
 
-## Install 
+## Install / regular start
 
 - Download this github repository (Code > Download ZIP).
 - Save the ZIP to any writable location on you system. We assume, that you have R (and RStudio) installed.
@@ -20,6 +20,14 @@ We added a few Greek language specific normalization functions and some feature 
 - The script should do the install of missing packages, the build of the stylo Ancient History Edition, the install and the execution of the stylo GUI.
 
 ![ScreenShot](man/rstudio.png)
+
+To regularly start stylo with Rstudio use the script *juststartstyloAHE.R*. 
+- Open up the *installstartstyAH.R* in RStudio.
+- Set working directory: Menu > Session > Set Working Directory > To Source File Location.
+- Select all text of the script and hit run (see screenshot below).
+You also may use the commandline run the script like *Rscript installstartstyAH.R* from the stylo folder.
+
+![ScreenShot](man/js.png)
 
 ## Version
 We use the version count of the original stylo and add a fourth number, which count the AHE releases. The first release was the prove of concept. The second was the normalzation intergation, the third is the release of new features. This is Version 0.7.4.3.
