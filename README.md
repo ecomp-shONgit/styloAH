@@ -83,7 +83,7 @@ This list shows the should give you a notion of the function behind the GUI conf
 
 **no vovels**: A list of token, vovels removed from them, is used as feature array. Example: "if not so slow" gives "f nt s slw".
 
-**samll words**: The featrue array will consist of small words. Think of them as the opposite to verbe and noun.
+**small words**: The featrue array will consist of small words. Think of them as the opposite to verbe and noun.
 
 **big words**: The feature array will consist of big words, that means verbs and nouns.
 
