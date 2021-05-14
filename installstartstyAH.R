@@ -34,13 +34,23 @@ if (!require( "ape", character.only = TRUE)) {
 if (!require( "networkD3", character.only = TRUE)) {
 	install.packages("networkD3", dependencies = TRUE)     
 }
+if (!require( "networkD3", character.only = TRUE)) {
+  install.packages("networkD3", dependencies = TRUE)     
+}
+#if (!require( "energy", character.only = TRUE)) {
+#  install.packages("energy", dependencies = TRUE)     
+#}
+
 
 
 
 print("Build and install stylo AH:")
+#file.rename("energy-master", "energy")
+#system("R CMD build energy")
+#install.packages("energy_1.7-8.tar.gz", repos = NULL)
 file.rename("stylo-master", "stylo") #just in case
 system("R CMD build stylo") #build downloaded version
-install.packages("stylo_0.7.4.3.tar.gz", repos = NULL)
+install.packages("stylo_0.7.4.4.tar.gz", repos = NULL)
 
 
 print("Working directory for stylo AH:")

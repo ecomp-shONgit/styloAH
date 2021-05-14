@@ -37,6 +37,7 @@ true = True
 doUVlatin = false; 
 analysisNormalform = "NFKD";
 dispnormalform = "NFC";
+inschrift = True
 
 notprivalpha = [];#["ἀΐω"];
 #"de" Akzente richtig, oder falsch????
@@ -913,6 +914,7 @@ def Trennstricheraus( wliste ): #\n version
     neueWLISTE = []
     lele = len( wliste )
     for w in range( lele ):
+        #print(wliste[ w ], ersterteil, zweiterteil)
         if( len( ersterteil ) == 0 ):
             if( "-" in wliste[ w ] ):
                 eUNDz = wliste[ w ].split( "-" )
@@ -984,8 +986,13 @@ def GRvorbereitungT( dtext ):
 # Section 3: other 
 #**************************************************   
 
-unterPu = re.compile( r"◌̣ " )
+unterPuz = re.compile( r"◌̣ " )
+unterPu = re.compile( "\u0323".encode("utf-8").decode("utf-8") )
 def delUnterpunkt( text ):
+    text = normatext( text, analysisNormalform )
+    return re.sub(unterPuz, "", re.sub(unterPu, "",text))
+
+def delwithnormUnterpunkt( text ):
     return re.sub(unterPu, "",text)
 
 def delLettLat( astring ):
