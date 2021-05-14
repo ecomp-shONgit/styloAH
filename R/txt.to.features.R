@@ -39,7 +39,7 @@ txt.to.features = function(tokenized.text, features = "w", ngram.size = 1, paddi
                     #    }
                     
                 }
-                print(sample)
+                #print(sample)
             } else if( features == "wlc" ){
                 sample = ngramWordsFlat( tokenized.text, ngram.size, padding )
                 #print(sample)
@@ -74,7 +74,7 @@ txt.to.features = function(tokenized.text, features = "w", ngram.size = 1, paddi
             } else if( features == "hbc2" ){ 
                 #head body coda 2 all partitions
                 sample = toKKCnSufixWordsFlat( tokenized.text )
-                print(sample)
+                #print(sample)
             } else {
                 print("ERROR stylo AH split the text - called features")
             }

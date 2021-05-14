@@ -37,7 +37,7 @@ load.corpus.and.parse = function(files = "all",
 	trnom.alldel = FALSE,
 	trnom.numbering = FALSE,
 	trnom.ligdel = FALSE,
-	#trnom.diadel = FALSE,
+	trnom.unterpunkt = FALSE,
 	trnom.interdel = FALSE,
 	trnom.unkown = FALSE,
 	trnom.umbr = FALSE,
@@ -65,9 +65,10 @@ loaded.corpus = load.corpus(files = files,
 
   # deleting xml/html markup by applying the function "delete.markup"
   loaded.corpus = lapply(loaded.corpus, delete.markup, markup.type = markup.type)
-  #print(hahaha)
+  
   # normalization stylo AH edition
-  loaded.corpus = lapply(loaded.corpus, tn.nor, trnom.disambidia = trnom.disambidia,
+  loaded.corpus = lapply(loaded.corpus, tn.nor, 
+                        trnom.disambidia = trnom.disambidia,
 			trnom.repbehau = trnom.repbehau,
 			trnom.expael = trnom.expael,
 			trnom.translitgr = trnom.translitgr,
@@ -75,7 +76,7 @@ loaded.corpus = load.corpus(files = files,
 			trnom.alldel = trnom.alldel,
 			trnom.numbering = trnom.numbering,
 			trnom.ligdel = trnom.ligdel,
-			#trnom.diadel = trnom.diadel,
+			trnom.unterpunkt = trnom.unterpunkt,
 			trnom.interdel = trnom.interdel,
 			trnom.unkown = trnom.unkown,
 			trnom.umbr = trnom.umbr,

@@ -15,7 +15,7 @@ tn.nor = function(input.text,
 		trnom.alldel = FALSE,
 		trnom.numbering = FALSE,
 		trnom.ligdel = FALSE,
-		#trnom.diadel = FALSE,
+		trnom.unterpunkt = FALSE,
 		trnom.interdel = FALSE,
 		trnom.unkown = FALSE,
 		trnom.umbr = FALSE,
@@ -29,7 +29,8 @@ tn.nor = function(input.text,
          	  
         # since the function can be applied to lists and vectors,
         # we need to define an internal function that will be applied afterwards
-        wrapper = function(input.text = input.text, trnom.disambidia = trnom.disambidia,
+        wrapper = function(input.text = input.text, 
+                        trnom.disambidia = trnom.disambidia,
 			trnom.repbehau = trnom.repbehau,
 			trnom.expael = trnom.expael,
 			trnom.translitgr = trnom.translitgr,
@@ -37,7 +38,7 @@ tn.nor = function(input.text,
 			trnom.alldel = trnom.alldel,
 			trnom.numbering = trnom.numbering,
 			trnom.ligdel = trnom.ligdel,
-			#trnom.diadel = trnom.diadel,
+			trnom.unterpunkt = trnom.unterpunkt,
 			trnom.interdel = trnom.interdel,
 			trnom.unkown = trnom.unkown,
 			trnom.umbr = trnom.umbr,
@@ -52,6 +53,12 @@ tn.nor = function(input.text,
 			#print("in tnnorr")
 			
 			preprocessed.text = paste(input.text)
+			
+			# replace unterpunkt
+  			if( trnom.unterpunkt == TRUE ){
+  			        preprocessed.text = delwithnormUnterpunkt( preprocessed.text )
+  			}
+  			
         		#preprocessed.text = normatext( paste(input.text), "NFKD" )  
         		if( trnom.disambidia == TRUE ){
         			preprocessed.text = disambiguDIAkritika( preprocessed.text )
@@ -63,16 +70,19 @@ tn.nor = function(input.text,
         		}
         		# given a string, elusions will be expanded
   			if( trnom.expael == TRUE ){
-  			        
         			preprocessed.text = ExpandelisionText( preprocessed.text )
         		}
+        		
+        		#INCLUDE INSCHRIFTEN KLAMMERSYSTEM AND REMOVE THE KLAMMERUNG AND OTEHR SIGNS FROM THE EDITOR / EDITION / TEXTDEFORMATION DESCRIPTION
+        		# see WORKAROUND **
         		
   			#input string, removes hyphenation
   			if( trnom.hyph == TRUE ){
   			        #print(preprocessed.text)
+  			        preprocessed.text = delklammern( preprocessed.text ) # THIS A WORKAROUND **
         			preprocessed.text = TrennstricherausText( preprocessed.text )
         		}
-  
+                        
   			#deletes UV, IJ, klammern, sigma, grkl, umbrüche, 
   			#ligaturen, interpunktion, edition numbering, unknown signs, diakritika
   			if( trnom.alldel == TRUE ){
@@ -81,8 +91,8 @@ tn.nor = function(input.text,
   				#cat(newone)
   				preprocessed.text = newone		
   			} else {
-  			
-  
+  			  
+  			  
 			  # replaces diakritika
 			  if( trnom.repbehau == TRUE ){
   				preprocessed.text = deldiak( preprocessed.text )
@@ -171,7 +181,7 @@ tn.nor = function(input.text,
 		trnom.alldel,
 		trnom.numbering,
 		trnom.ligdel,
-		#trnom.diadel,
+		trnom.unterpunkt,
 		trnom.interdel,
 		trnom.unkown,
 		trnom.umbr,

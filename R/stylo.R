@@ -169,6 +169,7 @@ trnom.unkown = variables$trnom.unkown
 trnom.umbr = variables$trnom.umbr
 trnom.mak = variables$trnom.mak
 trnom.sigma = variables$trnom.sigma
+trnom.unterpunkt = variables$trnom.unterpunkt
 trnom.klam = variables$trnom.klam
 trnom.uv = variables$trnom.uv
 trnom.ji = variables$trnom.ji
@@ -667,6 +668,7 @@ if(corpus.exists == FALSE) {
 			trnom.umbr = trnom.umbr,
 			trnom.mak = trnom.mak,
 			trnom.sigma = trnom.sigma,
+			trnom.unterpunkt = trnom.unterpunkt,
 			trnom.klam = trnom.klam,
 			trnom.uv = trnom.uv,
 			trnom.ji = trnom.ji,
@@ -715,6 +717,7 @@ if(exists("frequencies.0.culling") == FALSE) {
     message("The corpus consists of ", length(c(wordlist.of.loaded.corpus))," tokens")
     # the core procedure: frequency list
     mfw.list.of.all = sort(table(c(wordlist.of.loaded.corpus)),decreasing=T)
+    
     # deleting the huge vector of all the words from the entire corpus
     rm(wordlist.of.loaded.corpus)
     # if the whole list is long, then cut off the tail, as specified in the GUI
@@ -769,10 +772,10 @@ if(exists("frequencies.0.culling") == FALSE) {
 
   # preparing a huge table of all the frequencies for the whole corpus
   frequencies.0.culling = make.table.of.frequencies(corpus = loaded.corpus,
-                                               features = mfw.list.of.all,
-                                               relative = relative.frequencies)
+                                                    features = mfw.list.of.all,
+                                                    relative = relative.frequencies)
 
-
+  
   # writing the table with frequencies to a text file (it can be re-used!)
       if(encoding == "native.enc") {
         data.to.be.saved = t(frequencies.0.culling)
@@ -868,6 +871,7 @@ var.name(trnom.unkown)
 var.name(trnom.umbr)
 var.name(trnom.mak)
 var.name(trnom.sigma)
+var.name(trnom.unterpunkt)
 var.name(trnom.klam)
 var.name(trnom.uv)
 var.name(trnom.ji)
@@ -1082,6 +1086,7 @@ message("MFW used: ")
 for(i in seq(mfw.min,mfw.max,round(mfw.incr)) ) {
 mfw = i
 
+print(mfw)
 
 # for safety reasons, if MFWs > variables in samples
 if(mfw > length(colnames(table.with.all.freqs)) ) {
@@ -1102,11 +1107,11 @@ if((analysis.type == "CA") || (analysis.type == "BCT") || (analysis.type == "MDS
 
 input.freq.table = table.with.all.freqs[,1:mfw]
 
-
+print(distance.measure)
 supported.measures = c("dist.euclidean", "dist.manhattan", "dist.canberra",
                        "dist.delta", "dist.eder", "dist.argamon",
                        "dist.simple", "dist.cosine", "dist.wurzburg",
-                       "dist.entropy", "dist.minmax")
+                       "dist.entropy", "dist.minmax", "dist.dcor")
 
 
 
@@ -1151,14 +1156,85 @@ if(length(grep(distance.measure, supported.measures)) > 1 ) {
          # invoke one of the distance measures functions from Stylo
          distance.table = do.call(distance, list(x = table.with.all.zscores[,1:mfw]))
 
+    } else if(distance == "dist.dcor") {
+         # stylo AHE provides distance correlation as a distance meassure
+         distance.table = do.call(distance, list(x = table.with.all.zscores[,1:mfw], exp = 1.5,  scale = FALSE))
+         #print(distance.table)
+         #write.table(distance.table, file = "distance.table.txt", sep = " ", row.names = TRUE, col.names = TRUE)
     } else {
-         # invoke one of the distances supported by 'stylo'; this is slightly
-         # different from the custom functions invoked above, since it uses
-         # another argument: z-scores can be calculated outside of the function
-         distance.table = do.call(distance, list(x = table.with.all.zscores[,1:mfw], scale = FALSE))
+        distance.table = do.call(distance, list(x = table.with.all.zscores[,1:mfw], scale = FALSE))    
     }
 
 }
+
+# stylo AHE COMPARING COMPARING
+comparedistences = FALSE # do var over GUI
+
+if( comparedistences ){
+        distance.table.manhatten = as.matrix(dist(input.freq.table, method = "manhattan"))
+        distance.table.euclidean = as.matrix(dist(input.freq.table, method = "euclidean"))
+        distance.table.canberra  = as.matrix(dist(input.freq.table, method = "canberra" ))
+        distance.table.simple  = do.call("dist.simple",   list(x = input.freq.table[,1:mfw]))
+        distance.table.cosine  = do.call("dist.cosine",   list(x = input.freq.table[,1:mfw]))
+        distance.table.entropy = do.call("dist.entropy",  list(x = input.freq.table[,1:mfw]))
+        distance.table.minmax  = do.call("dist.minmax",   list(x = input.freq.table[,1:mfw]))
+        distance.table.wuerzburg = do.call("dist.wurzburg", list(x = table.with.all.zscores[,1:mfw]))
+        distance.table.delta = do.call("dist.delta", list(x = table.with.all.zscores[,1:mfw], scale = FALSE))
+        distance.table.eder = do.call("dist.eder", list(x = table.with.all.zscores[,1:mfw], scale = FALSE))
+        distance.table.argamon = do.call("dist.argamon", list(x = table.with.all.zscores[,1:mfw], scale = FALSE))
+        distance.table.dcor = do.call("dist.dcor", list(x = table.with.all.zscores[,1:mfw], exp = 1.5,  scale = FALSE))
+        
+        
+        le <- nrow(distance.table.manhatten)
+        rn <- row.names(distance.table.manhatten)
+        xach <- c(1:(le-1));
+        
+        mm <- max( c(max(distance.table.manhatten[1,][-1]),max(distance.table.euclidean[1,][-1]), max(distance.table.canberra[1,][-1]), max(distance.table.simple[xach]), max(distance.table.cosine[xach]), max(distance.table.eder[xach])) )
+        
+        jpeg(filename = paste("distvergl","_%03d",".jpg",sep=""),
+            width=plot.custom.width,height=plot.custom.height,
+            units="in",res=300,pointsize=plot.font.size)
+        
+        par(mar=c(30,5,5,5))
+        
+        
+        plot( xach, distance.table.manhatten[1,][-1], type="b",col="red", pch=1, lty=1, lwd=1, ylim=c(0, (mm+50)), xlim=c(0, le), main = "", xlab="", ylab="", xaxt="n" )
+        text( x=((le-1)+0.5), y=tail(distance.table.manhatten[1,][-1], n=1), "Manhatten")
+        lines( xach,distance.table.euclidean[1,][-1] ,type="b",col="blue", pch=2,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=tail(distance.table.euclidean[1,][-1], n=1), "Euclidean")
+        lines( xach,distance.table.canberra[1,][-1] ,type="b",col="black", pch=3,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=tail(distance.table.canberra[1,][-1], n=1), "Canberra")
+        lines(xach,distance.table.simple[xach] ,type="b",col="green", pch=4,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=tail(distance.table.simple[xach], n=1), "Simple")
+        lines(xach,distance.table.entropy[xach] ,type="b",col="brown", pch=6,lty=1, lwd=1) 
+        text( x=((le-1)+0.5), y=tail(distance.table.entropy[xach], n=1), "Entropy")
+        lines(xach,distance.table.eder[xach] ,type="b",col="gold", pch=11,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=tail(distance.table.eder[xach], n=1), "Eder")
+        
+        
+        #0-1 scaliert
+        
+        lines(xach,(distance.table.cosine[xach]*mm) ,type="b",col="cornsilk", pch=5,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=(tail(distance.table.cosine[xach], n=1)*mm), "Cosine")
+        lines(xach,(distance.table.minmax[xach]*mm) ,type="b",col="gray", pch=7,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=(tail(distance.table.minmax[xach], n=1)*mm), "Minmax")
+        lines(xach,(distance.table.wuerzburg[xach]*mm) ,type="b",col="darkviolet", pch=8,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=(tail(distance.table.wuerzburg[xach], n=1)*mm), "Wuerzburg")
+        lines(xach,(distance.table.delta[xach]*mm) ,type="b",col="orange", pch=9,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=(tail(distance.table.delta[xach], n=1)*mm), "Delta")
+        lines(xach,(distance.table.argamon[xach]*mm) ,type="b",col="deeppink", pch=10,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=(tail(distance.table.argamon[xach], n=1)*mm), "Argamon")
+        lines(xach, (distance.table.dcor[1,][-1]*mm ) ,type="b",col="darkred", pch=12,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=(tail(distance.table.dcor[1,][-1], n=1)*mm), "DCOR")
+        title( main="Vergleich von Distanzen", xlab=paste("Texte zum Bezugstext: ", rn[1]), ylab="Distanzwerte", font.main=4, font.lab=4, font.sub=4, cex.main=1.5, cex.lab=1.1, cex.sub=1.2)
+        axis(1, at=xach, labels=rn[-1], las=2)
+        
+        
+        
+        dev.off()
+        
+}
+
 
 # convert the table to the format of matrix
 distance.table = as.matrix(distance.table)
@@ -1552,6 +1628,7 @@ if(analysis.type != "BCT") {
 
 
 # writing distance table(s) to a file (if an appropriate option has been chosen)
+save.distance.tables = TRUE
 if(save.distance.tables == TRUE && exists("distance.table") == TRUE) {
   distance.table.filename = paste("distance_table_", mfw, "mfw_", current.culling, "c.txt", sep = "")
     # checking if encoding conversion is needed

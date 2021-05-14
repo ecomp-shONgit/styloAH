@@ -146,6 +146,7 @@ gui.stylo = function(...) {
   trnom.umbr = variables$trnom.umbr
   trnom.mak = variables$trnom.mak
   trnom.sigma = variables$trnom.sigma
+  trnom.unterpunkt = variables$trnom.unterpunkt
   trnom.klam = variables$trnom.klam
   trnom.uv = variables$trnom.uv
   trnom.ji = variables$trnom.ji
@@ -232,6 +233,9 @@ gui.stylo = function(...) {
   
   #sigmaistgleich( text ) #equalize tailing sigma
   trnom.sigma <- tclVar(trnom.sigma)
+  
+  #unterpunkt( text ) 
+  trnom.unterpunkt <- tclVar(trnom.unterpunkt)
   
   #delklammern( text ) # input stringa nd get it back with no brackets
   trnom.klam <- tclVar(trnom.klam)
@@ -743,7 +747,7 @@ gui.stylo = function(...) {
   entry_EU <- tkradiobutton(f3)
   entry_CS <- tkradiobutton(f3)
   entry_MM <- tkradiobutton(f3)
-  
+  entry_DC <- tkradiobutton(f3)
   #
   tkconfigure(entry_CD,variable=distance.measure,value="delta")
   tkconfigure(entry_WD,variable=distance.measure,value="wurzburg")
@@ -755,6 +759,7 @@ gui.stylo = function(...) {
   tkconfigure(entry_EU,variable=distance.measure,value="euclidean")
   tkconfigure(entry_CS,variable=distance.measure,value="cosine")
   tkconfigure(entry_MM,variable=distance.measure,value="minmax")
+  tkconfigure(entry_DC,variable=distance.measure,value="dcor")
   #
   entrylabel_CD <- tklabel(f3,text="Classic Delta")
   entrylabel_WD <- tklabel(f3,text="Cosine Delta")
@@ -766,11 +771,12 @@ gui.stylo = function(...) {
   entrylabel_EU <- tklabel(f3,text="Euclidean")
   entrylabel_CS <- tklabel(f3,text="Cosine")
   entrylabel_MM <- tklabel(f3,text="Min-Max")
+  entrylabel_DC <- tklabel(f3,text="DistCor")
   #
   tkgrid(tklabel(f3,text="  DELTA DISTANCE:  "),entrylabel_CD,entrylabel_WD,entrylabel_ED,entrylabel_ES,entrylabel_EN)
   tkgrid(tklabel(f3,text="            "),entry_CD,entry_WD,entry_ED,entry_ES,entry_EN)
-  tkgrid(tklabel(f3,text="            "),entrylabel_MH,entrylabel_CB,entrylabel_EU,entrylabel_CS,entrylabel_MM)
-  tkgrid(tklabel(f3,text="            "),entry_MH,entry_CB,entry_EU,entry_CS,entry_MM)
+  tkgrid(tklabel(f3,text="            "),entrylabel_MH,entrylabel_CB,entrylabel_EU,entrylabel_CS,entrylabel_MM, entrylabel_DC)
+  tkgrid(tklabel(f3,text="            "),entry_MH,entry_CB,entry_EU,entry_CS,entry_MM, entry_DC)
   tkgrid(tklabel(f3,text="    ")) # blank line for aesthetic purposes
   
   # Tooltips for the above
@@ -784,6 +790,7 @@ gui.stylo = function(...) {
   tk2tip(entrylabel_EU, "Select Euclidean Distance (basic and the most *natural*).")
   tk2tip(entrylabel_CS, "Select Cosine Distance (a classic distance in multidimensional methods).")
   tk2tip(entrylabel_MM, "Select Min-Max distance (aka Ruzicka distance).")
+  tk2tip(entrylabel_DC, "Select Distance Correlation also called Distance Covariation or Brownian Correlation.")
   
   
   # next row: SAMPLING
@@ -966,7 +973,7 @@ gui.stylo = function(...) {
   entry_norm6 <- tkcheckbutton(f6) #1
   entry_norm7 <- tkcheckbutton(f6) #1
   entry_norm8 <- tkcheckbutton(f6) #1
-  #entry_norm9 <- tkcheckbutton(f6) #1
+  entry_norm9 <- tkcheckbutton(f6) #1
   entry_norm10 <- tkcheckbutton(f6) #1
   entry_norm11 <- tkcheckbutton(f6) #1
   entry_norm12 <- tkcheckbutton(f6) #1
@@ -986,7 +993,7 @@ gui.stylo = function(...) {
   tkconfigure(entry_norm6, variable=trnom.alldel)
   tkconfigure(entry_norm7, variable=trnom.numbering)
   tkconfigure(entry_norm8, variable=trnom.ligdel)
-  #tkconfigure(entry_norm9, variable=trnom.diadel)
+  tkconfigure(entry_norm9, variable=trnom.unterpunkt)
   tkconfigure(entry_norm10, variable=trnom.interdel)
   tkconfigure(entry_norm11, variable=trnom.unkown)
   tkconfigure(entry_norm12, variable=trnom.umbr)
@@ -1007,7 +1014,7 @@ gui.stylo = function(...) {
   entrylabel_norm7 <- tklabel(f6,text="Delete numbering")
   entrylabel_norm8 <- tklabel(f6,text="Delete ligatures")
   
-  #entrylabel_norm9 <- tklabel(f6,text="Delet diakrit.")
+  entrylabel_norm9 <-  tklabel(f6,text="Del. Unterpunkte")
   entrylabel_norm10 <- tklabel(f6,text="Delete punctuation")
   entrylabel_norm11 <- tklabel(f6,text="Delete unkown signs")
   entrylabel_norm12 <- tklabel(f6,text="Line break to space")
@@ -1023,8 +1030,8 @@ gui.stylo = function(...) {
   
   tkgrid( entry_norm1, entry_norm2, entry_norm3,entry_norm4,   entry_norm5 )
   tkgrid( entrylabel_norm1,entrylabel_norm2,entrylabel_norm3,entrylabel_norm4,entrylabel_norm5)
-  tkgrid( entry_norm6, entry_norm7,entry_norm8,   entry_norm10 )
-  tkgrid( entrylabel_norm6,entrylabel_norm7,entrylabel_norm8,entrylabel_norm10)
+  tkgrid( entry_norm6, entry_norm7,entry_norm8,entry_norm9,entry_norm10 )
+  tkgrid( entrylabel_norm6,entrylabel_norm7,entrylabel_norm8,entrylabel_norm9,entrylabel_norm10)
   tkgrid( entry_norm11,entry_norm12,entry_norm13,entry_norm14,entry_norm15 )
   tkgrid( entrylabel_norm11,entrylabel_norm12,entrylabel_norm13,entrylabel_norm14,entrylabel_norm15)
   tkgrid( entry_norm16,entry_norm17,entry_norm18,entry_norm19 )
@@ -1102,7 +1109,7 @@ gui.stylo = function(...) {
   variables["trnom.alldel"] <- as.logical(as.numeric(tclvalue(trnom.alldel)))
   variables["trnom.numbering"] <- as.logical(as.numeric(tclvalue(trnom.numbering)))
   variables["trnom.ligdel"] <- as.logical(as.numeric(tclvalue(trnom.ligdel)))
-  #variables["trnom.diadel"] <- as.logical(as.numeric(tclvalue(trnom.diadel)))
+  variables["trnom.unterpunkt"] <- as.logical(as.numeric(tclvalue(trnom.unterpunkt)))
   variables["trnom.interdel"] <- as.logical(as.numeric(tclvalue(trnom.interdel)))
   variables["trnom.unkown"] <- as.logical(as.numeric(tclvalue(trnom.unkown)))
   variables["trnom.umbr"] <- as.logical(as.numeric(tclvalue(trnom.umbr)))

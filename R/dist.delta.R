@@ -26,6 +26,6 @@ dist.delta = function(x, scale = TRUE){
     # time to apply the measure: compute Manhattan distance and divide by
     # the number of features (words)
     y = dist(x, method = "manhattan") / length(x[1,])
-
+        
     return(y)
 }
