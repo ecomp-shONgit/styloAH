@@ -6644,9 +6644,9 @@ def ngramWhole( A, n ): #string input, but for more than a word
 
 
 def ngramWords( B, n, padding ):
-    print(B)
-    print(n)
-    print(padding)
+    #print(B)
+    #print(n)
+    #print(padding)
     #check B instance of array
     kuku = []
     for t in range(len(B)): 
@@ -6657,7 +6657,7 @@ def ngramWordsFlat(B, n, padding): #stylo
     n = int(n)
     padding = bool(padding)
     kuku = []
-    print(padding)
+    #print(padding)
     for t in range(len(B)): 
         g = ngram( B[t], n, padding )
         for gi in range(len(g)):
@@ -6877,7 +6877,11 @@ def trennSLAT( A ):
             if( diesvokalisch == True and  vorhervokalisch == True ):  #vokal-vokal uebergang
                 
                 #ACHTUNG DIE REIHENFOLGE DER IF ABFRAGEN STELLT EIN HIERARCHIE AUCH DER REGELN DAR
-                if( letzteeinheit == lautlicheeinheit): #zwei gleiche vokale
+                if( letzteeinheit in disptongLAT ): #vokal folgt auf diphton, dann trenne wie im els dieses if blocks - einfach zwei vokale
+                    silben.append( "".join(coda) )
+                    silben.append( "-" )
+                    silben.append( lautlicheeinheit )
+                elif( letzteeinheit == lautlicheeinheit ): #zwei gleiche vokale
                     #print("zwei gleiche vokle")
 
                     silben.append( "".join( coda ) )
@@ -7200,7 +7204,36 @@ def justKLEIN( A ): #array input
         if( iskleineswort( A[a] ) or A[a] in stopGR or A[a] in stopLA ):
             toret.append( A[a] )    
     return toret
-
+    
+def justKLEINenc( A, mode ):
+    # mode 0: kein Angabe der Lueckenlänge
+    # mode 1: 3 Niveaus 1 - 5, 5 - 15, 15 - n
+    # mode 2: genaue Lueckenlänge als Angabe
+    toret = []  
+    lenA = len( A )  
+    cc = 0
+    for a in range( lenA ):
+        #print( A[a], iskleineswort( A[a] ) )
+        if( iskleineswort( A[a] ) or A[a] in stopGR or A[a] in stopLA ):
+            if( cc != 0 ):
+                leucklen = str(cc)
+                if( mode == 0 ):
+                    leucklen = ""
+                elif( mode == 1 ):
+                    if(cc <= 5):
+                        leucklen = "a"
+                    elif( cc > 5 and cc <= 15 ):
+                        leucklen = "b"
+                    else:
+                        leucklen = "c"
+                toret.append( "<<"+leucklen+">>" )
+                cc = 0
+            toret.append( A[a] )  
+        else:
+            if( A[a].strip() != ""):
+                cc += 1
+    return toret
+    
 def jukl( A ): #stylo
     string = " ".join( A )
     wlist = textnorm.ohnesatzzeichen( textnorm.GRvorbereitungT( string ) )
@@ -7218,6 +7251,7 @@ def jugr( A ): #stylo
     string = " ".join( A )
     wlist = textnorm.ohnesatzzeichen( textnorm.GRvorbereitungT( string ) )
     return justGROSZ( wlist )
+
 
 '''-----------------------------------------------------------------------------
 
@@ -7548,7 +7582,60 @@ def fnb( texttt ):
     konundbigi = simplekon( aDaaA )
     return schaneigh( konundbigi[0], aDaaA )
 
+'''-----------------------------------------------------------------------------
 
+PATTERN-OF-TOKEN-LEVEL
+
+-----------------------------------------------------------------------------'''
+def numarray_to_string( A ):
+    return ''.join( map( chr, A ) )
+    
+def to_string( A ):
+    return ''.join( A )
+    
+def pseudosyntagma( A ): #running slow!
+    B = justKLEINenc( A, 1 )
+    
+    Bl = len(B)
+    Bs = ""#to_string( B )
+    Syntagmata = {}
+    buildsyntagmata = True
+    b = 1
+    while( buildsyntagmata ): 
+        if( b > Bl ):
+            buildsyntagmata = False
+        
+        dosearch = True
+        b0 = b - 1
+        b1 = b
+        ol = 1
+        Bs = to_string( B[b1+1:Bl] )
+        while( dosearch ):
+            P = B[ b0 : b1 ]
+            Ps = to_string( P )
+            
+            if( Ps in Syntagmata ):
+                b = b1 + 1
+                dosearch = False
+                break
+            
+            R = [ m.start() for m in re.finditer( Ps, Bs ) ]
+            cl = len(R)
+            
+            #if( cl < ol ):
+            if( cl == 0 ):
+                Syntagmata[Ps] = ol#[P, ol]
+                b = b1 + 1
+                dosearch = False
+            else:
+                ol = cl
+                b1+=1
+                if( b1 > Bl ):
+                    b+=1
+                    dosearch = False
+    return Syntagmata 
+    
+    
 '''-----------------------------------------------------------------------------
 
 TEST
@@ -7656,7 +7743,8 @@ def zerl():
 
     print( Strout )
     
+
+    
 if __name__ == "__main__":
     print("main textdecomp")
     #zerl()
-

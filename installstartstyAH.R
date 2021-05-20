@@ -40,6 +40,9 @@ if (!require( "networkD3", character.only = TRUE)) {
 #if (!require( "energy", character.only = TRUE)) {
 #  install.packages("energy", dependencies = TRUE)     
 #}
+if (!require( "parallel", character.only = TRUE)) {
+  install.packages("parallel", dependencies = TRUE)     
+}
 
 
 
@@ -50,7 +53,7 @@ print("Build and install stylo AH:")
 #install.packages("energy_1.7-8.tar.gz", repos = NULL)
 file.rename("stylo-master", "stylo") #just in case
 system("R CMD build stylo") #build downloaded version
-install.packages("stylo_0.7.4.4.tar.gz", repos = NULL)
+install.packages("stylo_0.7.4.5.tar.gz", repos = NULL)
 
 
 print("Working directory for stylo AH:")
@@ -64,6 +67,7 @@ source_python("textnorm.py")
 source_python("textdecomp.py")
 library(tcltk2)
 library(stylo)
+library(parallel)
 
 print("Run stylo:")
 stylo()

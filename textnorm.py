@@ -351,10 +351,13 @@ def sameallspacing( astr ):
     astr = re.sub( spai2, ' ', astr)
     return astr
 
+diam1 = re.compile( "\u0027".encode("utf-8").decode("utf-8") )
+diam2 = re.compile( r"'" )
+diam3 = re.compile( "\u1FBD".encode("utf-8").decode("utf-8") )
 def disambiguDIAkritika( astr ):
-    astr = "\u2019".join( astr.split( "\u0027" ) ) #typogra korrektes postroph;
-    astr = "\u2019".join( astr.split( "'" ) )
-    astr = "\u2019".join( astr.split( "\u1FBD" ) )
+    astr = re.sub( diam1, "\u2019", astr)
+    astr = re.sub( diam2, "\u2019", astr)
+    astr = re.sub( diam3, "\u2019", astr)
     return astr
 
 def disambiguadashes( astring ):
@@ -573,24 +576,38 @@ def hasKEY( alist, thekey ): #fkt should move
         return False
 
 def AlphaPrivativumCopulativum( aword ):
-    if( not aword in notprivalpha ):
+    if( aword in notprivalpha ):
+        return aword
+    else:
+        if( len( aword ) >= 2 ):
+            z = unicodedata.normalize( analysisNormalform, aword[1] ) 
+            if( "α" in unicodedata.normalize( analysisNormalform, aword[0] ) and 
+             ("ι" in z or "υ" in z or "ε" in z or "ο" in z or "α" in z or "ω" in z or "η")
+                and
+                "\u0308" in z ):
+                return aword[0] +" "+ aword[1:]
+            else:
+                return aword
+        else:
+        
+            return aword
+        '''
         buchs = list( delall( aword ) )
         if( len( buchs ) < 2 ):
             return aword
         if( buchs[0] == "α" ): #erste Buchstabe alpha
             if( hasKEY( vokaleGRI , buchs[1] ) ): # zweiter ein Vokal
                 b2dia = ExtractDiafromBuchst(aword[1])[0]
-                #console.log("lll",b2dia)
                 if( "\u0308" in  b2dia ): #zweiter Buchstabe mit Trema, erste Buchstabe mit spiritus lenis
                     return aword[0] +" "+ aword[1:] 
                 else:
                     return aword
             else:
                 return aword
+        
         else:
             return aword
-    else:
-        return aword
+        '''
         
 def AlphaPrivativumCopulativumText( atext ):
     t = ""
@@ -632,7 +649,8 @@ diacriticsunicodeRegExp = [
 # def takes string, splits it with jota subscriptum and joins the string again using jota adscriptum
 regJotaSub = re.compile( '\u0345'.encode("utf-8").decode("utf-8") )
 def iotasubiotoad( aword ):
- 	return "ι".join( aword.split( u'\u0345' ) );
+    return re.sub( regJotaSub, "ι", aword )
+ 	#return "ι".join( aword.split( u'\u0345' ) );
 
 # def takes "one word"
 def ohnediakritW( aword ):
@@ -1142,6 +1160,7 @@ def testprivatalpha():
     
 if __name__ == "__main__":
     #demUsage( )
+    
     print("main textnorm")
 
 
