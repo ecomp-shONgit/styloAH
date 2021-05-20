@@ -27,7 +27,7 @@ txt.to.words.ext = function(input.text,
                  
                  
   # if a custom splitting rule was detected...
-  if(length(splitting.rule) > 0) {
+  if( length(splitting.rule) > 0) {
       # sanity check
       if(length(splitting.rule) == 1) {
         # just in case, convert to characters

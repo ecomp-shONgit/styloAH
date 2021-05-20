@@ -21,14 +21,13 @@ stylo = function(gui = TRUE,
              corpus.dir = "corpus", ...) {
 
 
-
 # if any command-line arguments have been passed by a user, they will
 # be stored on the following list and used to overwrite the defaults
 passed.arguments = list(...)
 
 
 
-
+start_time = Sys.time()
 
 # changing working directory (if applicable)
 #
@@ -637,7 +636,7 @@ if(corpus.exists == FALSE) {
     #print("stylo main")
     #print(preserve.case)
     #print(analyzed.padding)
-
+  
   # loading text files, splitting, parsing, n-gramming, samping, and so forth
   loaded.corpus = load.corpus.and.parse(files = corpus.filenames,
                          corpus.dir = corpus.dir,
@@ -654,7 +653,7 @@ if(corpus.exists == FALSE) {
                          ngram.size = ngram.size,
                          preserve.case = preserve.case,
                          padding = analyzed.padding,
-                        trnom.disambidia = trnom.disambidia,
+            trnom.disambidia = trnom.disambidia,
 			trnom.repbehau = trnom.repbehau,
 			trnom.expael = trnom.expael,
 			trnom.translitgr = trnom.translitgr,
@@ -675,6 +674,8 @@ if(corpus.exists == FALSE) {
 			trnom.hyph = trnom.hyph,
 			trnom.alphapriv = trnom.alphapriv)
 }
+time_afterloadnorm = Sys.time()
+message("Corpus loaded and normalized: ", time_afterloadnorm - start_time, " sec")
 ###############################################################################
 
 
@@ -801,6 +802,17 @@ if(exists("frequencies.0.culling") == FALSE) {
 # #################################################
 # module for saving current config options
 # #################################################
+
+## styloAH - also save the styloversion datum und uhrzeit
+
+
+save.adinfo = TRUE
+if( save.adinfo == TRUE ){
+    info.filename = "styloAHinfo.txt"
+    thedata.to.be.saved = paste( "styloAH version: ", packageVersion("stylo"),  format(Sys.time(), "%a %b %d %X %Y") ,sep = "\n")
+    write.table( file = info.filename, thedata.to.be.saved )
+}
+
 
 # Finally, we want to save some of the variable values for later use;
 # they are automatically loaded into the GUI at the next run of the script.
@@ -939,6 +951,8 @@ if (analysis.type == "BCT") {
 
 for(j in (culling.min/culling.incr):(culling.max/culling.incr)) {
 
+        time_inmain = Sys.time()
+        message("Main loop num: ", j, " (all) ", time_inmain - start_time, " sec")
         current.culling = j * culling.incr
 
         # applying culling
@@ -1075,7 +1089,7 @@ distance.name.on.file = distance.measure
     distance.name.on.graph = paste("Distance:", distance.measure)
     distance.name.on.file = distance.measure
   }
-
+  
 }
 
 
@@ -1107,7 +1121,7 @@ if((analysis.type == "CA") || (analysis.type == "BCT") || (analysis.type == "MDS
 
 input.freq.table = table.with.all.freqs[,1:mfw]
 
-print(distance.measure)
+
 supported.measures = c("dist.euclidean", "dist.manhattan", "dist.canberra",
                        "dist.delta", "dist.eder", "dist.argamon",
                        "dist.simple", "dist.cosine", "dist.wurzburg",
@@ -1158,7 +1172,7 @@ if(length(grep(distance.measure, supported.measures)) > 1 ) {
 
     } else if(distance == "dist.dcor") {
          # stylo AHE provides distance correlation as a distance meassure
-         distance.table = do.call(distance, list(x = table.with.all.zscores[,1:mfw], exp = 1.5,  scale = FALSE))
+         distance.table = do.call(distance, list(x = table.with.all.zscores[,1:mfw], exp = 1.0,  scale = FALSE))
          #print(distance.table)
          #write.table(distance.table, file = "distance.table.txt", sep = " ", row.names = TRUE, col.names = TRUE)
     } else {
@@ -1167,6 +1181,8 @@ if(length(grep(distance.measure, supported.measures)) > 1 ) {
 
 }
 
+time_afterdist = Sys.time()
+        message("After distance comp", j, " ", i, " (loop) ", time_afterdist - time_inmain, " (all) ",time_afterdist - start_time)
 # stylo AHE COMPARING COMPARING
 comparedistences = FALSE # do var over GUI
 

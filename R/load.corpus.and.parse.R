@@ -62,13 +62,15 @@ loaded.corpus = load.corpus(files = files,
   # dropping file extensions from sample names
   names(loaded.corpus) = gsub("(\\.txt$)||(\\.xml$)||(\\.html$)||(\\.htm$)","",
                          names(loaded.corpus) )
-
+  message("Text normalization...")
   # deleting xml/html markup by applying the function "delete.markup"
   loaded.corpus = lapply(loaded.corpus, delete.markup, markup.type = markup.type)
   
-  # normalization stylo AH edition
-  loaded.corpus = lapply(loaded.corpus, tn.nor, 
-                        trnom.disambidia = trnom.disambidia,
+  numCores <- detectCores( ) # change this to numCores = numCores - 1 maybe
+  
+  loaded.corpus = mclapply( loaded.corpus,
+             FUN=tn.nor, 
+            trnom.disambidia = trnom.disambidia,
 			trnom.repbehau = trnom.repbehau,
 			trnom.expael = trnom.expael,
 			trnom.translitgr = trnom.translitgr,
@@ -86,17 +88,46 @@ loaded.corpus = load.corpus(files = files,
 			trnom.uv = trnom.uv,
 			trnom.ji = trnom.ji,
 			trnom.hyph = trnom.hyph,
-			trnom.alphapriv = trnom.alphapriv)
+			trnom.alphapriv = trnom.alphapriv,
+             mc.cores = numCores)
+             
+  # normalization stylo AH edition
+  #loaded.corpus = lapply(loaded.corpus, tn.nor, 
+  #          trnom.disambidia = trnom.disambidia,
+#			trnom.repbehau = trnom.repbehau,
+#			trnom.expael = trnom.expael,
+#			trnom.translitgr = trnom.translitgr,
+#			trnom.iota = trnom.iota,
+#			trnom.alldel = trnom.alldel,
+#			trnom.numbering = trnom.numbering,
+#			trnom.ligdel = trnom.ligdel,
+#			trnom.unterpunkt = trnom.unterpunkt,
+#			trnom.interdel = trnom.interdel,
+#			trnom.unkown = trnom.unkown,
+#			trnom.umbr = trnom.umbr,
+#			trnom.mak = trnom.mak,
+#			trnom.sigma = trnom.sigma,
+#			trnom.klam = trnom.klam,
+#			trnom.uv = trnom.uv,
+#			trnom.ji = trnom.ji,
+#			trnom.hyph = trnom.hyph,
+#			trnom.alphapriv = trnom.alphapriv)
   
   # deleting punctuation, splitting into words
-  message("slicing input text into tokens...\n")
-  loaded.corpus = lapply(loaded.corpus, txt.to.words.ext,
-                                        corpus.lang = corpus.lang,
-                                        splitting.rule = splitting.rule,
-                                        preserve.case = preserve.case)
+  message("Slicing input text into words...\n")
+  loaded.corpus = mclapply(loaded.corpus, FUN=txt.to.words.ext,
+            corpus.lang = corpus.lang,
+            splitting.rule = splitting.rule,
+            preserve.case = preserve.case,
+            mc.cores = numCores)
+  #loaded.corpus = lapply(loaded.corpus, txt.to.words.ext,
+  #                                      corpus.lang = corpus.lang,
+  #                                      splitting.rule = splitting.rule,
+  #                                      preserve.case = preserve.case)
   
   # normal sampling (if applicable); random sampling will be run later
   if(sampling == "normal.sampling") {
+    message("Do sampling ...\n")
     loaded.corpus = make.samples(loaded.corpus,
                                  sample.size,
                                  sampling,
@@ -104,9 +135,12 @@ loaded.corpus = load.corpus(files = files,
   }
   # split into chars (if applicable), agglutinate into n-grams
   # [it takes a good while when char n-grams are chosen]
-  message("\nturning words into features, e.g. char n-grams (if applicable)...")
-  loaded.corpus = lapply(loaded.corpus, txt.to.features,
-                         features = features, ngram.size = ngram.size, padding = padding)
+  message("\nTurning words into features, e.g. char n-grams (if applicable)...")
+  #loaded.corpus = lapply(loaded.corpus, txt.to.features,
+  #                       features = features, ngram.size = ngram.size, padding = padding)
+  loaded.corpus = mclapply(loaded.corpus, txt.to.features,
+                         features = features, ngram.size = ngram.size, padding = padding,
+            mc.cores = numCores)
   # optionally, excerpt randomly a number of features from original data
   if(sampling == "random.sampling") {
     loaded.corpus = make.samples(loaded.corpus,

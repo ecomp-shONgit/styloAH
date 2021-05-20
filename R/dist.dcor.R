@@ -2,6 +2,16 @@
 # Distance Correlation, stylo AHE 
 #
 # Argument: a matrix or data table containing at least 2 rows and 2 cols 
+Akl <- 
+function(x, index) {
+    d <- as.matrix(x)^index
+    m <- rowMeans(d)
+    M <- mean(d)
+    a <- sweep(d, 1, m)
+    b <- sweep(a, 2, m)
+    return( b + M )
+}
+    
 DCOR <-
 function(x, y, index=1.0) {
     # TAKEN FROM energy R package, Maria Rizzo and Gabor Szekely
@@ -25,17 +35,10 @@ function(x, y, index=1.0) {
     stat <- 0
     dims <- c(n, ncol(x), ncol(y))
 
-    Akl <- function(x) {
-        d <- as.matrix(x)^index
-        m <- rowMeans(d)
-        M <- mean(d)
-        a <- sweep(d, 1, m)
-        b <- sweep(a, 2, m)
-        return(b + M)
-    }
+    
 
-    A <- Akl(x)
-    B <- Akl(y)
+    A <- Akl(x, index)
+    B <- Akl(y, index)
     dCov <- sqrt(mean(A * B))
     dVarX <- sqrt(mean(A * A))
     dVarY <- sqrt(mean(B * B))
@@ -45,7 +48,8 @@ function(x, y, index=1.0) {
     return(list(dCov=dCov, dCor=dCor, dVarX=dVarX, dVarY=dVarY))
 }
 
-dist.dcor = function( x, exp = 1.5, scale = TRUE ){
+dist.dcor <- 
+function( x, exp = 1.5, scale = TRUE ){
 
     # test if the input dataset is acceptable
     if( is.matrix( x ) == FALSE & is.data.frame( x ) == FALSE ){
@@ -79,8 +83,10 @@ dist.dcor = function( x, exp = 1.5, scale = TRUE ){
                    cccc = DCOR( x[n,], x[m,], exp )
                    dcccc = 1-cccc$dCor
                    y[n,m] = dcccc
+                } else if( m < n ){ #little speedup
+                   y[n,m] = y[n,m]
                 } else {
-                    y[n,m] = 1.0
+                   y[n,m] = 1.0 # unequal to self as a definition
                 }
         }
     }
