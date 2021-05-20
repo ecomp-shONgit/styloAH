@@ -7,6 +7,7 @@ We added a few Greek language specific normalization functions and some feature 
 
 ![ScreenShot](man/richtigscreen.png)
 ![ScreenShot](man/featuresscreen.png)
+![ScreenShot](man/st.png)
 
 ## Install / regular start
 
@@ -30,7 +31,7 @@ You also may use the commandline run the script like *Rscript installstartstyAH.
 ![ScreenShot](man/js.png)
 
 ## Version
-We use the version count of the original stylo and add a fourth number, which count the AHE releases. The first release was the prove of concept. The second was the normalzation intergation, the third is the release of new features. This is Version 0.7.4.3.
+We use the version count of the original stylo and add a fourth number, which count the AHE releases. The first release was the prove of concept. The second was the normalzation intergation, the third is the release of new features. This is Version 0.7.4.5.
 
 
 ## Usage: Normalization
@@ -73,6 +74,8 @@ This list gives you a notion of the normalization function behind the GUI check 
 
 **Alpha privativum**: If the alpha privativum is distinguishable, than this functions handle it.
 
+**Del. Unterpunkte**: Replace underdots from inscription / papyri texts.
+
 ## USAGE: Features
 
 This list shows the should give you a notion of the function behind the GUI configurations:
@@ -90,6 +93,13 @@ This list shows the should give you a notion of the function behind the GUI conf
 **head body coda**: Every token is evenly devided into a head, body and a tail. Example: "perfect" gives "pe rf ect".
 
 **all partitions** Every token is splited into all possible permutations öletters distributed over head, body and tail. Example: "man" "m a n, ma n -, m an -".
+
+## USAGE: Distance messure
+
+**DistCor**: A messure derived from the bona fide vector correlation called distance correlation. We use the R implementation from the energy R package. This implemenation is a little slow. Working on a own implementation / using C implementation.
+
+
+
 
 # stylo: R package for stylometric analyses
 
