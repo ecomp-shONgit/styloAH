@@ -106,7 +106,7 @@ This list shows the should give you a notion of the function behind the GUI conf
 
 ## USAGE: OUTPUT
 
-**Vergleich**: Do save a plot of the vector of propabilities of text 1 versus all other text vectors. And a plot of the distances between text 1 and all other texts.
+**Vergleich**: Do save a plot of the vector of propabilities of text 1 versus all other text vectors. And a plot of the all possible distances between text 1 and all other texts.
 
 # stylo: R package for stylometric analyses
 
