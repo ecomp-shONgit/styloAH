@@ -7592,13 +7592,30 @@ def numarray_to_string( A ):
     
 def to_string( A ):
     return ''.join( A )
+
+def pseudosyntagmafromstring( ST ):
+    S = ST.split(" ")
+    E = pseudosyntagma( S )
+    return E 
+
+def reserialpseudosyntagma( ST ):
+    e = pseudosyntagma( ST )
+    E = []
+    for k in e:
+        for i in range( e[k] ):
+            E.append( k )
+    #print( E )
     
+    #print( e )
+    return E
+
 def pseudosyntagma( A ): #running slow!
-    B = justKLEINenc( A, 1 )
+    B = justKLEINenc( A, 1 )# gap encoding - 1 - use ranges, 0 use exact size, 2 use a gap sign
     
     Bl = len(B)
-    Bs = ""#to_string( B )
+    Bs = to_string( B )
     Syntagmata = {}
+    notSyntagmata = {}
     buildsyntagmata = True
     b = 1
     while( buildsyntagmata ): 
@@ -7609,12 +7626,13 @@ def pseudosyntagma( A ): #running slow!
         b0 = b - 1
         b1 = b
         ol = 1
-        Bs = to_string( B[b1+1:Bl] )
+        #Bs = to_string( B[b1+1:Bl] )
+        oPs = ""
         while( dosearch ):
             P = B[ b0 : b1 ]
             Ps = to_string( P )
             
-            if( Ps in Syntagmata ):
+            if( Ps in Syntagmata or oPs in notSyntagmata ):
                 b = b1 + 1
                 dosearch = False
                 break
@@ -7623,8 +7641,9 @@ def pseudosyntagma( A ): #running slow!
             cl = len(R)
             
             #if( cl < ol ):
-            if( cl == 0 ):
-                Syntagmata[Ps] = ol#[P, ol]
+            if( cl == 1 ):
+                Syntagmata[oPs] = ol#[P, ol]
+                notSyntagmata[Ps] = 1
                 b = b1 + 1
                 dosearch = False
             else:
@@ -7633,6 +7652,9 @@ def pseudosyntagma( A ): #running slow!
                 if( b1 > Bl ):
                     b+=1
                     dosearch = False
+            oPs = Ps
+    #print(Syntagmata)
+    
     return Syntagmata 
     
     

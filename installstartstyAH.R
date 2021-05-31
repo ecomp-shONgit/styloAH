@@ -37,13 +37,15 @@ if (!require( "networkD3", character.only = TRUE)) {
 if (!require( "networkD3", character.only = TRUE)) {
   install.packages("networkD3", dependencies = TRUE)     
 }
-#if (!require( "energy", character.only = TRUE)) {
-#  install.packages("energy", dependencies = TRUE)     
-#}
 if (!require( "parallel", character.only = TRUE)) {
   install.packages("parallel", dependencies = TRUE)     
 }
-
+if (!require( "transport", character.only = TRUE)) {
+  install.packages("transport", dependencies = TRUE)     
+}
+if (!require( "statip", character.only = TRUE)) {
+  install.packages("statip", dependencies = TRUE)     
+}
 
 
 
@@ -68,6 +70,7 @@ source_python("textdecomp.py")
 library(tcltk2)
 library(stylo)
 library(parallel)
-
+library(transport)
+library(statip)
 print("Run stylo:")
 stylo()
