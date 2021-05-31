@@ -93,7 +93,9 @@ This list shows the should give you a notion of the function behind the GUI conf
 
 **head body coda**: Every token is evenly devided into a head, body and a tail. Example: "perfect" gives "pe rf ect".
 
-**all partitions** Every token is splited into all possible permutations öletters distributed over head, body and tail. Example: "man" "m a n, ma n -, m an -".
+**all partitions**: Every token is splited into all possible permutations öletters distributed over head, body and tail. Example: "man" "m a n, ma n -, m an -".
+
+**SMWPA**: This is a pattern generater, the patterns consit of stopwords and a encoding of gaps between them. The pattern is taken as token in the following process. 
 
 ## USAGE: Distance messure (STATISTICS)
 
