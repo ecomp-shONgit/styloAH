@@ -91,7 +91,7 @@ This list shows the should give you a notion of the function behind the GUI conf
 
 **big words**: The feature array will consist of big words, that means verbs and nouns.
 
-**head body coda**: Every token is evenly devided into a head, body and a tail. Example: "perfect" gives "pe rf ect".
+**head body coda**: Every word is evenly devided into a head, body and a tail. Example: "perfect" gives "pe rf ect".
 
 **all partitions**: Every token is splited into all possible permutations öletters distributed over head, body and tail. Example: "man" "m a n, ma n -, m an -".
 
