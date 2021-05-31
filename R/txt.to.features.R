@@ -70,10 +70,15 @@ txt.to.features = function(tokenized.text, features = "w", ngram.size = 1, paddi
             } else if( features == "hbc1" ){ 
                 #head body coda
                 sample = toKKC( tokenized.text )
-                #print(sample)
+                print(sample)
             } else if( features == "hbc2" ){ 
                 #head body coda 2 all partitions
                 sample = toKKCnSufixWordsFlat( tokenized.text )
+                #print(sample)
+            } else if( features == "smwpa" ){ 
+                
+                #group small words and gap encodings after a minimized heuristics of the groupe
+                sample = reserialpseudosyntagma( tokenized.text )
                 #print(sample)
             } else {
                 print("ERROR stylo AH split the text - called features")

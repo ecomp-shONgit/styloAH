@@ -107,6 +107,7 @@ dendrogram.layout.horizontal = variables$dendrogram.layout.horizontal
 display.on.screen = variables$display.on.screen
 distance.measure = variables$distance.measure
 dump.samples = variables$dump.samples
+dump.vergleich = variables$dump.vergleich
 final.ranking.of.candidates = variables$final.ranking.of.candidates
 how.many.correct.attributions = variables$how.many.correct.attributions
 interactive.files = variables$interactive.files
@@ -868,7 +869,7 @@ var.name(save.distance.tables)
 var.name(save.analyzed.features)
 var.name(save.analyzed.freqs)
 var.name(dump.samples)
-
+var.name(dump.vergleich)
 var.name(trnom.disambidia)
 var.name(trnom.repbehau)
 var.name(trnom.expael)
@@ -1125,7 +1126,7 @@ input.freq.table = table.with.all.freqs[,1:mfw]
 supported.measures = c("dist.euclidean", "dist.manhattan", "dist.canberra",
                        "dist.delta", "dist.eder", "dist.argamon",
                        "dist.simple", "dist.cosine", "dist.wurzburg",
-                       "dist.entropy", "dist.minmax", "dist.dcor")
+                       "dist.entropy", "dist.minmax", "dist.dcor", "dist.helli", "dist.wasser")
 
 
 
@@ -1158,13 +1159,13 @@ if(length(grep(distance.measure, supported.measures)) > 1 ) {
          # get rid of the "dist." in the distance name
          distance = gsub("dist.", "", distance)
          # apply a standard distance, using the generic dist() function
-         distance.table = as.matrix(dist(input.freq.table, method = distance))
+         distance.table = as.matrix(dist(input.freq.table, method = distance)) 
     # then, check for the non-standard methods but still supported by Stylo
     } else if(distance %in% c("dist.simple", "dist.cosine", "dist.entropy", "dist.minmax")) {
 
          # invoke one of the distance measures functions from Stylo
-         distance.table = do.call(distance, list(x = input.freq.table[,1:mfw]))
-
+         #distance.table = do.call(distance, list(x = input.freq.table[,1:mfw]))
+        distance.table = do.call(distance, list(x = input.freq.table))
     } else if(distance == "dist.wurzburg") {
 
          # invoke one of the distance measures functions from Stylo
@@ -1172,7 +1173,17 @@ if(length(grep(distance.measure, supported.measures)) > 1 ) {
 
     } else if(distance == "dist.dcor") {
          # stylo AHE provides distance correlation as a distance meassure
-         distance.table = do.call(distance, list(x = table.with.all.zscores[,1:mfw], exp = 1.0,  scale = FALSE))
+         distance.table = do.call(distance, list(x = input.freq.table, exp = 1.5,  scale = FALSE))
+         #print(distance.table)
+         #write.table(distance.table, file = "distance.table.txt", sep = " ", row.names = TRUE, col.names = TRUE)
+    } else if(distance == "dist.helli") {
+         # stylo AHE provides distance correlation as a distance meassure
+         distance.table = do.call(distance, list(x = input.freq.table))
+         #print(distance.table)
+         #write.table(distance.table, file = "distance.table.txt", sep = " ", row.names = TRUE, col.names = TRUE)
+    } else if(distance == "dist.wasser") {
+         # stylo AHE provides distance correlation as a distance meassure
+         distance.table = do.call(distance, list(x = input.freq.table))
          #print(distance.table)
          #write.table(distance.table, file = "distance.table.txt", sep = " ", row.names = TRUE, col.names = TRUE)
     } else {
@@ -1182,23 +1193,45 @@ if(length(grep(distance.measure, supported.measures)) > 1 ) {
 }
 
 time_afterdist = Sys.time()
-        message("After distance comp", j, " ", i, " (loop) ", time_afterdist - time_inmain, " (all) ",time_afterdist - start_time)
-# stylo AHE COMPARING COMPARING
-comparedistences = FALSE # do var over GUI
+message("After distance comp", j, " ", i, " (loop) ", time_afterdist - time_inmain, " (all) ",time_afterdist - start_time)
 
-if( comparedistences ){
+# stylo AHE COMPARING COMPARING
+
+
+if( dump.vergleich ){
+        #draw the frequnecy tables together
+        le <- nrow( input.freq.table )
+        print(le)
+
+        for( n in 2:le ){
+            jpeg(filename = paste("textMALtext","_%03d", n,".jpg", sep=""),
+            width=plot.custom.width,height=plot.custom.height,
+            units="in",res=300,pointsize=plot.font.size)
+            plot( input.freq.table[1, 1:mfw], input.freq.table[n, 1:mfw])
+            title( main="Text mal Text", xlab="T 1", ylab=paste( "T ", n ), font.main=4, font.lab=4, font.sub=4, cex.main=1.5, cex.lab=1.1, cex.sub=1.2)
+            dev.off()
+        }#
+
+        #jpeg(filename = paste("textMALtext","_%03d",".jpg",sep=""),
+        #    width=plot.custom.width,height=plot.custom.height,
+        #    units="in",res=300,pointsize=plot.font.size)
+        #pairs(input.freq.table)
+        #dev.off()
+        #
         distance.table.manhatten = as.matrix(dist(input.freq.table, method = "manhattan"))
         distance.table.euclidean = as.matrix(dist(input.freq.table, method = "euclidean"))
         distance.table.canberra  = as.matrix(dist(input.freq.table, method = "canberra" ))
-        distance.table.simple  = do.call("dist.simple",   list(x = input.freq.table[,1:mfw]))
-        distance.table.cosine  = do.call("dist.cosine",   list(x = input.freq.table[,1:mfw]))
-        distance.table.entropy = do.call("dist.entropy",  list(x = input.freq.table[,1:mfw]))
-        distance.table.minmax  = do.call("dist.minmax",   list(x = input.freq.table[,1:mfw]))
+        distance.table.simple  = do.call("dist.simple",   list(x = input.freq.table))
+        distance.table.cosine  = do.call("dist.cosine",   list(x = input.freq.table))
+        distance.table.entropy = do.call("dist.entropy",  list(x = input.freq.table))
+        distance.table.minmax  = do.call("dist.minmax",   list(x = input.freq.table))
         distance.table.wuerzburg = do.call("dist.wurzburg", list(x = table.with.all.zscores[,1:mfw]))
         distance.table.delta = do.call("dist.delta", list(x = table.with.all.zscores[,1:mfw], scale = FALSE))
         distance.table.eder = do.call("dist.eder", list(x = table.with.all.zscores[,1:mfw], scale = FALSE))
         distance.table.argamon = do.call("dist.argamon", list(x = table.with.all.zscores[,1:mfw], scale = FALSE))
-        distance.table.dcor = do.call("dist.dcor", list(x = table.with.all.zscores[,1:mfw], exp = 1.5,  scale = FALSE))
+        distance.table.dcor = do.call("dist.dcor", list(x = input.freq.table, exp = 1.5,  scale = FALSE))
+        distance.table.helli = do.call("dist.helli", list(x = input.freq.table))
+        distance.table.wasser = do.call("dist.wasser", list(x = input.freq.table))
         
         
         le <- nrow(distance.table.manhatten)
@@ -1207,6 +1240,8 @@ if( comparedistences ){
         
         mm <- max( c(max(distance.table.manhatten[1,][-1]),max(distance.table.euclidean[1,][-1]), max(distance.table.canberra[1,][-1]), max(distance.table.simple[xach]), max(distance.table.cosine[xach]), max(distance.table.eder[xach])) )
         
+        
+
         jpeg(filename = paste("distvergl","_%03d",".jpg",sep=""),
             width=plot.custom.width,height=plot.custom.height,
             units="in",res=300,pointsize=plot.font.size)
@@ -1242,6 +1277,11 @@ if( comparedistences ){
         text( x=((le-1)+0.5), y=(tail(distance.table.argamon[xach], n=1)*mm), "Argamon")
         lines(xach, (distance.table.dcor[1,][-1]*mm ) ,type="b",col="darkred", pch=12,lty=1, lwd=1)
         text( x=((le-1)+0.5), y=(tail(distance.table.dcor[1,][-1], n=1)*mm), "DCOR")
+        lines(xach, (distance.table.helli[1,][-1]*mm ) ,type="b",col="darkred", pch=13,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=(tail(distance.table.helli[1,][-1], n=1)*mm), "Hellinger")
+        lines(xach, (distance.table.wasser[1,][-1]*mm ) ,type="b",col="darkred", pch=14,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=(tail(distance.table.wasser[1,][-1], n=1)*mm), "Wasserstein1D")
+
         title( main="Vergleich von Distanzen", xlab=paste("Texte zum Bezugstext: ", rn[1]), ylab="Distanzwerte", font.main=4, font.lab=4, font.sub=4, cex.main=1.5, cex.lab=1.1, cex.sub=1.2)
         axis(1, at=xach, labels=rn[-1], las=2)
         

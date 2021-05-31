@@ -163,6 +163,10 @@ write.svg.file = TRUE
 write.png.file = TRUE
 dump.samples = TRUE
 
+# export plots of text vers text and t1 versus all othe rtexts in terms of dist
+
+dump.vergleich = FALSE
+
 # dimensions of the plot area (expressed in inches), font size,
 # thickness of the lines used to plot the graphs.
 # Since it is usually hard to remember all the values, an additional option

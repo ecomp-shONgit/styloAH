@@ -84,6 +84,7 @@ gui.stylo = function(...) {
   display.on.screen = variables$display.on.screen
   distance.measure = variables$distance.measure
   dump.samples = variables$dump.samples
+  dump.vergleich = variables$dump.vergleich
   encoding = variables$encoding
   final.ranking.of.candidates = variables$final.ranking.of.candidates
   how.many.correct.attributions = variables$how.many.correct.attributions
@@ -300,6 +301,7 @@ gui.stylo = function(...) {
   add.to.margins <- tclVar(add.to.margins)
   label.offset <- tclVar(label.offset)
   dump.samples <- tclVar(dump.samples)
+  dump.vergleich <- tclVar(dump.vergleich)
   encoding <- tclVar(encoding)
   
   
@@ -593,6 +595,7 @@ gui.stylo = function(...) {
   eof6 <- tkradiobutton(f2)
   eof7 <- tkradiobutton(f2)
   eof8 <- tkradiobutton(f2)
+  eof9 <- tkradiobutton(f2)
    
   
   tkconfigure(eof1,variable=analyzed.features,value="sepdia")
@@ -603,6 +606,7 @@ gui.stylo = function(...) {
   tkconfigure(eof6,variable=analyzed.features,value="syl")
   tkconfigure(eof7,variable=analyzed.features,value="hbc1")
   tkconfigure(eof8,variable=analyzed.features,value="hbc2")
+  tkconfigure(eof9,variable=analyzed.features,value="smwpa")
 
   eof1_l <- tklabel(f2,text="sep. diac.")
   eof2_l <- tklabel(f2,text="no consonants")
@@ -612,11 +616,12 @@ gui.stylo = function(...) {
   eof6_l <- tklabel(f2,text="pseudo syllables")
   eof7_l <- tklabel(f2,text="head-body-coda")
   eof8_l <- tklabel(f2,text="all partitions")
+  eof9_l <- tklabel(f2,text="SMWPA")
 
   tkgrid(tklabel(f2,text="  Other FEATURES:"), eof1_l, eof2_l, eof3_l, eof4_l)
   tkgrid(tklabel(f2,text="                 "), eof1,eof2,eof3,eof4)
-  tkgrid(tklabel(f2,text="                 "), eof5_l, eof6_l, eof7_l, eof8_l)
-  tkgrid(tklabel(f2,text="                 "), eof5,eof6,eof7,eof8)
+  tkgrid(tklabel(f2,text="                 "), eof5_l, eof6_l, eof7_l, eof8_l, eof9_l)
+  tkgrid(tklabel(f2,text="                 "), eof5,eof6,eof7,eof8, eof9)
   # next row: MFW SETTINGS
   #
   entry_MFW_MIN <- tkentry(f2,textvariable=mfw.min,width="8")
@@ -748,6 +753,8 @@ gui.stylo = function(...) {
   entry_CS <- tkradiobutton(f3)
   entry_MM <- tkradiobutton(f3)
   entry_DC <- tkradiobutton(f3)
+  entry_HI <- tkradiobutton(f3)
+  entry_WA <- tkradiobutton(f3)
   #
   tkconfigure(entry_CD,variable=distance.measure,value="delta")
   tkconfigure(entry_WD,variable=distance.measure,value="wurzburg")
@@ -760,6 +767,8 @@ gui.stylo = function(...) {
   tkconfigure(entry_CS,variable=distance.measure,value="cosine")
   tkconfigure(entry_MM,variable=distance.measure,value="minmax")
   tkconfigure(entry_DC,variable=distance.measure,value="dcor")
+  tkconfigure(entry_HI,variable=distance.measure,value="helli")
+  tkconfigure(entry_WA,variable=distance.measure,value="wasser")
   #
   entrylabel_CD <- tklabel(f3,text="Classic Delta")
   entrylabel_WD <- tklabel(f3,text="Cosine Delta")
@@ -771,12 +780,14 @@ gui.stylo = function(...) {
   entrylabel_EU <- tklabel(f3,text="Euclidean")
   entrylabel_CS <- tklabel(f3,text="Cosine")
   entrylabel_MM <- tklabel(f3,text="Min-Max")
-  entrylabel_DC <- tklabel(f3,text="DistCor")
+  entrylabel_DC <- tklabel(f3,text="DCor")
+  entrylabel_HI <- tklabel(f3,text="Hellinger")
+  entrylabel_WA <- tklabel(f3,text="Wasserst1D")
   #
   tkgrid(tklabel(f3,text="  DELTA DISTANCE:  "),entrylabel_CD,entrylabel_WD,entrylabel_ED,entrylabel_ES,entrylabel_EN)
   tkgrid(tklabel(f3,text="            "),entry_CD,entry_WD,entry_ED,entry_ES,entry_EN)
-  tkgrid(tklabel(f3,text="            "),entrylabel_MH,entrylabel_CB,entrylabel_EU,entrylabel_CS,entrylabel_MM, entrylabel_DC)
-  tkgrid(tklabel(f3,text="            "),entry_MH,entry_CB,entry_EU,entry_CS,entry_MM, entry_DC)
+  tkgrid(tklabel(f3,text="            "),entrylabel_MH,entrylabel_CB,entrylabel_EU,entrylabel_CS,entrylabel_MM, entrylabel_DC, entrylabel_HI, entrylabel_WA)
+  tkgrid(tklabel(f3,text="            "),entry_MH,entry_CB,entry_EU,entry_CS,entry_MM, entry_DC, entry_HI, entry_WA)
   tkgrid(tklabel(f3,text="    ")) # blank line for aesthetic purposes
   
   # Tooltips for the above
@@ -791,6 +802,8 @@ gui.stylo = function(...) {
   tk2tip(entrylabel_CS, "Select Cosine Distance (a classic distance in multidimensional methods).")
   tk2tip(entrylabel_MM, "Select Min-Max distance (aka Ruzicka distance).")
   tk2tip(entrylabel_DC, "Select Distance Correlation also called Distance Covariation or Brownian Correlation.")
+  tk2tip(entrylabel_DC, "Select Hellinger Distance.")
+  tk2tip(entrylabel_DC, "Select Wasserstein 1D distance.")
   
   
   # next row: SAMPLING
@@ -851,6 +864,7 @@ gui.stylo = function(...) {
   cb_FEATURESAVE <- tkcheckbutton(f5)
   cb_FREQSAVE <-tkcheckbutton(f5)
   cb_DUMPSAMPLES<-tkcheckbutton(f5)
+  cb_VERGLEICH<-tkcheckbutton(f5)
   
   tkconfigure(entry_LABELS, variable=text.id.on.graphs, value="labels")
   tkconfigure(entry_POINTS, variable=text.id.on.graphs, value="points")
@@ -880,6 +894,7 @@ gui.stylo = function(...) {
   tkconfigure(cb_FEATURESAVE,variable=save.analyzed.features)
   tkconfigure(cb_FREQSAVE,variable=save.analyzed.freqs)
   tkconfigure(cb_DUMPSAMPLES,variable=dump.samples)
+  tkconfigure(cb_VERGLEICH,variable=dump.vergleich)
   
   
   #
@@ -911,6 +926,7 @@ gui.stylo = function(...) {
   cblabel_FEATURESAVE <- tklabel(f5,text="Save features")
   cblabel_FREQSAVE <- tklabel(f5,text="Save frequencies")
   cblabel_DUMPSAMPLES <- tklabel(f5,text="Dump samples")
+  cblabel_VERGLEICH <- tklabel(f5,text="Vergleich")
   
   
   #
@@ -927,8 +943,8 @@ gui.stylo = function(...) {
   tkgrid(tklabel(f5,text="    ")) # blank line for aesthetic purposes
   tkgrid(tklabel(f5,text="PCA FLAVOUR:"), entrylabel_CLASSIC, entrylabel_LOADINGS, entrylabel_TECHNICAL, entrylabel_SYMBOLS, columnspan=5)
   tkgrid(tklabel(f5,text="            "), entry_CLASSIC, entry_LOADINGS, entry_TECHNICAL, entry_SYMBOLS, columnspan=5)
-  tkgrid(tklabel(f5,text="    VARIOUS:"), cblabel_HORIZ,cblabel_TABLESAVE,cblabel_FEATURESAVE,cblabel_FREQSAVE,cblabel_DUMPSAMPLES, columnspan=5)
-  tkgrid(tklabel(f5,text="            "), cb_HORIZ,cb_TABLESAVE,cb_FEATURESAVE,cb_FREQSAVE,cb_DUMPSAMPLES, columnspan=5)
+  tkgrid(tklabel(f5,text="    VARIOUS:"), cblabel_HORIZ,cblabel_TABLESAVE,cblabel_FEATURESAVE,cblabel_FREQSAVE,cblabel_DUMPSAMPLES, cblabel_VERGLEICH, columnspan=5)
+  tkgrid(tklabel(f5,text="            "), cb_HORIZ,cb_TABLESAVE,cb_FEATURESAVE,cb_FREQSAVE,cb_DUMPSAMPLES,cb_VERGLEICH, columnspan=5)
   tkgrid(tklabel(f5,text="    ")) # blank line for aesthetic purposes
   
   # Tooltips for the above
@@ -1075,6 +1091,7 @@ gui.stylo = function(...) {
   variables$write.svg.file = as.logical(as.numeric(tclvalue(write.svg.file)))
   variables$write.png.file = as.logical(as.numeric(tclvalue(write.png.file)))
   variables$dump.samples = as.logical(as.numeric(tclvalue(dump.samples)))
+  variables$dump.vergleich = as.logical(as.numeric(tclvalue(dump.vergleich)))
   variables$colors.on.graphs = as.character(tclvalue(colors.on.graphs))
   variables$pca.visual.flavour = as.character(tclvalue(pca.visual.flavour))
   variables$titles.on.graphs = as.logical(as.numeric(tclvalue(titles.on.graphs)))

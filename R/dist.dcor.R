@@ -81,7 +81,7 @@ function( x, exp = 1.5, scale = TRUE ){
         for( m in 1:le ){
                 if(m != n){
                    cccc = DCOR( x[n,], x[m,], exp )
-                   dcccc = 1-cccc$dCor
+                   dcccc = 1.0 - cccc$dCor
                    y[n,m] = dcccc
                 } else if( m < n ){ #little speedup
                    y[n,m] = y[n,m]
