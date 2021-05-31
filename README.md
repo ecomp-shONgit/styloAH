@@ -8,6 +8,7 @@ We added a few Greek language specific normalization functions and some feature 
 ![ScreenShot](man/richtigscreen.png)
 ![ScreenShot](man/featuresscreen.png)
 ![ScreenShot](man/st.png)
+![ScreenShot](man/out.png)
 
 ## Install / regular start
 
@@ -94,12 +95,18 @@ This list shows the should give you a notion of the function behind the GUI conf
 
 **all partitions** Every token is splited into all possible permutations öletters distributed over head, body and tail. Example: "man" "m a n, ma n -, m an -".
 
-## USAGE: Distance messure
+## USAGE: Distance messure (STATISTICS)
 
-**DistCor**: A messure derived from the bona fide vector correlation called distance correlation. We use the R implementation from the energy R package. This implemenation is a little slow. Working on a own implementation / using C implementation.
+**DCor**: A messure derived from the bona fide vector correlation called distance correlation. We use the R implementation from the energy R package. This implemenation is a little slow. Working on a own implementation / using C implementation.
+
+**Hillinger**: Use Hillinger distance computation.
+
+**Wasserst1D**: Use Wasserstein transport implementation as distance computation.
 
 
+## USAGE: OUTPUT
 
+**Vergleich**: Do save a plot of the vector of propabilities of text 1 versus all other text vectors. And a plot of the distances between text 1 and all other texts.
 
 # stylo: R package for stylometric analyses
 
