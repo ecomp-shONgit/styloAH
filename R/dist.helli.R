@@ -5,6 +5,27 @@
 # Argument: a matrix or data table containing at least 2 rows and 2 cols 
 #
 
+hellinger <-
+function(x,
+         y,
+         lower = -Inf,
+         upper = Inf,
+         method = 1,
+         ...)
+{
+  fx <- densityfun(x, ...)
+  fy <- densityfun(y, ...)
+  if (method == 1) {
+    g <- function(z) (fx(z)^0.5 - fy(z)^0.5)^2
+    h2 <- stats::integrate(g, lower, upper, rel.tol=.Machine$double.eps^.05)$value/2
+  } else if (method == 2) {
+    g <- function(z) (fx(z)*fy(z))^0.5
+    h2 <- 1 - stats::integrate(g, lower, upper, rel.tol=.Machine$double.eps^.05)$value
+  } else {
+    stop("incorrect 'method' argument", call. = FALSE)
+  }
+  sqrt(h2)
+}
 
 dist.helli <- 
 function( x ){
