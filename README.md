@@ -109,7 +109,7 @@ This list shows the should give you a notion of the function behind the GUI conf
 
 **Jenson-Shannon**: Use Jenson Shannon divergence as "distance" computation.
 
-**Kallback-Leibler**: Use Kallback-Leibler divergence implementation as distance computation.
+**Kullback-Leibler**: Use Kullback-Leibler divergence implementation as distance computation.
 
 
 ## USAGE: OUTPUT
