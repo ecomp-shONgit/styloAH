@@ -55,7 +55,7 @@ print("Build and install stylo AH:")
 #install.packages("energy_1.7-8.tar.gz", repos = NULL)
 file.rename("stylo-master", "stylo") #just in case
 system("R CMD build stylo") #build downloaded version
-install.packages("stylo_0.7.4.5.tar.gz", repos = NULL)
+install.packages("stylo_0.7.4.6.tar.gz", repos = NULL)
 
 
 print("Working directory for stylo AH:")

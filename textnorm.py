@@ -360,6 +360,10 @@ def disambiguDIAkritika( astr ):
     astr = re.sub( diam3, "\u2019", astr)
     return astr
 
+def gravisakut( astr ):
+    astring = re.sub( diacriticsunicodeRegExp[10], "\u00B4", astring )
+    return astring
+
 def disambiguadashes( astring ):
     astring = re.sub( cleangeviert, '-', astring)
     astring = re.sub( cleanhalbgeviert, '-', astring)
@@ -638,13 +642,13 @@ diacriticsunicodeRegExp = [
 	re.compile("\u0314".encode("utf-8").decode("utf-8") ), 
 	re.compile("\u0300".encode("utf-8").decode("utf-8") ), 
 	re.compile("\u0301".encode("utf-8").decode("utf-8")), 
-	re.compile("\u00B4".encode("utf-8").decode("utf-8")), 
+	re.compile("\u00B4".encode("utf-8").decode("utf-8")), #akkut 4
 	re.compile("\u02CA".encode("utf-8").decode("utf-8")), 
 	re.compile("\u02B9".encode("utf-8").decode("utf-8")), 
 	re.compile("\u0342".encode("utf-8").decode("utf-8")), 
 	re.compile("\u0308".encode("utf-8").decode("utf-8")), 
 	re.compile("\u0304".encode("utf-8").decode("utf-8")), 
-	re.compile("\u0306".encode("utf-8").decode("utf-8")) ]
+	re.compile("\u0306".encode("utf-8").decode("utf-8")) ] #Gravis 10
 
 # def takes string, splits it with jota subscriptum and joins the string again using jota adscriptum
 regJotaSub = re.compile( '\u0345'.encode("utf-8").decode("utf-8") )
