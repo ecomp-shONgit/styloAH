@@ -25,7 +25,8 @@ tn.nor = function(input.text,
 		trnom.uv = FALSE,
 		trnom.ji = FALSE,
 		trnom.hyph= FALSE,
-		trnom.alphapriv = FALSE) {
+		trnom.alphapriv = FALSE,
+        trnom.gravistoakut = FALSE) {
          	  
         # since the function can be applied to lists and vectors,
         # we need to define an internal function that will be applied afterwards
@@ -48,7 +49,8 @@ tn.nor = function(input.text,
 			trnom.uv = trnom.uv,
 			trnom.ji = trnom.ji,
 			trnom.hyph = trnom.hyph,
-			trnom.alphapriv = trnom.alphapriv) {
+			trnom.alphapriv = trnom.alphapriv,
+            trnom.gravistoakut = trnom.gravistoakut) {
 			#message(trnom.alldel)
 			#message("in tnnorr")
 			
@@ -66,6 +68,12 @@ tn.nor = function(input.text,
     		if( trnom.disambidia == TRUE ){
     		    #start_time = Sys.time()
     			preprocessed.text = disambiguDIAkritika( preprocessed.text )
+    			#e_time = Sys.time()
+    			#message("after Disambigu Diak ", e_time-start_time)
+    		}
+            if( trnom.gravistoakut == TRUE ){
+    		    #start_time = Sys.time()
+    			preprocessed.text = gravisakut( preprocessed.text )
     			#e_time = Sys.time()
     			#message("after Disambigu Diak ", e_time-start_time)
     		}

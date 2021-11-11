@@ -175,6 +175,7 @@ trnom.uv = variables$trnom.uv
 trnom.ji = variables$trnom.ji
 trnom.hyph = variables$trnom.hyph
 trnom.alphapriv = variables$trnom.alphapriv
+trnom.gravistoakut = variables$trnom.gravistoakut
 
 
 # variables not available on GUI (yet)
@@ -673,7 +674,9 @@ if(corpus.exists == FALSE) {
 			trnom.uv = trnom.uv,
 			trnom.ji = trnom.ji,
 			trnom.hyph = trnom.hyph,
-			trnom.alphapriv = trnom.alphapriv)
+			trnom.alphapriv = trnom.alphapriv,
+            trnom.gravistoakut = trnom.gravistoakut
+            )
 }
 time_afterloadnorm = Sys.time()
 message("Corpus loaded and normalized: ", time_afterloadnorm - start_time, " sec")
@@ -890,6 +893,8 @@ var.name(trnom.uv)
 var.name(trnom.ji)
 var.name(trnom.hyph)
 var.name(trnom.alphapriv)
+var.name(trnom.gravistoakut)
+
 
 # #############################################################################
 
@@ -1126,7 +1131,7 @@ input.freq.table = table.with.all.freqs[,1:mfw]
 supported.measures = c("dist.euclidean", "dist.manhattan", "dist.canberra",
                        "dist.delta", "dist.eder", "dist.argamon",
                        "dist.simple", "dist.cosine", "dist.wurzburg",
-                       "dist.entropy", "dist.minmax", "dist.dcor", "dist.helli", "dist.wasser")
+                       "dist.entropy", "dist.minmax", "dist.dcor", "dist.helli", "dist.wasser", "dist.jenshan", "dist.kulllei")
 
 
 
@@ -1186,7 +1191,17 @@ if(length(grep(distance.measure, supported.measures)) > 1 ) {
          distance.table = do.call(distance, list(x = input.freq.table))
          #print(distance.table)
          #write.table(distance.table, file = "distance.table.txt", sep = " ", row.names = TRUE, col.names = TRUE)
-    } else {
+    } else if(distance == "dist.jenshan") {
+         # stylo AHE provides distance correlation as a distance meassure
+         distance.table = do.call(distance, list(x = input.freq.table))
+         #print(distance.table)
+         #write.table(distance.table, file = "distance.table.txt", sep = " ", row.names = TRUE, col.names = TRUE)
+    } else if(distance == "dist.kulllei") {
+         # stylo AHE provides distance correlation as a distance meassure
+         distance.table = do.call(distance, list(x = input.freq.table))
+         #print(distance.table)
+         #write.table(distance.table, file = "distance.table.txt", sep = " ", row.names = TRUE, col.names = TRUE)
+    }else {
         distance.table = do.call(distance, list(x = table.with.all.zscores[,1:mfw], scale = FALSE))    
     }
 
@@ -1232,6 +1247,8 @@ if( dump.vergleich ){
         distance.table.dcor = do.call("dist.dcor", list(x = input.freq.table, exp = 1.5,  scale = FALSE))
         distance.table.helli = do.call("dist.helli", list(x = input.freq.table))
         distance.table.wasser = do.call("dist.wasser", list(x = input.freq.table))
+        distance.table.jenshan = do.call("dist.jenshan", list(x = input.freq.table))
+        distance.table.kulllei = do.call("dist.kulllei", list(x = input.freq.table))
         
         
         le <- nrow(distance.table.manhatten)
@@ -1281,6 +1298,10 @@ if( dump.vergleich ){
         text( x=((le-1)+0.5), y=(tail(distance.table.helli[1,][-1], n=1)*mm), "Hellinger")
         lines(xach, (distance.table.wasser[1,][-1]*mm ) ,type="b",col="darkred", pch=14,lty=1, lwd=1)
         text( x=((le-1)+0.5), y=(tail(distance.table.wasser[1,][-1], n=1)*mm), "Wasserstein1D")
+        lines(xach, (distance.table.jenshan[1,][-1]*mm ) ,type="b",col="green", pch=15,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=(tail(distance.table.jenshan[1,][-1], n=1)*mm), "Jenson-Shannon")
+        lines(xach, (distance.table.kulllei[1,][-1]*mm ) ,type="b",col="darkgreen", pch=16,lty=1, lwd=1)
+        text( x=((le-1)+0.5), y=(tail(distance.table.kulllei[1,][-1], n=1)*mm), "Kullback-Leibler")
 
         title( main="Vergleich von Distanzen", xlab=paste("Texte zum Bezugstext: ", rn[1]), ylab="Distanzwerte", font.main=4, font.lab=4, font.sub=4, cex.main=1.5, cex.lab=1.1, cex.sub=1.2)
         axis(1, at=xach, labels=rn[-1], las=2)

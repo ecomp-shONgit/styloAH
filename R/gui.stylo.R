@@ -153,6 +153,7 @@ gui.stylo = function(...) {
   trnom.ji = variables$trnom.ji
   trnom.hyph = variables$trnom.hyph
   trnom.alphapriv = variables$trnom.alphapriv
+  trnom.gravistoakut = variables$trnom.gravistoakut
   # #############################################################################
   
   
@@ -252,7 +253,8 @@ gui.stylo = function(...) {
   
   #
   trnom.alphapriv <- tclVar(trnom.alphapriv)
-  
+  trnom.gravistoakut <- tclVar(trnom.gravistoakut)
+
   #STYLO VARS
   
   corpus.format <- tclVar(corpus.format)
@@ -755,6 +757,8 @@ gui.stylo = function(...) {
   entry_DC <- tkradiobutton(f3)
   entry_HI <- tkradiobutton(f3)
   entry_WA <- tkradiobutton(f3)
+  entry_JS <- tkradiobutton(f3)
+  entry_KL <- tkradiobutton(f3)
   #
   tkconfigure(entry_CD,variable=distance.measure,value="delta")
   tkconfigure(entry_WD,variable=distance.measure,value="wurzburg")
@@ -769,6 +773,8 @@ gui.stylo = function(...) {
   tkconfigure(entry_DC,variable=distance.measure,value="dcor")
   tkconfigure(entry_HI,variable=distance.measure,value="helli")
   tkconfigure(entry_WA,variable=distance.measure,value="wasser")
+  tkconfigure(entry_JS,variable=distance.measure,value="jenshan")
+  tkconfigure(entry_KL,variable=distance.measure,value="kulllei")
   #
   entrylabel_CD <- tklabel(f3,text="Classic Delta")
   entrylabel_WD <- tklabel(f3,text="Cosine Delta")
@@ -783,11 +789,15 @@ gui.stylo = function(...) {
   entrylabel_DC <- tklabel(f3,text="DCor")
   entrylabel_HI <- tklabel(f3,text="Hellinger")
   entrylabel_WA <- tklabel(f3,text="Wasserst1D")
+  entrylabel_JS <- tklabel(f3,text="Jensen-Shannon")
+  entrylabel_KL <- tklabel(f3,text="Kullback-Leibler")
   #
   tkgrid(tklabel(f3,text="  DELTA DISTANCE:  "),entrylabel_CD,entrylabel_WD,entrylabel_ED,entrylabel_ES,entrylabel_EN)
   tkgrid(tklabel(f3,text="            "),entry_CD,entry_WD,entry_ED,entry_ES,entry_EN)
-  tkgrid(tklabel(f3,text="            "),entrylabel_MH,entrylabel_CB,entrylabel_EU,entrylabel_CS,entrylabel_MM, entrylabel_DC, entrylabel_HI, entrylabel_WA)
-  tkgrid(tklabel(f3,text="            "),entry_MH,entry_CB,entry_EU,entry_CS,entry_MM, entry_DC, entry_HI, entry_WA)
+  tkgrid(tklabel(f3,text="            "),entrylabel_MH,entrylabel_CB,entrylabel_EU,entrylabel_CS,entrylabel_MM)
+  tkgrid(tklabel(f3,text="            "),entry_MH,     entry_CB,     entry_EU,     entry_CS,     entry_MM )
+  tkgrid(tklabel(f3,text="            "),entrylabel_DC, entrylabel_HI, entrylabel_WA,entrylabel_JS,entrylabel_KL)
+  tkgrid(tklabel(f3,text="            "),entry_DC, entry_HI, entry_WA, entry_HI, entry_JS, entry_KL)
   tkgrid(tklabel(f3,text="    ")) # blank line for aesthetic purposes
   
   # Tooltips for the above
@@ -804,7 +814,8 @@ gui.stylo = function(...) {
   tk2tip(entrylabel_DC, "Select Distance Correlation also called Distance Covariation or Brownian Correlation.")
   tk2tip(entrylabel_DC, "Select Hellinger Distance.")
   tk2tip(entrylabel_DC, "Select Wasserstein 1D distance.")
-  
+  tk2tip(entrylabel_DC, "Select Jensen-Shannon Distance.")
+  tk2tip(entrylabel_DC, "Select Kullback-Leibler Divergence.")
   
   # next row: SAMPLING
   entry_SAMP <- tkradiobutton(f4)
@@ -1000,7 +1011,8 @@ gui.stylo = function(...) {
   entry_norm17 <- tkcheckbutton(f6) #1
   entry_norm18 <- tkcheckbutton(f6) #1
   entry_norm19 <- tkcheckbutton(f6) #1
-  
+  entry_norm20 <- tkcheckbutton(f6) #1
+
   tkconfigure(entry_norm1, variable=trnom.disambidia)
   tkconfigure(entry_norm2, variable=trnom.repbehau)
   tkconfigure(entry_norm3, variable=trnom.expael)
@@ -1020,6 +1032,7 @@ gui.stylo = function(...) {
   tkconfigure(entry_norm17, variable=trnom.ji)
   tkconfigure(entry_norm18, variable=trnom.hyph)
   tkconfigure(entry_norm19, variable=trnom.alphapriv)
+  tkconfigure(entry_norm20, variable=trnom.gravistoakut)
   
   entrylabel_norm1 <- tklabel(f6,text="Disam. diacrit.")
   entrylabel_norm2 <- tklabel(f6,text="Replace diacrit.")
@@ -1041,6 +1054,7 @@ gui.stylo = function(...) {
   entrylabel_norm17 <- tklabel(f6,text="IJ (Latin)")
   entrylabel_norm18 <- tklabel(f6,text="Handle hyphenation")
   entrylabel_norm19 <- tklabel(f6,text="Alpha privativum")
+  entrylabel_norm20 <- tklabel(f6,text="Gravis 2 Akut")
   
   
   
@@ -1050,8 +1064,8 @@ gui.stylo = function(...) {
   tkgrid( entrylabel_norm6,entrylabel_norm7,entrylabel_norm8,entrylabel_norm9,entrylabel_norm10)
   tkgrid( entry_norm11,entry_norm12,entry_norm13,entry_norm14,entry_norm15 )
   tkgrid( entrylabel_norm11,entrylabel_norm12,entrylabel_norm13,entrylabel_norm14,entrylabel_norm15)
-  tkgrid( entry_norm16,entry_norm17,entry_norm18,entry_norm19 )
-  tkgrid( entrylabel_norm16,entrylabel_norm17,entrylabel_norm18,entrylabel_norm19)
+  tkgrid( entry_norm16,entry_norm17,entry_norm18,entry_norm19, entry_norm20 )
+  tkgrid( entrylabel_norm16,entrylabel_norm17,entrylabel_norm18,entrylabel_norm19, entrylabel_norm20)
   
   # wait until we have input
   tkwait.window(tt)
@@ -1137,6 +1151,7 @@ gui.stylo = function(...) {
   variables["trnom.ji"] <- as.logical(as.numeric(tclvalue(trnom.ji)))
   variables["trnom.hyph"] <- as.logical(as.numeric(tclvalue(trnom.hyph)))
   variables["trnom.alphapriv"] <- as.logical(as.numeric(tclvalue(trnom.alphapriv)))
+  variables["trnom.gravistoakut"] <- as.logical(as.numeric(tclvalue(trnom.gravistoakut)))
   
   #print(variables)
   

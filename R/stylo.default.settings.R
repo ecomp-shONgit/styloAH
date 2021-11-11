@@ -523,7 +523,7 @@ trnom.uv = FALSE
 trnom.ji = FALSE
 trnom.hyph = TRUE
 trnom.alphapriv = TRUE
-
+trnom.gravistoakut = TRUE
 
 
 
