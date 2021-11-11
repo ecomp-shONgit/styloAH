@@ -77,6 +77,8 @@ This list gives you a notion of the normalization function behind the GUI check 
 
 **Del. Unterpunkte**: Replace underdots from inscription / papyri texts.
 
+**Gravis 2 Akut**: Replace Gravis with Akut.
+
 ## USAGE: Features
 
 This list shows the should give you a notion of the function behind the GUI configurations:
@@ -104,6 +106,10 @@ This list shows the should give you a notion of the function behind the GUI conf
 **Hillinger**: Use Hillinger distance computation.
 
 **Wasserst1D**: Use Wasserstein transport implementation as distance computation.
+
+**Jenson-Shannon**: Use Jenson Shannon divergence as "distance" computation.
+
+**Kallback-Leibler**: Use Kallback-Leibler divergence implementation as distance computation.
 
 
 ## USAGE: OUTPUT
