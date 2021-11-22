@@ -39,7 +39,10 @@ makekulllei <- function( v1, v2 ){
     ll <- length(v1)
     sdiver = 0.0
     for( n in 1:ll ){
-        sdiver = sdiver+(v1[n]*log10(v1[n]/v2[n]))
+        message(sdiver, "  ",v1[n]*log10(v1[n]/v2[n]), " v1n ",v1[n], " log ", log10(v1[n]/v2[n]), " v d m ", v1[n]/v2[n], " mn ",v2[n], "\n" )
+        if( v1[n] != 0 && v2[n] != 0 ){
+            sdiver = sdiver+(v1[n]*log10(v1[n]/v2[n]))
+        }
     }
     return( sdiver )
 }

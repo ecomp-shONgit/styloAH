@@ -33,7 +33,7 @@ function( x, exp = 1.5, scale = TRUE ){
                 }
         }
     }
-    
+    message(y)
     return(y)
     
     
@@ -48,9 +48,18 @@ makejenshan <- function( v1, v2 ){
     for( n in 1:ll ){
         m[n] = (v1[n]+v2[n])/2
     }
+    
     for( n in 1:ll ){
-        sdiver = sdiver+(v1[n]*log10(v1[n]/m[n]))/2
-        rdiver = rdiver+(v2[n]*log10(v2[n]/m[n]))/2
+        #message(sdiver, "  ",v1[n]*log10(v1[n]/m[n]), " v1n ",v1[n], " log ", log10(v1[n]/m[n]), " v d m ", v1[n]/m[n], " mn ",m[n], "\n" )
+        
+        if(v1[n] != 0){
+            sdiver = sdiver+(v1[n]*log10(v1[n]/m[n]))/2
+        }
+        
+        if(v2[n] != 0){ 
+            rdiver = rdiver+(v2[n]*log10(v2[n]/m[n]))/2
+        }
+        
     }
     return( sdiver+rdiver )
 }

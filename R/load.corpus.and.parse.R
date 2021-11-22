@@ -47,7 +47,8 @@ load.corpus.and.parse = function(files = "all",
 	trnom.uv = FALSE,
 	trnom.ji = FALSE,
 	trnom.hyph = FALSE,
-	trnom.alphapriv = FALSE) {
+	trnom.alphapriv = FALSE,
+    trnom.gravistoakut = FALSE) {
 
 
   # first, checking which files were requested; usually, the user is 
@@ -59,15 +60,16 @@ load.corpus.and.parse = function(files = "all",
 loaded.corpus = load.corpus(files = files,
                               corpus.dir = corpus.dir,
                               encoding = encoding)
+#message(length(loaded.corpus))
   # dropping file extensions from sample names
   names(loaded.corpus) = gsub("(\\.txt$)||(\\.xml$)||(\\.html$)||(\\.htm$)","",
                          names(loaded.corpus) )
   message("Text normalization...")
   # deleting xml/html markup by applying the function "delete.markup"
   loaded.corpus = lapply(loaded.corpus, delete.markup, markup.type = markup.type)
-  
+  #
   numCores <- detectCores( ) # change this to numCores = numCores - 1 maybe
-  
+  #message(numCores)
   loaded.corpus = mclapply( loaded.corpus,
              FUN=tn.nor, 
             trnom.disambidia = trnom.disambidia,
@@ -89,29 +91,32 @@ loaded.corpus = load.corpus(files = files,
 			trnom.ji = trnom.ji,
 			trnom.hyph = trnom.hyph,
 			trnom.alphapriv = trnom.alphapriv,
-             mc.cores = numCores)
-             
+            trnom.gravistoakut = trnom.gravistoakut,
+            mc.cores = numCores)
+    
+   #message(loaded.corpus )          
   # normalization stylo AH edition
-  #loaded.corpus = lapply(loaded.corpus, tn.nor, 
+ # loaded.corpus = lapply(loaded.corpus, tn.nor, 
   #          trnom.disambidia = trnom.disambidia,
-#			trnom.repbehau = trnom.repbehau,
-#			trnom.expael = trnom.expael,
-#			trnom.translitgr = trnom.translitgr,
-#			trnom.iota = trnom.iota,
-#			trnom.alldel = trnom.alldel,
-#			trnom.numbering = trnom.numbering,
-#			trnom.ligdel = trnom.ligdel,
-#			trnom.unterpunkt = trnom.unterpunkt,
-#			trnom.interdel = trnom.interdel,
-#			trnom.unkown = trnom.unkown,
-#			trnom.umbr = trnom.umbr,
-#			trnom.mak = trnom.mak,
-#			trnom.sigma = trnom.sigma,
-#			trnom.klam = trnom.klam,
-#			trnom.uv = trnom.uv,
-#			trnom.ji = trnom.ji,
-#			trnom.hyph = trnom.hyph,
-#			trnom.alphapriv = trnom.alphapriv)
+	#		trnom.repbehau = trnom.repbehau,
+	#		trnom.expael = trnom.expael,
+	#		trnom.translitgr = trnom.translitgr,
+	#		trnom.iota = trnom.iota,
+	#		trnom.alldel = trnom.alldel,
+	#		trnom.numbering = trnom.numbering,
+	#		trnom.ligdel = trnom.ligdel,
+	#		trnom.unterpunkt = trnom.unterpunkt,
+	#		trnom.interdel = trnom.interdel,
+	#		trnom.unkown = trnom.unkown,
+	#		trnom.umbr = trnom.umbr,
+	#		trnom.mak = trnom.mak,
+	#		trnom.sigma = trnom.sigma,
+	#		trnom.klam = trnom.klam,
+	#		trnom.uv = trnom.uv,
+	#		trnom.ji = trnom.ji,
+	#		trnom.hyph = trnom.hyph,
+	#		trnom.alphapriv = trnom.alphapriv,
+     #      trnom.gravistoakut = trnom.gravistoakut)
   
   # deleting punctuation, splitting into words
   message("Slicing input text into words...\n")

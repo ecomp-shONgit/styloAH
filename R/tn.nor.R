@@ -6,8 +6,9 @@
 # #################################################
 
 
-tn.nor = function(input.text, 
-         	  trnom.disambidia = FALSE,
+tn.nor = function(
+        input.text, 
+        trnom.disambidia = FALSE,
 		trnom.repbehau = FALSE,
 		trnom.expael = FALSE,
 		trnom.translitgr = FALSE,
@@ -26,7 +27,7 @@ tn.nor = function(input.text,
 		trnom.ji = FALSE,
 		trnom.hyph= FALSE,
 		trnom.alphapriv = FALSE,
-        trnom.gravistoakut = FALSE) {
+        trnom.gravistoakut = FALSE ) {
          	  
         # since the function can be applied to lists and vectors,
         # we need to define an internal function that will be applied afterwards
@@ -58,10 +59,10 @@ tn.nor = function(input.text,
 			
 			# replace unterpunkt
   			if( trnom.unterpunkt == TRUE ){
-  			        #start_time = Sys.time()
-  			        preprocessed.text = delwithnormUnterpunkt( preprocessed.text )
-  			        #e_time = Sys.time()
-  			        #message("After unterpunkte ", e_time-start_time)
+		        #start_time = Sys.time()
+		        preprocessed.text = delwithnormUnterpunkt( preprocessed.text )
+		        #e_time = Sys.time()
+		        #message("After unterpunkte ", e_time-start_time)
   			}
   			
     		#preprocessed.text = normatext( paste(input.text), "NFKD" )  
@@ -240,8 +241,11 @@ tn.nor = function(input.text,
                 	return(preprocessed.text)
         }
         
-        preprocessed.text = wrapper(input.text, trnom.disambidia,
-		trnom.repbehau, trnom.expael,
+        preprocessed.text = wrapper(
+        input.text, 
+        trnom.disambidia,
+		trnom.repbehau, 
+        trnom.expael,
 		trnom.translitgr,
 		trnom.iota,
 		trnom.alldel,
@@ -253,7 +257,12 @@ tn.nor = function(input.text,
 		trnom.umbr,
 		trnom.mak,
 		trnom.sigma,
-		trnom.klam,trnom.uv,trnom.ji,trnom.hyph, trnom.alphapriv)
+		trnom.klam,
+        trnom.uv,
+        trnom.ji,
+        trnom.hyph, 
+        trnom.alphapriv,
+        trnom.gravistoakut)
         #demUsage( )
         #message("IN TN.NOR")
         #cat(preprocessed.text)
