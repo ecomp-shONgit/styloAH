@@ -4,7 +4,7 @@
 #**************************************************
 # 2020 text normalisation Python3 Lib, Prof. Charlotte Schubert Alte Geschichte, Leipzig
 # DEF: A text normalization is everything done to equalize encoding, appearance 
-# and composition of a sequence of signs called a string (adopted as text). A sequence is a orders set.
+# and composition of a sequence of signs called a string (adopted as text). A sequence is an ordered set.
 # A pattern is a distinguished sequence. There are two goals of 
 # normalization: The first is a common ground of signs and the second is a 
 # reduction of differences between two sequences of signs.  Not every 
@@ -361,8 +361,8 @@ def disambiguDIAkritika( astr ):
     return astr
 
 def gravisakut( astr ):
-    astring = re.sub( diacriticsunicodeRegExp[10], "\u00B4", astring )
-    return astring
+    astr = re.sub( diacriticsunicodeRegExp[10], "\u00B4", astr )
+    return astr
 
 def disambiguadashes( astring ):
     astring = re.sub( cleangeviert, '-', astring)
@@ -1010,11 +1010,13 @@ def GRvorbereitungT( dtext ):
 
 unterPuz = re.compile( r"◌̣ " )
 unterPu = re.compile( "\u0323".encode("utf-8").decode("utf-8") )
+
 def delUnterpunkt( text ):
     text = normatext( text, analysisNormalform )
     return re.sub(unterPuz, "", re.sub(unterPu, "",text))
 
 def delwithnormUnterpunkt( text ):
+    #print(text, len(text))
     return re.sub(unterPu, "",text)
 
 def delLettLat( astring ):
@@ -1049,7 +1051,11 @@ def demUsage( ):
     
     #normed in analysis form
     testnorm = normatext( atesttext, analysisNormalform )
-    
+
+    gragra = gravisakut( testnorm )    
+    print( ree+"aa) Gravius to Akut:" ,defo)
+    print( gragra )
+
     disa = disambiguDIAkritika( testnorm )
     print( ree+"a) Disambuguation of diacritics (takes a string, replaces diakritica to have them equaly encoded, return string):" ,defo)
     print( disa )
@@ -1146,6 +1152,15 @@ def demUsage( ):
     comb = GRvorbereitungT( atesttext );
     print( ree+"v) Text output a combination of steps (diacritics disambiguation, normalization, hyphenation removal, linebreak to space, punctuation separation and bracket removal):" ,defo)
     print( comb )
+
+    unp = delUnterpunkt( atesttext );
+    print( ree+"w) Delet Unterpunkt (with unicode norm):" ,defo)
+    print( unp )
+    
+    unpnn = delwithnormUnterpunkt( atesttext );
+    print( ree+"ww) Delet Unterpunkt:" ,defo)
+    print( unpnn )
+    
     
     #klammsys = delKLAMMSYS( atesttext );
     #klammsys = hervKLAMMSYS( atesttext );
@@ -1168,48 +1183,7 @@ if __name__ == "__main__":
     print("main textnorm")
 
 
-##******************************************************************************
-## FKT
-##******************************************************************************
-'''
-All Fkt in this Script with short introduction
-setAnaFormTO( formstring ) #setter for global variable of analysis normal form
-setDisplFormTO( formstring ) #setter for the global variable of display normal form
-disambiguDIAkritika( string ) # return String replaced of diakrit
-normarrayk( array ) # normalizes the key strings of a dictiopnary 
-normatextwordbyword( text, wichnorm ) #splits the text into words and calls norm fkt
-normatext( text, wichnorm ) #calles norm fkt on whole string
-disambiguDIAkritika( astr ) # takes a string, replaces diakritica to have them equaly encoded, return string
-ExtractDiafromBuchst( buchst ) # takes array of letters and returns array of array of diakritica and array of letters
-replaceBehauchung( adiakstring ) # replaces behauchung in the transliteration of greek to latin
-Expandelision( aword ) # given a word, if this is an elusion it will be expanded
-TraslitAncientGreekLatin( astring ) # takes greek utf8 string and returns transliterated latin utf8 string
-spitzeklammernHTML # ascapes spitze klammern to html encoding
-basClean( astring ) # basic equalisation and hypenation reversal
-AlphaPrivativumCopulativum( aword ) # takes a word utf8 greek and splits the alpha privativum and copulativum from wordform
-iotasubiotoad( aword ) # takes greek utf8 string and repleces jota subscriptum with jota ad scriptum
-ohnediakritW( aword ) # replaces diakritica
-capitali( astring ) # first letter capitalized rest lowercase
-nodiakinword( astring ) # combination of diakrica removal and jota subscriptum conversion
-delall( text ) #deletes UV, klammern, sigma, grkl, umbrüche, ligaturen, interpunktion, edition numbering, unknown signs, diakritika
-delnumbering( text ) #takes string return string without the edition numbering i.e. [2]
-delligaturen( text ) # takes a string return string with ligatures turned to single letters
-deldiak( text ) #like nodiakinword()
-delinterp( text ) #takes string and returns the string without
-delunknown( text ) # delete some to the programmer unknown signs
-delumbrbine( text ) # input string and get it back with linebreaks removed
-delmakup( text ) #input a string and get it pack with markup removed
-delgrkl( text ) #input a string and get it bach with all small case letters
-sigmaistgleich( text ) #equalize tailing sigma
-delklammern( text ) # input stringa nd get it back with no brackets
-deluv( text ) # repaces all u with v
-delji( text ) # replace all j with i
-Trennstricheraus( array of words ) #input array of words removes hyphenation
-UmbruchzuLeerzeichen( text ) # input a string and get back a string with newlines replaces by spaces
-Interpunktiongetrennt( wordlist ) #input array of words and have the interpunction separated from each word
-iotasubiotoadL( wordlist ) # same as iotasubiotoad but on array of words
-GRvorbereitungT( text ) # input a string and get a combination of diakritica disambiguation, normalization, hyphenation removal, linebreak to space, interpunktion separation and klammern removal
-'''
+
 
 #eof
 
