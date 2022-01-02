@@ -22,6 +22,9 @@ txt.to.features = function(tokenized.text, features = "w", ngram.size = 1, paddi
             # otherwise, leaving the original text unchanged
             sample = tokenized.text
             #print(sample)
+            if( ngram.size > 1 ) {
+                sample = make.ngrams(sample, ngram.size = ngram.size) 
+            }
         } else {
             sample = paste(tokenized.text, collapse=" ")
             if( features == "c" ){ #original stylo version
