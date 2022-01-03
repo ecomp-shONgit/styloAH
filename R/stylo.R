@@ -962,9 +962,11 @@ for(j in (culling.min/culling.incr):(culling.max/culling.incr)) {
         current.culling = j * culling.incr
 
         # applying culling
-        table.with.all.freqs = perform.culling(frequencies.0.culling,
-                                        current.culling)
-
+        table.with.all.freqs = perform.culling(frequencies.0.culling, current.culling)
+        if(length(table.with.all.freqs) == 0){
+            table.with.all.freqs = frequencies.0.culling
+        } 
+        
 
         # additionally, deleting pronouns (if applicable)
         if(delete.pronouns == TRUE) {
@@ -990,8 +992,10 @@ for(j in (culling.min/culling.incr):(culling.max/culling.incr)) {
 # TO SAY THE TRUTH, IT CAN BE DONE MUCH EARLIER: at the moment when
 # the frequency list for either I set or both sets is produced,
 # it can be cut and used for building freq. tables
-
-table.with.all.freqs = table.with.all.freqs[,start.at:length(table.with.all.freqs[1,])]
+message("indices: start ", start.at, " end ", length(table.with.all.freqs[1,]), " possible ", length(table.with.all.freqs))
+if( length(table.with.all.freqs) != 0 && length(table.with.all.freqs[1,]) > start.at ){
+    table.with.all.freqs = table.with.all.freqs[,start.at:length(table.with.all.freqs[1,])]
+}
 
 
 
