@@ -68,9 +68,9 @@ loaded.corpus = load.corpus(files = files,
   # deleting xml/html markup by applying the function "delete.markup"
   loaded.corpus = lapply(loaded.corpus, delete.markup, markup.type = markup.type)
   #
-  numCores <- detectCores( ) # change this to numCores = numCores - 1 maybe
-  #message(numCores)
-  loaded.corpus = mclapply( loaded.corpus,
+  //numCores <- detectCores( ) # change this to numCores = numCores - 1 maybe
+  #message(numCores) 
+  loaded.corpus = lapply( loaded.corpus,
              FUN=tn.nor, 
             trnom.disambidia = trnom.disambidia,
 			trnom.repbehau = trnom.repbehau,
@@ -91,8 +91,7 @@ loaded.corpus = load.corpus(files = files,
 			trnom.ji = trnom.ji,
 			trnom.hyph = trnom.hyph,
 			trnom.alphapriv = trnom.alphapriv,
-            trnom.gravistoakut = trnom.gravistoakut,
-            mc.cores = numCores)
+            trnom.gravistoakut = trnom.gravistoakut)
     
    #message(loaded.corpus )          
   # normalization stylo AH edition
@@ -120,15 +119,10 @@ loaded.corpus = load.corpus(files = files,
   
   # deleting punctuation, splitting into words
   message("Slicing input text into words...\n")
-  loaded.corpus = mclapply(loaded.corpus, FUN=txt.to.words.ext,
-            corpus.lang = corpus.lang,
-            splitting.rule = splitting.rule,
-            preserve.case = preserve.case,
-            mc.cores = numCores)
-  #loaded.corpus = lapply(loaded.corpus, txt.to.words.ext,
-  #                                      corpus.lang = corpus.lang,
-  #                                      splitting.rule = splitting.rule,
-  #                                      preserve.case = preserve.case)
+  loaded.corpus = lapply(loaded.corpus, txt.to.words.ext,
+                                        corpus.lang = corpus.lang,
+                                        splitting.rule = splitting.rule,
+                                        preserve.case = preserve.case)
   
   # normal sampling (if applicable); random sampling will be run later
   if(sampling == "normal.sampling") {
@@ -143,9 +137,8 @@ loaded.corpus = load.corpus(files = files,
   message("\nTurning words into features, e.g. char n-grams (if applicable)...")
   #loaded.corpus = lapply(loaded.corpus, txt.to.features,
   #                       features = features, ngram.size = ngram.size, padding = padding)
-  loaded.corpus = mclapply(loaded.corpus, txt.to.features,
-                         features = features, ngram.size = ngram.size, padding = padding,
-            mc.cores = numCores)
+  loaded.corpus = lapply(loaded.corpus, txt.to.features,
+                         features = features, ngram.size = ngram.size, padding = padding)
   # optionally, excerpt randomly a number of features from original data
   if(sampling == "random.sampling") {
     loaded.corpus = make.samples(loaded.corpus,
