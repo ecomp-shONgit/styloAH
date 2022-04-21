@@ -68,7 +68,7 @@ loaded.corpus = load.corpus(files = files,
   # deleting xml/html markup by applying the function "delete.markup"
   loaded.corpus = lapply(loaded.corpus, delete.markup, markup.type = markup.type)
   #
-  //numCores <- detectCores( ) # change this to numCores = numCores - 1 maybe
+  #numCores <- detectCores( ) # change this to numCores = numCores - 1 maybe
   #message(numCores) 
   loaded.corpus = lapply( loaded.corpus,
              FUN=tn.nor, 
