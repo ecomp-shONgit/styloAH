@@ -1,5 +1,5 @@
 
-# stylo AHE: R package for stylometric analyses, Ancient History Edition
+# stylo AH: R package for stylometric analyses, Ancient History
 
 **Author:** Prof. Schubert Alte Geschichte Leipzig, H. Kahl
 
@@ -23,7 +23,7 @@ We added a few Greek language specific normalization functions and some feature 
 
 ![ScreenShot](man/rstudio.png)
 
-To regularly start stylo with Rstudio use the script *juststartstyloAHE.R*. 
+To regularly start stylo with Rstudio use the script *juststartstyloAH.R*. 
 - Open up the *installstartstyAH.R* in RStudio.
 - Set working directory: Menu > Session > Set Working Directory > To Source File Location.
 - Select all text of the script and hit run (see screenshot below).
