@@ -813,7 +813,7 @@ if(exists("frequencies.0.culling") == FALSE) {
 save.adinfo = TRUE
 if( save.adinfo == TRUE ){
     info.filename = "styloAHinfo.txt"
-    thedata.to.be.saved = paste( "styloAH version: ", packageVersion("stylo"),  format(Sys.time(), "%a %b %d %X %Y") ,sep = "\n")
+    thedata.to.be.saved = paste( "styloAH version: ", packageVersion("styloAH"),  format(Sys.time(), "%a %b %d %X %Y") ,sep = "\n")
     write.table( file = info.filename, thedata.to.be.saved )
 }
 
@@ -1216,7 +1216,7 @@ message("After distance comp", j, " ", i, " (loop) ", time_afterdist - time_inma
 
 # stylo AHE COMPARING COMPARING
 
-
+par(mar=c(1,1,1,1))
 if( dump.vergleich ){
         #draw the frequnecy tables together
         le <- nrow( input.freq.table )
@@ -1225,7 +1225,7 @@ if( dump.vergleich ){
         for( n in 2:le ){
             jpeg(filename = paste("textMALtext","_%03d", n,".jpg", sep=""),
             width=plot.custom.width,height=plot.custom.height,
-            units="in",res=300,pointsize=plot.font.size)
+            units="in",res=300, pointsize=plot.font.size)
             plot( input.freq.table[1, 1:mfw], input.freq.table[n, 1:mfw])
             title( main="Text mal Text", xlab="T 1", ylab=paste( "T ", n ), font.main=4, font.lab=4, font.sub=4, cex.main=1.5, cex.lab=1.1, cex.sub=1.2)
             dev.off()
@@ -1266,8 +1266,8 @@ if( dump.vergleich ){
         jpeg(filename = paste("distvergl","_%03d",".jpg",sep=""),
             width=plot.custom.width,height=plot.custom.height,
             units="in",res=300,pointsize=plot.font.size)
-        
-        par(mar=c(30,5,5,5))
+        dev.off()
+        #par(mar=c(30,5,5,5))
         
         
         plot( xach, distance.table.manhatten[1,][-1], type="b",col="red", pch=1, lty=1, lwd=1, ylim=c(0, (mm+50)), xlim=c(0, le), main = "", xlab="", ylab="", xaxt="n" )
@@ -1390,7 +1390,7 @@ if(analysis.type == "CA") {
     dendrogram.margins = c(8,5,4,4)+0.1 }
   # the following task will be plotted
   plot.current.task = function(){
-    par(mar=dendrogram.margins)
+    #par(mar=dendrogram.margins)
         # neighbor joining clustering algorithm needs a different call:
         if(linkage == "nj") {
           plot(nj(distance.table), font=1, tip.color = colors.of.pca.graph)
