@@ -6533,7 +6533,7 @@ stopIT = {}
 
 def normalizearraykeys():
     #die Funktion muß einmal zu beginn des Seitenaufrufs überalle array laufen
-    trenner = normarrayk( trenner )
+    trenner = textnorm.normarrayk( trenner )
     #leidenklammerung = normarrayk( leidenklammerung )
     buchstLAT = normarrayk( buchstLAT )
     vokaleLAT = normarrayk( vokaleLAT )
