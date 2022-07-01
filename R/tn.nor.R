@@ -57,6 +57,9 @@ tn.nor = function(
 			
 			preprocessed.text = paste(input.text)
 			
+			preprocessed.text = normatexttoanaenc(preprocessed.text)
+			
+			
 			# replace unterpunkt
   			if( trnom.unterpunkt == TRUE ){
 		        #start_time = Sys.time()
@@ -113,7 +116,7 @@ tn.nor = function(
   			    #start_time = Sys.time()
   				#cat(delall( preprocessed.text ))
   				newone = delall( preprocessed.text )
-  				#cat(newone)
+  				#print(newone)
   				preprocessed.text = newone		
   				#e_time = Sys.time()
   				#message("After Delall ", e_time-start_time)
@@ -238,6 +241,15 @@ tn.nor = function(
                 	#e_time = Sys.time()  
                 #message("After some more ", e_time-start_time)
                 	#
+                	
+			#cat(preprocessed.text)
+			#checkthis <- gsub(" ", "", preprocessed.text)
+			#if(nzchar(checkthis) == FALSE){
+			#        print(input.text)
+			#        
+			#        message("ERROR in tn.nor.R no string left")
+			#        
+			#}
                 	return(preprocessed.text)
         }
         

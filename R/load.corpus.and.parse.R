@@ -66,11 +66,20 @@ loaded.corpus = load.corpus(files = files,
                          names(loaded.corpus) )
   message("Text normalization...")
   # deleting xml/html markup by applying the function "delete.markup"
-  loaded.corpus = lapply(loaded.corpus, delete.markup, markup.type = markup.type)
+  if(Sys.info()["sysname"] == "Windows"){
+    loaded.corpus = lapply(loaded.corpus, delete.markup, markup.type = markup.type)
+  } else {
+    numCores <- detectCores( ) # change this to numCores = numCores - 1 maybe
+    message("multi core ",numCores)       
+    loaded.corpus = mclapply(loaded.corpus, delete.markup, markup.type = markup.type, mc.cores = numCores) 
+  }
   #
+  #message(loaded.corpus) 
   #numCores <- detectCores( ) # change this to numCores = numCores - 1 maybe
   #message(numCores) 
-  loaded.corpus = lapply( loaded.corpus,
+  if(Sys.info()["sysname"] == "Windows"){
+        message("single core")
+        loaded.corpus = lapply( loaded.corpus,
              FUN=tn.nor, 
             trnom.disambidia = trnom.disambidia,
 			trnom.repbehau = trnom.repbehau,
@@ -91,39 +100,54 @@ loaded.corpus = load.corpus(files = files,
 			trnom.ji = trnom.ji,
 			trnom.hyph = trnom.hyph,
 			trnom.alphapriv = trnom.alphapriv,
-            trnom.gravistoakut = trnom.gravistoakut)
-    
-   #message(loaded.corpus )          
-  # normalization stylo AH edition
- # loaded.corpus = lapply(loaded.corpus, tn.nor, 
-  #          trnom.disambidia = trnom.disambidia,
-	#		trnom.repbehau = trnom.repbehau,
-	#		trnom.expael = trnom.expael,
-	#		trnom.translitgr = trnom.translitgr,
-	#		trnom.iota = trnom.iota,
-	#		trnom.alldel = trnom.alldel,
-	#		trnom.numbering = trnom.numbering,
-	#		trnom.ligdel = trnom.ligdel,
-	#		trnom.unterpunkt = trnom.unterpunkt,
-	#		trnom.interdel = trnom.interdel,
-	#		trnom.unkown = trnom.unkown,
-	#		trnom.umbr = trnom.umbr,
-	#		trnom.mak = trnom.mak,
-	#		trnom.sigma = trnom.sigma,
-	#		trnom.klam = trnom.klam,
-	#		trnom.uv = trnom.uv,
-	#		trnom.ji = trnom.ji,
-	#		trnom.hyph = trnom.hyph,
-	#		trnom.alphapriv = trnom.alphapriv,
-     #      trnom.gravistoakut = trnom.gravistoakut)
-  
+           trnom.gravistoakut = trnom.gravistoakut)
+   } else { 
+       numCores <- detectCores( ) # change this to numCores = numCores - 1 maybe
+      
+       #message("multi core ",numCores)        
+      # normalization stylo AH edition
+      loaded.corpus = mclapply(loaded.corpus,
+             FUN=tn.nor, 
+            trnom.disambidia = trnom.disambidia,
+			trnom.repbehau = trnom.repbehau,
+			trnom.expael = trnom.expael,
+			trnom.translitgr = trnom.translitgr,
+			trnom.iota = trnom.iota,
+			trnom.alldel = trnom.alldel,
+			trnom.numbering = trnom.numbering,
+			trnom.ligdel = trnom.ligdel,
+			trnom.unterpunkt = trnom.unterpunkt,
+			trnom.interdel = trnom.interdel,
+			trnom.unkown = trnom.unkown,
+			trnom.umbr = trnom.umbr,
+			trnom.mak = trnom.mak,
+			trnom.sigma = trnom.sigma,
+			trnom.klam = trnom.klam,
+			trnom.uv = trnom.uv,
+			trnom.ji = trnom.ji,
+			trnom.hyph = trnom.hyph,
+			trnom.alphapriv = trnom.alphapriv,
+           trnom.gravistoakut = trnom.gravistoakut,
+           mc.cores = numCores)
+  }
   # deleting punctuation, splitting into words
   message("Slicing input text into words...\n")
-  loaded.corpus = lapply(loaded.corpus, txt.to.words.ext,
-                                        corpus.lang = corpus.lang,
+  if(Sys.info()["sysname"] == "Windows"){
+        loaded.corpus = lapply(loaded.corpus, 
+                               txt.to.words.ext,
+                               corpus.lang = corpus.lang,
                                         splitting.rule = splitting.rule,
                                         preserve.case = preserve.case)
-  
+  } else { 
+       numCores <- detectCores( ) # change this to numCores = numCores - 1 maybe
+      
+      loaded.corpus = mclapply(loaded.corpus, 
+                            txt.to.words.ext,
+                            corpus.lang = corpus.lang,
+                            splitting.rule = splitting.rule,
+                            preserve.case = preserve.case,
+                            mc.cores = numCores)
+  }
   # normal sampling (if applicable); random sampling will be run later
   if(sampling == "normal.sampling") {
     message("Do sampling ...\n")

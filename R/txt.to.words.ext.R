@@ -103,10 +103,15 @@ tokenized.text = input.text
         }
     }
     # trying to avoid empty strings:
+    #message(length(tokenized.text))
     tokenized.text = tokenized.text[nchar(tokenized.text)>0]
-    #
+    if( length(tokenized.text) == 0 ){
+        message("ERROR in txt.to.words.ext.R: no non empty token left")
+        print( input.text)
+    } 
+    
   }
-  
+  return(tokenized.text)
   }
   
 

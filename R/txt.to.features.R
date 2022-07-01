@@ -13,9 +13,9 @@ txt.to.features = function(tokenized.text, features = "w", ngram.size = 1, paddi
     # we need to define an internal function that will be applied afterwards
     wrapper = function(tokenized.text, features = "w", ngram.size = 1, padding = FALSE ){    
         
-        #print(features) 
-        #print(ngram.size)
-        #print(padding)
+       # print(features) 
+       # print(ngram.size)
+       # print(padding)
         
         # Splitting the text into chars (if "features" was set to "c")
         if( features == "w" ){
@@ -26,7 +26,7 @@ txt.to.features = function(tokenized.text, features = "w", ngram.size = 1, paddi
                 sample = make.ngrams(sample, ngram.size = ngram.size) 
             }
         } else {
-            sample = paste(tokenized.text, collapse=" ")
+            sample = paste(tokenized.text, collapse=" ") #not that nice - why is the tokenization into words not part of the feature script?
             if( features == "c" ){ #original stylo version
                 #print(sample)
                 sample = unlist(strsplit(sample,""))
@@ -46,7 +46,7 @@ txt.to.features = function(tokenized.text, features = "w", ngram.size = 1, paddi
             } else if( features == "wlc" ){
                 sample = ngramWordsFlat( tokenized.text, ngram.size, padding )
                 #print(sample)
-            } else if( features == "sepdia" ){ ### stylo AH implementation of different things - do not knwo how samples should look like
+            } else if( features == "sepdia" ){ ### stylo AH implementation of different things - do not know how samples should look like
                 #separate diacriticas and letters                
                 print("Not implemented, sepdia")
                 sample = tokenized.text
@@ -91,6 +91,10 @@ txt.to.features = function(tokenized.text, features = "w", ngram.size = 1, paddi
         }
         # 2. making n-grams (if an appropriate option has been chosen):
         
+        if( length(sample) == 0 ){
+            print(tokenized.text)
+            message("ERROR in txt.to.features.R: no non empty token left")
+        }
         #
         return(sample)
   }

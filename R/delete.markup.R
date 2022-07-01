@@ -33,7 +33,7 @@ delete.markup = function(input.text,
                         }
                         
                         # getting rid of comments and (editorial) notes
-                        preprocessed.text = gsub("<note.*?</note>","",preprocessed.text)
+                        #preprocessed.text = gsub("<note.*?</note>","",preprocessed.text)
                         
                         # additionally (for xml.notitles), getting rid of titles
                         if(markup.type == "xml.notitles") {
@@ -45,7 +45,7 @@ delete.markup = function(input.text,
                         
                         # getting rid of all the remaining tags
                         preprocessed.text = gsub("<.*?>","",preprocessed.text)
-                        
+                        #print(preprocessed.text)
                 } else if(markup.type == "html") {
                         
                         # getting rid of html header (if exists)
@@ -66,6 +66,7 @@ delete.markup = function(input.text,
                         preprocessed.text = input.text
                 }
                 
+		 # return(preprocessed.text)
         }
         
         # the proper procedure applies, depending on what kind of data 

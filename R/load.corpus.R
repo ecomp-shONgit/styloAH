@@ -48,6 +48,7 @@ load.corpus = function(files = "all", corpus.dir = "", encoding = "UTF-8") {
                               error = function(e) NULL)
       # if successful, append the scanned file into the corpus,
       # otherwise send a message
+      
         if(length(current.file) > 0) {
           loaded.corpus[[file]] = current.file
         } else {
