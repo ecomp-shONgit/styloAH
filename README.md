@@ -1,7 +1,7 @@
 
 # stylo AH: R package for stylometric analyses, Ancient History
 
-**Author:** Prof. Schubert Alte Geschichte Leipzig, H. Kahl
+**Author:** Prof. Schubert Alte Geschichte Leipzig, H. Kahl Alte Geschichte Trier
 
 We added a few Greek language specific normalization functions and some feature extraction methodes. We prepared a starter script, that does the install of additional packages and the start up of the stylo version. 
 
@@ -32,7 +32,7 @@ You also may use the commandline run the script like *Rscript installstartstyAH.
 ![ScreenShot](man/js.png)
 
 ## Version
-We use the version count of the original stylo and add a fourth number, which count the AHE releases. The first release was the prove of concept. The second was the normalzation intergation, the third is the release of new features. This is Version 0.7.4.7.
+We use the version count of the original stylo and add a fourth number, which count the AHE releases. The first release was the prove of concept. The second was the normalzation intergation, the third is the release of new features. This is Version 0.7.4.8.
 
 
 ## Usage: Normalization
