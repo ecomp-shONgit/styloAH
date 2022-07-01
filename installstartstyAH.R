@@ -7,7 +7,7 @@ print("Build directory for stylo AH:")
 print( theinstdir )
 setwd( theinstdir )
 
-#IF OLD PACKAGES ARE INSTALLED; 
+#IF OLD PACKAGES ARE INSTALLED, different R version; 
 #if (require( "tcltk2", character.only = TRUE)) {
 #    remove.packages("tcltk2")
 #}
@@ -47,9 +47,6 @@ setwd( theinstdir )
 #if (require( "statip", character.only = TRUE)) {
 #    remove.packages("statip")
 #}
-
-#update all other packages - R version
-#update.packages( ask = FALSE ) 
 #remove.packages( "rappdirs" )
 #remove.packages( "askpass" )
 #remove.packages( "lazyeval" )
@@ -57,6 +54,10 @@ setwd( theinstdir )
 #remove.packages( "stylo" )
 #remove.packages( "styloAH" )
 #remove.packages( "tidyselect" )
+
+#update all other packages - R version
+#update.packages( checkBuilt=TRUE, ask=FALSE, repos="http://r-forge.r-project.org" ) 
+
 #DEPENDENCIES  
 print("Check for / install dependancies:")
 if (!require( "lazyeval", character.only = TRUE)) {
@@ -100,7 +101,7 @@ if (!require( "statip", character.only = TRUE)) {
 }
 
 #check which packages are installed
-installed.packages()
+#installed.packages()
 
 
 print("Build and install stylo AH:")

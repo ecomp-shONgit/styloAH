@@ -6533,96 +6533,181 @@ stopIT = {}
 
 def normalizearraykeys():
     #die Funktion muß einmal zu beginn des Seitenaufrufs überalle array laufen
+    global trenner
     trenner = textnorm.normarrayk( trenner )
-    #leidenklammerung = normarrayk( leidenklammerung )
-    buchstLAT = normarrayk( buchstLAT )
-    vokaleLAT = normarrayk( vokaleLAT )
-    disptongLAT = normarrayk( disptongLAT )
-    konLAT = normarrayk( konLAT )
-    doppelkonsonanzLAT  = normarrayk( doppelkonsonanzLAT )
-    doppelabereinzelkonsonantLAT  = normarrayk( doppelabereinzelkonsonantLAT )
-    labiovelareLAT  = normarrayk( labiovelareLAT )
-    mutacumliquidaLAT = normarrayk( mutacumliquidaLAT )
-    mutaeLAT = normarrayk( mutaeLAT )
-    mediaeLAT = normarrayk( mediaeLAT )
-    tenuesLAT = normarrayk( tenuesLAT )
-    aspirataeLAT = normarrayk( aspirataeLAT )
-    dauerlauteLAT = normarrayk( dauerlauteLAT )
-    spirantesLAT  = normarrayk( spirantesLAT )
-    nasalesLAT  = normarrayk( nasalesLAT )
-    liquidaeLAT = normarrayk( liquidaeLAT )
-    demonstrativpronomLAT = normarrayk( demonstrativpronomLAT )
-    buchstGRI = normarrayk( buchstGRI )
-    vokaleGRI = normarrayk( vokaleGRI )
-    diphtongGRI = normarrayk( diphtongGRI )
-    vokalelangGRI = normarrayk( vokalelangGRI )
-    vokalekurzGRI = normarrayk( vokalekurzGRI )
-    vokalelangkurzGRI = normarrayk( vokalelangkurzGRI )
-    konGRI = normarrayk( konGRI )
-    doppelkonsonanzGRI = normarrayk( doppelkonsonanzGRI )
-    doppelabereinzelkonsonantGRI = normarrayk( doppelabereinzelkonsonantGRI )
-    mutacumliquidaGRI = normarrayk( mutacumliquidaGRI )
-    mutaeGRI = normarrayk( mutaeGRI )
-    meiaeGRI = normarrayk( meiaeGRI )
-    tenuesGRI = normarrayk( tenuesGRI )
-    aspirataeGRI = normarrayk( aspirataeGRI )
-    dauerlauteGRI = normarrayk( dauerlauteGRI )
-    spirantesGRI = normarrayk( spirantesGRI )
-    nasalesGRI = normarrayk( nasalesGRI )
-    liquidaeGRI = normarrayk( liquidaeGRI )
-    konsonantengruppenambeginneineswortes = normarrayk( konsonantengruppenambeginneineswortes )
-    deklination1stammauslautGRI = normarrayk( deklination1stammauslautGRI )
-    deklination1endGRI = normarrayk( deklination1endGRI )
-    deklination2stammauslautGRI = normarrayk( deklination2stammauslautGRI )
-    deklination2endGRI = normarrayk( deklination2endGRI )
-    deklination3stammauslautGRI = normarrayk( deklination3stammauslautGRI )
-    deklination3endGRI = normarrayk( deklination3endGRI )
-    konjugationVerbaVocalia = normarrayk( konjugationVerbaVocalia )
-    konjugationVerbaVocaliaVORS = normarrayk( konjugationVerbaVocaliaVORS )
-    konjugationVerbaVocaliaVORW = normarrayk( konjugationVerbaVocaliaVORW )
-    konjugationVerbaMuta = normarrayk( konjugationVerbaMuta )
-    konjugationVerbaMuta = normarrayk( konjugationVerbaMuta )
-    preposGRI = normarrayk( preposGRI )
-    preposLAT = normarrayk( preposLAT )
-    adverbLAT = normarrayk( adverbLAT )
-    adverbGRI = normarrayk( adverbGRI )
-    postproGRI = normarrayk( postproGRI )
-    postproLAT = normarrayk( postproLAT )
-    artikelGRI = normarrayk( artikelGRI )
-    demonstrativpronomGRI = normarrayk( demonstrativpronomGRI )
-    perspronomenGRI = normarrayk( perspronomenGRI )
-    perspronomenLAT = normarrayk( perspronomenLAT )
-    reflxivpronomenGRI = normarrayk( reflxivpronomenGRI )
-    reflxivpronomenLAT = normarrayk( reflxivpronomenLAT )
-    indefinitpronomenGRI = normarrayk( indefinitpronomenGRI )
-    indefinitpronomenLAT = normarrayk( indefinitpronomenLAT )
-    negativpronomenGRI = normarrayk( negativpronomenGRI )
-    negativpronomenLAT = normarrayk( negativpronomenLAT )
-    determinativpronomenGRI = normarrayk( determinativpronomenGRI )
-    interogativpronomenGRI = normarrayk( interogativpronomenGRI )
-    interogativpronomenLAT = normarrayk( interogativpronomenLAT )
-    relativpronomenGRI = normarrayk( relativpronomenGRI )
-    korrelativpronomenLAT = normarrayk( korrelativpronomenLAT )
-    numeraladjektivaLAT = normarrayk( numeraladjektivaLAT )
-    reziprokpronomenGRI = normarrayk( reziprokpronomenGRI )
-    fktpartikelLAT = normarrayk( fktpartikelLAT )
-    interjektionLAT = normarrayk( interjektionLAT )
-    konjunktionSubjunktionLAT = normarrayk( konjunktionSubjunktionLAT ) 
-    possesivpronLAT = normarrayk( possesivpronLAT )
-    otiACIGRI = normarrayk( otiACIGRI )
-    verneinungpartikelGRI = normarrayk( verneinungpartikelGRI )
-    partikelGRI = normarrayk( partikelGRI )
-    konjuncGRI = normarrayk( konjuncGRI )
-    stopGR = normarrayk( stopGR )
-    stopLA = normarrayk( stopLA )
-    stopENG = normarrayk( stopENG )
-    stopDE = normarrayk( stopDE )
-    stopFR = normarrayk( stopFR )
-    stopSP = normarrayk( stopSP )
-    stopIT = normarrayk( stopIT )
-    listofelusion = normarrayk( listofelusion )
-    normarrayval( listofelusion )
-    print("initiale "+analysisNormalform+" Normaliserung für die Listenschlüssel fertig")
+    #leidenklammerung = textnorm.normarrayk( leidenklammerung )
+    global buchstLAT
+    buchstLAT = textnorm.normarrayk( buchstLAT )
+    global vokaleLAT
+    vokaleLAT = textnorm.normarrayk( vokaleLAT )
+    global disptongLAT
+    disptongLAT = textnorm.normarrayk( disptongLAT )
+    global konLAT
+    konLAT = textnorm.normarrayk( konLAT )
+    global doppelkonsonanzLAT
+    doppelkonsonanzLAT  = textnorm.normarrayk( doppelkonsonanzLAT )
+    global doppelabereinzelkonsonantLAT
+    doppelabereinzelkonsonantLAT  = textnorm.normarrayk( doppelabereinzelkonsonantLAT )
+    global labiovelareLAT
+    labiovelareLAT  = textnorm.normarrayk( labiovelareLAT )
+    global mutacumliquidaLAT
+    mutacumliquidaLAT = textnorm.normarrayk( mutacumliquidaLAT )
+    global mutaeLAT
+    mutaeLAT = textnorm.normarrayk( mutaeLAT )
+    global mediaeLAT
+    mediaeLAT = textnorm.normarrayk( mediaeLAT )
+    global tenuesLAT
+    tenuesLAT = textnorm.normarrayk( tenuesLAT )
+    global aspirataeLAT
+    aspirataeLAT = textnorm.normarrayk( aspirataeLAT )
+    global dauerlauteLAT
+    dauerlauteLAT = textnorm.normarrayk( dauerlauteLAT )
+    global spirantesLAT
+    spirantesLAT  = textnorm.normarrayk( spirantesLAT )
+    global nasalesLAT
+    nasalesLAT  = textnorm.normarrayk( nasalesLAT )
+    global liquidaeLAT
+    liquidaeLAT = textnorm.normarrayk( liquidaeLAT )
+    global demonstrativpronomLAT
+    demonstrativpronomLAT = textnorm.normarrayk( demonstrativpronomLAT )
+    
+    textnorm.buchstGRI = textnorm.normarrayk( textnorm.buchstGRI )
+    global vokaleGRI
+    vokaleGRI = textnorm.normarrayk( vokaleGRI )
+    global diphtongGRI
+    diphtongGRI = textnorm.normarrayk( diphtongGRI )
+    global vokalelangGRI
+    vokalelangGRI = textnorm.normarrayk( vokalelangGRI )
+    global vokalekurzGRI
+    vokalekurzGRI = textnorm.normarrayk( vokalekurzGRI )
+    global vokalelangkurzGRI
+    vokalelangkurzGRI = textnorm.normarrayk( vokalelangkurzGRI )
+    global konGRI
+    konGRI = textnorm.normarrayk( konGRI )
+    global doppelkonsonanzGRI
+    doppelkonsonanzGRI = textnorm.normarrayk( doppelkonsonanzGRI )
+    global doppelabereinzelkonsonantGRI
+    doppelabereinzelkonsonantGRI = textnorm.normarrayk( doppelabereinzelkonsonantGRI )
+    global mutacumliquidaGRI
+    mutacumliquidaGRI = textnorm.normarrayk( mutacumliquidaGRI )
+    global mutaeGRI
+    mutaeGRI = textnorm.normarrayk( mutaeGRI )
+    global meiaeGRI
+    meiaeGRI = textnorm.normarrayk( meiaeGRI )
+    global tenuesGRI
+    tenuesGRI = textnorm.normarrayk( tenuesGRI )
+    global aspirataeGRI
+    aspirataeGRI = textnorm.normarrayk( aspirataeGRI )
+    global dauerlauteGRI
+    dauerlauteGRI = textnorm.normarrayk( dauerlauteGRI )
+    global spirantesGRI
+    spirantesGRI = textnorm.normarrayk( spirantesGRI )
+    global nasalesGRI
+    nasalesGRI = textnorm.normarrayk( nasalesGRI )
+    global liquidaeGRI
+    liquidaeGRI = textnorm.normarrayk( liquidaeGRI )
+    global konsonantengruppenambeginneineswortes
+    konsonantengruppenambeginneineswortes = textnorm.normarrayk( konsonantengruppenambeginneineswortes )
+    global deklination1stammauslautGRI
+    deklination1stammauslautGRI = textnorm.normarrayk( deklination1stammauslautGRI )
+    global deklination1endGRI
+    deklination1endGRI = textnorm.normarrayk( deklination1endGRI )
+    global deklination2stammauslautGRI
+    deklination2stammauslautGRI = textnorm.normarrayk( deklination2stammauslautGRI )
+    global deklination2endGRI
+    deklination2endGRI = textnorm.normarrayk( deklination2endGRI )
+    global deklination3stammauslautGRI
+    deklination3stammauslautGRI = textnorm.normarrayk( deklination3stammauslautGRI )
+    global deklination3endGRI
+    deklination3endGRI = textnorm.normarrayk( deklination3endGRI )
+    global konjugationVerbaVocalia
+    konjugationVerbaVocalia = textnorm.normarrayk( konjugationVerbaVocalia )
+    global konjugationVerbaVocaliaVORS
+    konjugationVerbaVocaliaVORS = textnorm.normarrayk( konjugationVerbaVocaliaVORS )
+    global konjugationVerbaVocaliaVORW
+    konjugationVerbaVocaliaVORW = textnorm.normarrayk( konjugationVerbaVocaliaVORW )
+    global konjugationVerbaMuta
+    konjugationVerbaMuta = textnorm.normarrayk( konjugationVerbaMuta )
+    global preposGRI
+    preposGRI = textnorm.normarrayk( preposGRI )
+    global preposLAT
+    preposLAT = textnorm.normarrayk( preposLAT )
+    global adverbLAT
+    adverbLAT = textnorm.normarrayk( adverbLAT )
+    global adverbGRI
+    adverbGRI = textnorm.normarrayk( adverbGRI )
+    global postproGRI
+    postproGRI = textnorm.normarrayk( postproGRI )
+    global postproLAT
+    postproLAT = textnorm.normarrayk( postproLAT )
+    global artikelGRI
+    artikelGRI = textnorm.normarrayk( artikelGRI )
+    global demonstrativpronomGRI
+    demonstrativpronomGRI = textnorm.normarrayk( demonstrativpronomGRI )
+    global perspronomenGRI
+    perspronomenGRI = textnorm.normarrayk( perspronomenGRI )
+    global perspronomenLAT
+    perspronomenLAT = textnorm.normarrayk( perspronomenLAT )
+    global reflxivpronomenGRI
+    reflxivpronomenGRI = textnorm.normarrayk( reflxivpronomenGRI )
+    global reflxivpronomenLAT
+    reflxivpronomenLAT = textnorm.normarrayk( reflxivpronomenLAT )
+    global indefinitpronomenGRI
+    indefinitpronomenGRI = textnorm.normarrayk( indefinitpronomenGRI )
+    global indefinitpronomenLAT
+    indefinitpronomenLAT = textnorm.normarrayk( indefinitpronomenLAT )
+    global negativpronomenGRI
+    negativpronomenGRI = textnorm.normarrayk( negativpronomenGRI )
+    global negativpronomenLAT
+    negativpronomenLAT = textnorm.normarrayk( negativpronomenLAT )
+    global determinativpronomenGRI
+    determinativpronomenGRI = textnorm.normarrayk( determinativpronomenGRI )
+    global interogativpronomenGRI
+    interogativpronomenGRI = textnorm.normarrayk( interogativpronomenGRI )
+    global interogativpronomenLAT
+    interogativpronomenLAT = textnorm.normarrayk( interogativpronomenLAT )
+    global relativpronomenGRI
+    relativpronomenGRI = textnorm.normarrayk( relativpronomenGRI )
+    global korrelativpronomenLAT
+    korrelativpronomenLAT = textnorm.normarrayk( korrelativpronomenLAT )
+    global numeraladjektivaLAT
+    numeraladjektivaLAT = textnorm.normarrayk( numeraladjektivaLAT )
+    global reziprokpronomenGRI
+    reziprokpronomenGRI = textnorm.normarrayk( reziprokpronomenGRI )
+    global fktpartikelLAT
+    fktpartikelLAT = textnorm.normarrayk( fktpartikelLAT )
+    global interjektionLAT
+    interjektionLAT = textnorm.normarrayk( interjektionLAT )
+    global konjunktionSubjunktionLAT
+    konjunktionSubjunktionLAT = textnorm.normarrayk( konjunktionSubjunktionLAT ) 
+    global possesivpronLAT
+    possesivpronLAT = textnorm.normarrayk( possesivpronLAT )
+    global otiACIGRI
+    otiACIGRI = textnorm.normarrayk( otiACIGRI )
+    global verneinungpartikelGRI
+    verneinungpartikelGRI = textnorm.normarrayk( verneinungpartikelGRI )
+    global partikelGRI
+    partikelGRI = textnorm.normarrayk( partikelGRI )
+    global konjuncGRI
+    konjuncGRI = textnorm.normarrayk( konjuncGRI )
+    global stopGR
+    stopGR = textnorm.normarrayk( stopGR )
+    global stopLA
+    stopLA = textnorm.normarrayk( stopLA )
+    global stopENG
+    stopENG = textnorm.normarrayk( stopENG )
+    global stopDE
+    stopDE = textnorm.normarrayk( stopDE )
+    global stopFR
+    stopFR = textnorm.normarrayk( stopFR )
+    global stopSP
+    stopSP = textnorm.normarrayk( stopSP )
+    global stopIT
+    stopIT = textnorm.normarrayk( stopIT )
+    
+    textnorm.listofelusion = textnorm.normarrayk( textnorm.listofelusion )
+    textnorm.normarrayval( textnorm.listofelusion )
+    print("initiale "+textnorm.analysisNormalform+" Normaliserung für die Listenschlüssel fertig")
 
 
 
@@ -7669,8 +7754,8 @@ def zerl():
     #all norm should be an option
     global stopGR
     global stopLA
-    stopGR = textnorm.normarrayk( stopGR )
-    stopLA = textnorm.normarrayk( stopLA )
+    stopGR = textnorm.textnorm.normarrayk( stopGR )
+    stopLA = textnorm.textnorm.normarrayk( stopLA )
     
     gugu = {}
     for p in stopGR:
@@ -7769,4 +7854,5 @@ def zerl():
     
 if __name__ == "__main__":
     print("main textdecomp")
+    normalizearraykeys()
     #zerl()

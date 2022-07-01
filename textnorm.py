@@ -317,6 +317,9 @@ def normarrayval( aarray ): # by reference ????
 #        spt[ w ] = nw
 #    return " ".join( spt )
 
+def normatexttoanaenc( text ):
+    #print(text, len(text))
+    return normatext( text, analysisNormalform )
 
 def normatext( text, wichnorm ):
     spt = text.split( " " )
@@ -375,7 +378,7 @@ def disambiguadashes( astring ):
     return astring
 
 def ExtractDiafromBuchst( buchst ):
-    toitter = list( unicodedata.normalize( "NFKD", buchst ) );
+    toitter = list( unicodedata.normalize( analysisNormalform, buchst ) );
     b = [];
     d = [];
     for t in range( len( toitter ) ):
