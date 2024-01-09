@@ -116,6 +116,15 @@ This list shows the should give you a notion of the function behind the GUI conf
 
 **Vergleich**: Do save a plot of the vector of propabilities of text 1 versus all other text vectors. And a plot of the all possible distances between text 1 and all other texts.
 
+
+## USAGE: stylo_config.txt
+
+If you prepare your data, you put it in a folder that is named "corpus". If you place a "stylo_config.txt" aside this folder you can call stylo via stylo(gui=FLASE). That will run stylo without a gui and uses the config file. Some important configurations are:
+
+- analyzed.features = "c" (characters) / "w" (words)
+- distance.measure = "canberra" / 
+
+
 # stylo: R package for stylometric analyses
 
 **Authors:** Maciej Eder<sup>*</sup>, Mike Kestemont, Jan Rybicki, Steffen Pielström<br/>
