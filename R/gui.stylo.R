@@ -14,49 +14,49 @@ gui.stylo = function(...) {
   # (this will be obsolete when we solve the varibles import/export issues)
   #  library(tcltk2)
   
-  
+  ##COMMENT OF READING DATA
   # using recently used settings to overwrite the default options
-  restored.variables = list()
-  if(file.exists("stylo_config.txt") == TRUE) {
-    source("stylo_config.txt", local = TRUE) 
-    # adding them on a list
-    filtered.variables = ls()[!ls() %in% c("restored.variables","filtered.variables")]
-    for(i in filtered.variables) {
-      restored.variables[[i]] = get(i)
-    }
-  }
+  #restored.variables = list()
+  #if(file.exists("stylo_config.txt") == TRUE) {
+  #  source("stylo_config.txt", local = TRUE) 
+  #  # adding them on a list
+  #  filtered.variables = ls()[!ls() %in% c("restored.variables","filtered.variables")]
+  #  for(i in filtered.variables) {
+  #    restored.variables[[i]] = get(i)
+  #  }
+  #}
   
   
   
   # loading default settings
-  default.variables = stylo.default.settings(...)
+  #default.variables = stylo.default.settings(...)
   
   # if any command-line arguments have been passed by a user, they will
   # be stored on the following list and used to overwrite the defaults
-  passed.arguments = list(...)
+  #passed.arguments = list(...)
   
   
   
   
-  # Code that enables overwriting the variables with custom settings.
-  # A magnificent snipped for combining two lists 
-  # http://stackoverflow.com/questions/13811501/r-merge-lists-with-overwrite-and-recursion
-  merge.lists <- function(a, b) {
-    a.names <- names(a)
-    b.names <- names(b)
-    m.names <- sort(unique(c(a.names, b.names)))
-    sapply(m.names, function(i) {
-      if (is.list(a[[i]]) & is.list(b[[i]])) merge.lists(a[[i]], b[[i]])
-      else if (i %in% b.names) b[[i]]
-      else a[[i]]
-    }, simplify = FALSE)
-  }
+  ## Code that enables overwriting the variables with custom settings.
+  ## A magnificent snipped for combining two lists 
+  ## http://stackoverflow.com/questions/13811501/r-merge-lists-with-overwrite-and-recursion
+  #merge.lists <- function(a, b) {
+  #  a.names <- names(a)
+  #  b.names <- names(b)
+  #  m.names <- sort(unique(c(a.names, b.names)))
+  #  sapply(m.names, function(i) {
+  #    if (is.list(a[[i]]) & is.list(b[[i]])) merge.lists(a[[i]], b[[i]])
+  #    else if (i %in% b.names) b[[i]]
+  #    else a[[i]]
+  #  }, simplify = FALSE)
+  #}
   
   # if any variables have been passed as arguments, they will overwrite
   # the default settings
-  variables.tmp = merge.lists(default.variables,restored.variables)
-  variables = merge.lists( variables.tmp, passed.arguments )
-  #print(variables)
+  #variables.tmp = merge.lists(default.variables,restored.variables)
+  #variables = merge.lists( variables.tmp, passed.arguments )
+  ##print(variables)
   
   
   
@@ -65,97 +65,97 @@ gui.stylo = function(...) {
   # Explicit assignment of all the variables, in order to avoid attach()
   # #############################################################################
   
-  add.to.margins = variables$add.to.margins
-  analysis.type = variables$analysis.type
-  analyzed.features = variables$analyzed.features
-  analyzed.padding = variables$analyzed.padding # AHE version
-  classification.method = variables$classification.method
-  colors.on.graphs = variables$colors.on.graphs
-  consensus.strength = variables$consensus.strength
-  corpus.format = variables$corpus.format
-  corpus.lang = variables$corpus.lang
-  culling.incr = variables$culling.incr
-  culling.max = variables$culling.max
-  culling.min = variables$culling.min
-  culling.of.all.samples = variables$culling.of.all.samples
-  custom.graph.title = variables$custom.graph.title
-  delete.pronouns = variables$delete.pronouns
-  dendrogram.layout.horizontal = variables$dendrogram.layout.horizontal
-  display.on.screen = variables$display.on.screen
-  distance.measure = variables$distance.measure
-  dump.samples = variables$dump.samples
-  dump.vergleich = variables$dump.vergleich
-  encoding = variables$encoding
-  final.ranking.of.candidates = variables$final.ranking.of.candidates
-  how.many.correct.attributions = variables$how.many.correct.attributions
-  interactive.files = variables$interactive.files
-  k.value = variables$k.value
-  l.value = variables$l.value
-  label.offset = variables$label.offset
-  linkage = variables$linkage
-  mfw.incr = variables$mfw.incr
-  mfw.list.cutoff = variables$mfw.list.cutoff
-  mfw.max = variables$mfw.max
-  mfw.min = variables$mfw.min
-  ngram.size = variables$ngram.size
-  preserve.case = variables$preserve.case
-  number.of.candidates = variables$number.of.candidates
-  number.of.samples = variables$number.of.samples
-  outputfile = variables$outputfile
-  passed.arguments = variables$passed.arguments
-  pca.visual.flavour = variables$pca.visual.flavour
-  plot.custom.height = variables$plot.custom.height
-  plot.custom.width = variables$plot.custom.width
-  plot.font.size = variables$plot.font.size
-  plot.line.thickness = variables$plot.line.thickness
-  plot.options.reset = variables$plot.options.reset
-  reference.wordlist.of.all.samples = variables$reference.wordlist.of.all.samples
-  sample.size = variables$sample.size
-  sampling = variables$sampling
-  sampling.with.replacement = variables$sampling.with.replacement
-  save.analyzed.features = variables$save.analyzed.features
-  save.analyzed.freqs = variables$save.analyzed.freqs
-  save.distance.tables = variables$save.distance.tables
-  start.at = variables$start.at
-  svm.coef0 = variables$svm.coef0
-  svm.cost = variables$svm.cost
-  svm.degree = variables$svm.degree
-  svm.kernel = variables$svm.kernel
-  text.id.on.graphs = variables$text.id.on.graphs
-  titles.on.graphs = variables$titles.on.graphs
-  txm.compatibility.mode = variables$txm.compatibility.mode
-  use.custom.list.of.files = variables$use.custom.list.of.files
-  use.existing.freq.tables = variables$use.existing.freq.tables
-  use.existing.wordlist = variables$use.existing.wordlist
-  write.jpg.file = variables$write.jpg.file
-  write.pdf.file = variables$write.pdf.file
-  write.png.file = variables$write.png.file
-  write.svg.file = variables$write.svg.file
-  z.scores.of.all.samples = variables$z.scores.of.all.samples
-  
-  trnom.disambidia = variables$trnom.disambidia
-  trnom.repbehau = variables$trnom.repbehau
-  trnom.expael = variables$trnom.expael
-  trnom.translitgr = variables$trnom.translitgr
-  trnom.iota = variables$trnom.iota
-  trnom.alldel = variables$trnom.alldel
-  trnom.numbering = variables$trnom.numbering
-  trnom.ligdel = variables$trnom.ligdel
-  #trnom.diadel = variables$trnom.diadel
-  trnom.interdel = variables$trnom.interdel
-  trnom.unkown = variables$trnom.unkown
-  trnom.umbr = variables$trnom.umbr
-  trnom.mak = variables$trnom.mak
-  trnom.sigma = variables$trnom.sigma
-  trnom.unterpunkt = variables$trnom.unterpunkt
-  trnom.klam = variables$trnom.klam
-  trnom.uv = variables$trnom.uv
-  trnom.ji = variables$trnom.ji
-  trnom.hyph = variables$trnom.hyph
-  trnom.alphapriv = variables$trnom.alphapriv
-  trnom.gravistoakut = variables$trnom.gravistoakut
+  #add.to.margins = variables$add.to.margins
+  #analysis.type = variables$analysis.type
+  #analyzed.features = variables$analyzed.features
+  #analyzed.padding = variables$analyzed.padding # AHE version
+  #classification.method = variables$classification.method
+  #colors.on.graphs = variables$colors.on.graphs
+  #consensus.strength = variables$consensus.strength
+  #corpus.format = variables$corpus.format
+  #corpus.lang = variables$corpus.lang
+  #culling.incr = variables$culling.incr
+  #culling.max = variables$culling.max
+  #culling.min = variables$culling.min
+  #culling.of.all.samples = variables$culling.of.all.samples
+  #custom.graph.title = variables$custom.graph.title
+  #delete.pronouns = variables$delete.pronouns
+  #dendrogram.layout.horizontal = variables$dendrogram.layout.horizontal
+  #display.on.screen = variables$display.on.screen
+  #distance.measure = variables$distance.measure
+  #dump.samples = variables$dump.samples
+  #dump.vergleich = variables$dump.vergleich
+  #encoding = variables$encoding
+  #final.ranking.of.candidates = variables$final.ranking.of.candidates
+  #how.many.correct.attributions = variables$how.many.correct.attributions
+  #interactive.files = variables$interactive.files
+  #k.value = variables$k.value
+  #l.value = variables$l.value
+  #label.offset = variables$label.offset
+  #linkage = variables$linkage
+  #mfw.incr = variables$mfw.incr
+  #mfw.list.cutoff = variables$mfw.list.cutoff
+  #mfw.max = variables$mfw.max
+  #mfw.min = variables$mfw.min
+  #ngram.size = variables$ngram.size
+  #preserve.case = variables$preserve.case
+  #number.of.candidates = variables$number.of.candidates
+  #number.of.samples = variables$number.of.samples
+  #outputfile = variables$outputfile
+  #passed.arguments = variables$passed.arguments
+  #pca.visual.flavour = variables$pca.visual.flavour
+  #plot.custom.height = variables$plot.custom.height
+  #plot.custom.width = variables$plot.custom.width
+  #plot.font.size = variables$plot.font.size
+  #plot.line.thickness = variables$plot.line.thickness
+  #plot.options.reset = variables$plot.options.reset
+  #reference.wordlist.of.all.samples = variables$reference.wordlist.of.all.samples
+  #sample.size = variables$sample.size
+  #sampling = variables$sampling
+  #sampling.with.replacement = variables$sampling.with.replacement
+  #save.analyzed.features = variables$save.analyzed.features
+  #save.analyzed.freqs = variables$save.analyzed.freqs
+  #save.distance.tables = variables$save.distance.tables
+  #start.at = variables$start.at
+  #svm.coef0 = variables$svm.coef0
+  #svm.cost = variables$svm.cost
+  #svm.degree = variables$svm.degree
+  #svm.kernel = variables$svm.kernel
+  #text.id.on.graphs = variables$text.id.on.graphs
+  #titles.on.graphs = variables$titles.on.graphs
+  #txm.compatibility.mode = variables$txm.compatibility.mode
+  #use.custom.list.of.files = variables$use.custom.list.of.files
+  #use.existing.freq.tables = variables$use.existing.freq.tables
+  #use.existing.wordlist = variables$use.existing.wordlist
+  #write.jpg.file = variables$write.jpg.file
+  #write.pdf.file = variables$write.pdf.file
+  #write.png.file = variables$write.png.file
+  #write.svg.file = variables$write.svg.file
+  #z.scores.of.all.samples = variables$z.scores.of.all.samples
+  #
+  #trnom.disambidia = variables$trnom.disambidia
+  #trnom.repbehau = variables$trnom.repbehau
+  #trnom.expael = variables$trnom.expael
+  #trnom.translitgr = variables$trnom.translitgr
+  #trnom.iota = variables$trnom.iota
+  #trnom.alldel = variables$trnom.alldel
+  #trnom.numbering = variables$trnom.numbering
+  #trnom.ligdel = variables$trnom.ligdel
+  ##trnom.diadel = variables$trnom.diadel
+  #trnom.interdel = variables$trnom.interdel
+  #trnom.unkown = variables$trnom.unkown
+  #trnom.umbr = variables$trnom.umbr
+  #trnom.mak = variables$trnom.mak
+  #trnom.sigma = variables$trnom.sigma
+  #trnom.unterpunkt = variables$trnom.unterpunkt
+  #trnom.klam = variables$trnom.klam
+  #trnom.uv = variables$trnom.uv
+  #trnom.ji = variables$trnom.ji
+  #trnom.hyph = variables$trnom.hyph
+  #trnom.alphapriv = variables$trnom.alphapriv
+  #trnom.gravistoakut = variables$trnom.gravistoakut
   # #############################################################################
-  
+  ##END COMMENT OF READING DATA
   
   
   
