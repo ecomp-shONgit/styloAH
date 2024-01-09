@@ -121,9 +121,28 @@ This list shows the should give you a notion of the function behind the GUI conf
 
 If you prepare your data, you put it in a folder that is named "corpus". If you place a "stylo_config.txt" aside this folder you can call stylo via stylo(gui=FLASE). That will run stylo without a gui and uses the config file. Some important configurations are:
 
-- analyzed.features = "c" (characters) / "w" (words)
-- distance.measure = "canberra" / 
-
+- analyzed.features = "c" (characters) / "w" (words) / "wlc" (word level character-n-grams) / "woc" (words without consonant) / "wov" (words without vowels) / "smw" (just stop words) / "bw" (without stop words) / "syl" (pseudo syllables) / "hbc1" (every word split in head body coda) / "smwpa" (group small words and gap encodings after a minimized heuristics of the groupe)
+- distance.measure = "delta" / "argamon" / "eder" / "simple" / "manhattan" / "euclidean" / "cosine" / "canberra"
+- trnom.disambidia = FALSE / TRUE
+- trnom.repbehau = FALSE / TRUE
+- trnom.expael = FALSE / TRUE
+- trnom.translitgr = FALSE / TRUE
+- trnom.iota = FALSE / TRUE
+- trnom.alldel = TRUE / TRUE
+- trnom.numbering = FALSE / TRUE
+- trnom.ligdel = FALSE / TRUE
+- trnom.interdel = FALSE / TRUE
+- trnom.unkown = FALSE / TRUE
+- trnom.umbr = FALSE / TRUE
+- trnom.mak = FALSE / TRUE
+- trnom.sigma = FALSE / TRUE
+- trnom.unterpunkt = FALSE / TRUE
+- trnom.klam = FALSE / TRUE
+- trnom.uv = FALSE / TRUE
+- trnom.ji = FALSE / TRUE
+- trnom.hyph = TRUE / TRUE
+- trnom.alphapriv = FALSE / TRUE
+- trnom.gravistoakut = FALSE / TRUE
 
 # stylo: R package for stylometric analyses
 
