@@ -4,16 +4,7 @@ print("R Script to install/start stylo Ancient History Edition.")
 print("Build directory for stylo AH:")
 thewd <- getwd()
 theinstdir <- dirname(thewd)
-if (!require( "rstudioapi", character.only = TRUE)) {
-  install.packages("rstudioapi", dependencies = TRUE)     
-}
-if( rstudioapi::isAvailable() == TRUE ){
-  library( "rstudioapi" ) 
-  theinstdir = dirname( getActiveDocumentContext()$path ) 
-  setwd( theinstdir )
-} else {#if on commandline or the working dir is set by hand
-  setwd( theinstdir )
-}
+setwd( theinstdir )
 print( theinstdir )
 
 
@@ -59,7 +50,7 @@ if (!require( "statip", character.only = TRUE)) {
 print("Build and install stylo AH:")
 file.rename("styloAH-master", "styloAH") #just in case
 system("R CMD build styloAH") #build downloaded version
-install.packages("styloAH_0.7.4.8.tar.gz", repos = NULL)
+install.packages("styloAH_0.7.4.9.tar.gz", repos = NULL)
 
 print("Working directory for stylo AH:")
 newwd <- paste( theinstdir, "/styloAH", sep="")
