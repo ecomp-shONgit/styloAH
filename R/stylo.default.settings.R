@@ -83,10 +83,14 @@ stop.words = NULL
 # A cross-language study of the authorial fingerprint. "Studies in Polish
 # Linguistics" 6: 99-114.
 # Two types of n-grams are available: characters (option "c"), and words ("w").
+# AHE:  "wlc" (word level character-n-grams) / "woc" (words without consonant) / 
+#"wov" (words without vowels) / "smw" (just stop words) / "bw" (without stop words) / 
+#"syl" (pseudo syllables) / "hbc1" (every word split in head body coda) / 
+#"smwpa" (group small words and gap encodings after a minimized heuristics of the groupe)
 
-analyzed.features = "w"
+analyzed.features = "c"
 analyzed.padding = FALSE # AHE version
-ngram.size = 1
+ngram.size = 3
 preserve.case = FALSE
 encoding = "UTF-8"
 
@@ -120,8 +124,8 @@ show.features = FALSE
 #   "manhattan" --> Manhattan Distance (obvious and well documented)
 #   "canberra" --> Canberra Distance (risky, but sometimes amazingly good)
 #   "euclidean" --> Euclidean Distance (basic, and the most "natural")
-
-distance.measure = "delta"
+#   "cosine" --> ...
+distance.measure = "canberra"
 
 
 
@@ -591,11 +595,14 @@ if(R.Version()$major <= 3 & R.Version()$minor <= 0.3) {
 # certainly, the list should not contain itself (!), it also should not 
 # contain the index "i" used to generate the list
 default.variables = list()
+#print("jjjjjjjjjjjjjjjjjjjjjjjjj")
 for(i in ls()[!ls() %in% c("i","default.variables")]) {
+  #print(i)
+  #print(get(i))
   default.variables[[i]] = get(i)
 }
-
-
+#print("tttttttttttttttttttttttttt")
+#print( default.variables)
 
 
 # Code that enables overwriting the variables with custom settings.
