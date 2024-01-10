@@ -119,7 +119,7 @@ This list shows the should give you a notion of the function behind the GUI conf
 
 ## USAGE: stylo_config.txt
 
-If you prepare your data, you put it in a folder that is named "corpus" along with this folder provide a file "stylo_config.txt" to use custom configurations or use the stylo.default.settings.R. If you can call stylo via stylo(gui=FLASE), stylo will run without a gui and uses the stylo.default.settings.R / "stylo_config.txt". Some important configurations are:
+If you prepare your data, you put it in a folder that is named "corpus" along with this folder provide a file "stylo_config.txt" to use custom configurations. The use of the stylo.default.settings.R is to initialize some values at install time. If you can call stylo via stylo(gui=FLASE), stylo will run without a gui and uses the "stylo_config.txt". Some important configurations are:
 
 - analyzed.features = "c" (characters) / "w" (words) / "wlc" (word level character-n-grams) / "woc" (words without consonant) / "wov" (words without vowels) / "smw" (just stop words) / "bw" (without stop words) / "syl" (pseudo syllables) / "hbc1" (every word split in head body coda) / "smwpa" (group small words and gap encodings after a minimized heuristics of the groupe)
 - distance.measure = "delta" / "argamon" / "eder" / "simple" / "manhattan" / "euclidean" / "cosine" / "canberra"
