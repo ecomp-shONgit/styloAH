@@ -32,7 +32,7 @@ You also may use the commandline run the script like *Rscript installstartstyAH.
 ![ScreenShot](man/js.png)
 
 ## Version
-We use the version count of the original stylo and add a fourth number, which count the AHE releases. The first release was the prove of concept. The second was the normalzation intergation, the third is the release of new features. This is Version 0.7.4.8.
+We use the version count of the original stylo and add a fourth number, which count the AHE releases. The first release was the prove of concept. The second was the normalzation intergation, the third is the release of new features. This is Version 0.7.4.9.
 
 
 ## Usage: Normalization
