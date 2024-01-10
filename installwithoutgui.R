@@ -1,14 +1,21 @@
 print("R Script to install/start stylo Ancient History Edition.")
 
-#set working directory to source file directory
+#set working directory to source file directory, only rstudio
 print("Build directory for stylo AH:")
+thewd <- getwd()
+theinstdir <- dirname(thewd)
 if (!require( "rstudioapi", character.only = TRUE)) {
   install.packages("rstudioapi", dependencies = TRUE)     
 }
-library( "rstudioapi" ) 
-theinstdir = dirname( getActiveDocumentContext()$path ) 
-setwd( theinstdir )
-print( getwd() )
+if( rstudioapi::isAvailable() == TRUE ){
+  library( "rstudioapi" ) 
+  theinstdir = dirname( getActiveDocumentContext()$path ) 
+  setwd( theinstdir )
+} else {#if on commandline or the working dir is set by hand
+  setwd( theinstdir )
+}
+print( theinstdir )
+
 
 #DEPENDENCIES  
 print("Check for / install dependancies:")
@@ -17,9 +24,6 @@ if (!require( "lazyeval", character.only = TRUE)) {
 }
 if (!require( "rappdirs", character.only = TRUE)) {
   install.packages("rappdirs", dependencies = TRUE)     
-}
-if (!require( "tcltk2", character.only = TRUE)) {
-  install.packages("tcltk2", dependencies = TRUE)     
 }
 if (!require( "pamr", character.only = TRUE)) {
   install.packages("pamr", dependencies = TRUE)     
@@ -66,14 +70,14 @@ print("Libraries / source python libraries:")
 library(reticulate)
 source_python("textnorm.py")
 source_python("textdecomp.py")
-library(tcltk2)
 library(parallel)
 library(transport)
 library(statip)
 library(styloAH)
 print("Run stylo:")
-#set working dir to sample directory (containing corpus directory AND stylo_config.txt) dir ################################################
-PATHTO = "/path/to/the/dir/of/corpus/and/configfile/"
+#set working dir to sample directory (containing corpus directory AND stylo_config.txt) dir 
+################################################ dont use styloAH folder
+PATHTO = "/path/to/folder/with/corpus/folder/in/it/"
 setwd( PATHTO )
 print( getwd() )
 stylo(gui=FALSE)
